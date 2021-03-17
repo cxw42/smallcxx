@@ -1,0 +1,94 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+smallcxx-*/
+smallcxx-*.tar.gz
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Coverage
+*.gcda
+*.gcno
+/*coverage.info
+/*coverage/
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Temp and backup files
+*.swp
+*.tmp
+*~
+~*
+*.e
+*.bak
+*.tdy
+*.orig
+
+# autotools
+/aclocal.m4
+/aminclude_static.am
+/autom4te.cache/
+/build-aux/
+conf*.dir/
+/config.h
+/config.log
+/config.status
+/configure
+.deps/
+.dirstamp
+Makefile
+Makefile.in
+stamp-*
+*.stamp
+*.stamp-*
+.Tpo
+
+# Other
+*.pdf
+tags
+/doc/html/
