@@ -1,0 +1,70 @@
+/// @file cover-misc-t.cpp
+/// @brief Coverage for misc. items
+/// @author Christopher White <cxwembedded@gmail.com>
+/// @copyright Copyright (c) 2021 Christopher White
+
+#include "smallcxx/test.hpp"
+
+TEST_FILE
+
+using namespace std;
+
+void
+test_chomp()
+{
+    char cbuf[16] = {0};
+    chomp(cbuf);
+    isstr(cbuf, (""));
+
+    cbuf[0] = '\n';
+    chomp(cbuf);
+    isstr(cbuf, (""));
+}
+
+/// Helper for test_setloglevel
+void
+invoke_vlogMessage(const char *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    vlogMessage(LOG_LOG, __FILE__, __LINE__, __func__, format, args);
+    va_end(args);
+}
+
+void
+test_setloglevel()
+{
+    setLogLevel((LogLevel) - 1);
+    cmp_ok(getLogLevel(), ==, LOG_ERROR);
+    setLogLevel(LOG_NLEVELS);
+    cmp_ok(getLogLevel(), ==, LOG_SNOOP);
+    setLogLevel((LogLevel)(LOG_NLEVELS + 1));
+    cmp_ok(getLogLevel(), ==, LOG_SNOOP);
+    setLogLevel(LOG_DEBUG);
+    cmp_ok(getLogLevel(), ==, LOG_DEBUG);
+    LOG_F(LOG, "** If you see this message, there's a bug in logging.cpp! **");
+    invoke_vlogMessage("** If you see this message, there's a bug in logging.cpp! **");
+}
+
+/// Log an error and a warning, which will be in color if output is going
+/// to the tty.  This is for coverage of `bodycolor` in vlogMessage().
+void
+emit_possibly_colorful_messages()
+{
+    setLogLevel(LOG_INFO);
+    cmp_ok(getLogLevel(), ==, LOG_INFO);
+    LOG_F(ERROR, "Oops");
+    LOG_F(WARNING, "Ummm...");
+}
+
+int
+main()
+{
+    TEST_CASE(test_chomp);
+    TEST_CASE(test_setloglevel);
+
+    TEST_CASE(emit_possibly_colorful_messages);
+
+    TEST_RETURN;
+}

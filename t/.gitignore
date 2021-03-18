@@ -1,0 +1,9 @@
+*.trs
+*.log
+
+# Test executables
+*-s
+*-t
+
+# Generated files
+common.sh

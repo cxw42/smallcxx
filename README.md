@@ -37,9 +37,9 @@ Note that `CXX` does have to be `clang++`, not just `clang`.
 
 ### Starting fresh
 
-    ./bootstrap && ./configure && make -j maintainer-clean && ./bootstrap
+    ./autogen.sh && make -j maintainer-clean && ./autogen.sh
 
-That will leave you ready to run `./configure`.
+That will leave you ready to run `make`
 
 The first time you compile, you may get errors about missing `.deps/*` files.
 If so, re-run `make`.  If that doesn't work, run `make -jk` once to generate
@@ -52,9 +52,7 @@ the deps files, and then you should be back in business.
 ### Structure of the codebase
 
 - `src/`: implementation files
-- `include/smallcxx`: header files
+- `include/smallcxx/`: header files
 - `t/`: tests.  `*-t.sh` and `*-t.cpp` are test sources.  `*-s.cpp` are
   supporting programs.
 - `doc/`: documentation.  Doxygen output is in `doc/html/index.html`.
-
-I wrote these fresh for this task!

@@ -1,0 +1,10 @@
+# Basics
+--style=1tbs
+-s4 # four-space indent
+-j  # always brace conditional branches
+-xB # break return type
+-xb # break single-line statements
+-p  # pad operators and commas
+
+# Line length
+-xC80

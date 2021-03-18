@@ -12,6 +12,7 @@
 #define LOGGING_HPP_
 
 #include <smallcxx/common.hpp>
+#include <stdarg.h>
 
 // Log levels.  Errors are always visible; other messages can be suppressed
 // by calling setLogLevel().
@@ -55,5 +56,7 @@ LogLevel getLogLevel();
 /// Set the verbosity based on $V.  If $V exists and is a decimal >=1,
 /// the level is set to INFO + $V (e.g., 1 = LOG_DEBUG, 2 = LOG_LOG).
 void setVerbosityFromEnvironment();
+
+void chomp(char *str);
 
 #endif // LOGGING_HPP_

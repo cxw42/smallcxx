@@ -1,0 +1,67 @@
+#!/bin/bash
+# @configure_input@
+# Common code for test scripts.
+# configure puts the generated common.sh in the builddir for t/, which is
+# the cwd when the test programs run.  Therefore, test scripts can say
+# `. common.sh` to pick up the generated file.
+
+set -euo pipefail
+
+# Permit core dumps
+ulimit -c unlimited
+sysctl kernel.core_pattern
+
+# Directories
+export pgmdir="@abs_top_builddir@/src"
+export here
+here="$(cd "$(dirname "$0")" ; pwd)"
+
+# Other vars
+export unbuffer_pgm="@UNBUFFER@"
+
+# Find out if a PID represents a running process
+process-exists() {
+    if [[ "$1" ]]; then
+        kill -n 0 "$@" &>/dev/null
+    else
+        return 1    # no param, or empty param => not a process
+    fi
+}
+
+# grep for a Perl regex... using Perl!  Processes stdin.  Succeeds if any
+# line in the input matches the pattern; fails otherwise.  Usage:
+#   cat foo | has-line-matching '/quux\e/'
+has-line-matching() {
+    local -r pat="$1"
+    shift
+    perl -ne '  BEGIN { $exitcode=1 }
+                $exitcode=0,last if '"$pat"';
+                END { exit $exitcode }' "$@"
+}
+
+# Kill a process if it exists.  Usage: kill-if-exists PID LABEL
+kill-if-exists() {
+    if process-exists "$1" ; then
+        echo "=== Killing $2 ===" 1>&2
+        kill "$1"
+    fi
+}
+
+# print a message and exit with a given exit code.  Usage:
+# report-and-exit "$exitcode"
+report-and-exit() {
+    local -r exitcode="$1"
+    if (( ${V:-0} > 0 && exitcode )); then
+        echo "At least one test failed"
+    else
+        echo "All tests passed"
+    fi
+
+    exit "$exitcode"
+}
+
+# Check whether stdin does NOT match a particular Perl regex.  Usage:
+#   some-program | does-not-contain RE
+does-not-contain() {
+    perl -ne '/'"$1"'/ and exit(1); END { exit(0) }'
+}

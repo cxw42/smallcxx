@@ -6,6 +6,9 @@
 #ifndef COMMON_HPP_
 #define COMMON_HPP_
 
+#include <stdexcept>
+#include <string.h>
+
 #define ARRAY_SIZE(x) \
     (sizeof(x) / sizeof(x[0]))
 
@@ -18,18 +21,5 @@
                     << ": failure in assertion " << #cond); \
         } \
     } while(0)
-
-namespace {
-void
-chomp(char *str)
-{
-    if(str[0] == '\0') {
-        return;
-    }
-    if(str[strlen(str) - 1] == '\n') {
-        str[strlen(str) - 1] = '\0';
-    }
-}
-}
 
 #endif // COMMON_HPP_

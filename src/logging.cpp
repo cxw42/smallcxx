@@ -201,3 +201,15 @@ setVerbosityFromEnvironment()
 
     setLogLevel((LogLevel)(LOG_INFO + delta));
 }
+
+void
+chomp(char *str)
+{
+    if(str[0] == '\0') {
+        return;
+    }
+    if(str[strlen(str) - 1] == '\n') {
+        str[strlen(str) - 1] = '\0';
+    }
+}
+
