@@ -47,6 +47,26 @@ test_setloglevel()
     invoke_vlogMessage("** If you see this message, there's a bug in logging.cpp! **");
 }
 
+void
+test_env_loglevel()
+{
+    // V=0 doesn't change log level
+    const auto old = getLogLevel();
+    cmp_ok(setenv("V", "0", true), ==, 0);
+    setVerbosityFromEnvironment();
+    cmp_ok(getLogLevel(), ==, old);
+
+    // V not a number doesn't change log level
+    cmp_ok(setenv("V", "quux", true), ==, 0);
+    setVerbosityFromEnvironment();
+    cmp_ok(getLogLevel(), ==, old);
+
+    // Add 1
+    cmp_ok(setenv("V", "1", true), ==, 0);
+    setVerbosityFromEnvironment();
+    cmp_ok(getLogLevel(), ==, LOG_INFO + 1);
+}
+
 /// Log an error and a warning, which will be in color if output is going
 /// to the tty.  This is for coverage of `bodycolor` in vlogMessage().
 void
@@ -63,6 +83,7 @@ main()
 {
     TEST_CASE(test_chomp);
     TEST_CASE(test_setloglevel);
+    TEST_CASE(test_env_loglevel);
 
     TEST_CASE(emit_possibly_colorful_messages);
 
