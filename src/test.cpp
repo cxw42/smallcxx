@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <smallcxx/test.hpp>
 
+/// Internal domain (starts with space).  We use this so our messages get
+/// printed even if the default domain's log level has been changed.
+#define TEST_LOG_DOMAIN (" test")
+
 using namespace std;
 
 void
@@ -16,9 +20,10 @@ test_assert(unsigned int& failures, unsigned int& successes,
             bool cond, const char *format, ...)
 {
     if(cond) {
-        logMessage(LOG_INFO, file, line, function, "Test passed");
+        logMessage(TEST_LOG_DOMAIN, LOG_INFO, file, line, function,
+                   "Test passed");
         ++successes;
-        return;
+        return; // *** EXIT POINT ***
     }
 
     ++failures;
@@ -36,7 +41,8 @@ test_assert(unsigned int& failures, unsigned int& successes,
         // trigger this case.
     }
 
-    logMessage(LOG_ERROR, file, line, function, "Test failure: %s", cstr);
+    logMessage(TEST_LOG_DOMAIN, LOG_ERROR, file, line, function,
+               "Test failure: %s", cstr);
 }
 
 string

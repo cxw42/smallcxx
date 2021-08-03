@@ -37,6 +37,19 @@
 #include <string.h>
 #include <smallcxx/logging.hpp>
 
+// === Logging control ===================================================
+
+#ifndef TEST_DETAIL_ENV_VAR_NAME
+
+/// The name of an environment variable used for detailed log-level control.
+/// To support detailed control, define this to a string before including
+/// this file.  `$V` is always supported.
+#define TEST_DETAIL_ENV_VAR_NAME
+
+#endif
+
+// === Constants and functions ===========================================
+
 /// Exit codes recognized by Automake's parallel (non-TAP) test harness
 enum TestExitCode {
     TEST_PASS = 0,
@@ -44,6 +57,11 @@ enum TestExitCode {
     TEST_SKIP = 77,
     TEST_STOP_TESTING = 99,  ///< bail out --- testing can't continue
 };
+
+/// Make a filename relative to $top_srcdir/t
+std::string testDataFilename(const char *filename);
+
+// === Macros ============================================================
 
 /// Create global state for a test file.
 ///
@@ -59,7 +77,8 @@ enum TestExitCode {
     static const bool reached_this_line_as_expected = true; \
     static const bool reached_this_line_unexpectedly = false; \
     static const bool _initialized_log = ([](){ \
-            setVerbosityFromEnvironment(); \
+            setVerbosityFromEnvironment(TEST_DETAIL_ENV_VAR_NAME); \
+            LOG_F_DOMAIN(" test", LOG, "Initialized logging"); \
             return true || reached_this_line_as_expected || \
                 reached_this_line_unexpectedly; \
     })();
@@ -70,35 +89,77 @@ enum TestExitCode {
 #define TEST_RETURN \
     do { \
         if(TEST_failures) { \
-            LOG_F(ERROR, "%u test%s failed", TEST_failures, \
+            LOG_F_DOMAIN(" test", ERROR, "%u test%s failed", TEST_failures, \
                     TEST_failures > 1 ? "s" : ""); \
             return TEST_FAIL; \
         } else if(TEST_successes == 0) { \
-            LOG_F(ERROR, "No tests ran"); \
+            LOG_F_DOMAIN(" test", ERROR, "No tests ran"); \
             return TEST_FAIL; \
         } else { \
-            LOG_F(INFO, "All tests passed"); \
+            LOG_F_DOMAIN(" test", INFO, "All tests passed"); \
             return TEST_PASS; \
         } \
     } while(0)
 
-/// Abort this test and return TEST_SKIP
-#define TEST_SKIP_ALL \
-    exit(TEST_SKIP);
+/// Abort this test and return TEST_SKIP.  Logs an Info message.
+#define TEST_SKIP_ALL(format, ...) \
+    do { \
+        LOG_F_DOMAIN(" test", INFO, "SKIP all: " format, ## __VA_ARGS__); \
+        return TEST_SKIP; \
+    } while(0);
 
-/// Abort this test and return TEST_STOP_TESTING
-#define TEST_BAIL_OUT \
-    exit(TEST_STOP_TESTING);
+/// Abort and fail this test.  Logs an Error message.
+#define TEST_ABORT(format, ...) \
+    do { \
+        LOG_F_DOMAIN(" test", ERROR, "ABORT: " format, ## __VA_ARGS__); \
+        return TEST_FAIL; \
+    } while(0);
 
-/// Run the given void function, with logging around it
+/// Abort this test and return TEST_STOP_TESTING.  Logs an Error message.
+#define TEST_BAIL_OUT(format, ...) \
+    do { \
+        LOG_F_DOMAIN(" test", ERROR, "Bail out!  " format, ## __VA_ARGS__); \
+        return TEST_STOP_TESTING; \
+    } while(0);
+
+/// @name Specifying test cases
+/// @{
+
+/// Run the given void function, with logging around it.
+/// "NOTRY" because exceptions propagate out.
+/// Does not include any test assertions.
+#define TEST_CASE_NOTRY(fn) \
+    do { \
+        LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
+        fn(); \
+        LOG_F_DOMAIN(" test", LOG, "<= Finished test %s", #fn); \
+    } while(0)
+
+/// Run the given void function, with logging around it, inside a
+/// `try` block.  Exceptions are logged and count as test failures,
+/// and exiting \p fn with no exceptions counts as a successful test.
+/// @param[in]  fn - The name of the function to run (or anything else
+///     for which `fn();` is valid).
 #define TEST_CASE(fn) \
     do { \
-        LOG_F(LOG, "=> Starting test %s", #fn); \
-        fn(); \
-        LOG_F(LOG, "<= Finished test %s", #fn); \
+        try { \
+            LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
+            fn(); \
+            LOG_F_DOMAIN(" test", LOG, "<= Finished test %s", #fn); \
+            reached(); \
+        } catch(std::exception& e) { \
+            LOG_F_DOMAIN(" test", ERROR, "Caught exception: %s", e.what()); \
+            unreached(); \
+        } catch(...) { \
+            LOG_F_DOMAIN(" test", ERROR, "Caught unexpected exception"); \
+            unreached(); \
+        } \
     } while(0)
 
 // todo in the future: add setup/teardown
+
+/// @}
+// end specifying test cases
 
 /// @name Test assertions
 /// @brief  Functions that adjust the test failure count.  Unlike assert(),
@@ -162,8 +223,8 @@ __attribute__(( format(printf, 7, 8) ));
 /// @endparblock
 #define isstr(got, expected) \
     do { \
-        const string _got(got); \
-        const string _expected(expected); \
+        const std::string _got(got); \
+        const std::string _expected(expected); \
         const bool _result = (strcmp(_got.c_str(), _expected.c_str()) == 0); \
         test_assert(TEST_failures, TEST_successes, __FILE__, __LINE__, __func__, _result, \
                 "%s != %s: got `%s', expected `%s'", \
@@ -183,11 +244,33 @@ __attribute__(( format(printf, 7, 8) ));
             unreached(); \
         } catch (std::exception& e) { \
             reached(); \
-            LOG_F(LOG, "Got exception `%s'", e.what()); \
-            ok(strstr(e.what(), _expected.c_str()) != nullptr); \
+            LOG_F_DOMAIN(" test", LOG, "Got exception `%s'", e.what()); \
+            bool didmatch = (strstr(e.what(), _expected.c_str()) != nullptr); \
+            ok(didmatch); \
+            if(!didmatch) { \
+                LOG_F_DOMAIN(" test", ERROR, \
+                        "Exception `%s` did not include expected text `%s`", \
+                        e.what(), _expected.c_str()); \
+            } \
         } catch(...) { \
             unreached(); \
-            LOG_F(WARNING, "Got exception, but not one I expected"); \
+            LOG_F_DOMAIN(" test", WARNING, "Got exception, but not one I expected"); \
+        } \
+    } while(0)
+
+/// Assert that a given statement threw some exception
+/// @param[in]  stmt        A statement, WITHOUT the trailing semicolon
+#define throws_ok(stmt) \
+    do { \
+        try { \
+            stmt; \
+            unreached(); \
+            LOG_F_DOMAIN(" test", ERROR, "Did not throw, but expected to"); \
+        } catch (std::exception& e) { \
+            LOG_F_DOMAIN(" test", LOG, "Got exception `%s'", e.what()); \
+            reached(); \
+        } catch(...) { \
+            reached(); \
         } \
     } while(0)
 
@@ -200,10 +283,10 @@ __attribute__(( format(printf, 7, 8) ));
             reached(); \
         } catch (std::exception& e) { \
             unreached(); \
-            LOG_F(ERROR, "Got exception `%s'", e.what()); \
+            LOG_F_DOMAIN(" test", ERROR, "Got exception `%s'", e.what()); \
         } catch(...) { \
             unreached(); \
-            LOG_F(WARNING, "Got unknown exception"); \
+            LOG_F_DOMAIN(" test", WARNING, "Got unknown exception"); \
         } \
     } while(0)
 
@@ -216,8 +299,6 @@ __attribute__(( format(printf, 7, 8) ));
     ok(reached_this_line_unexpectedly)
 
 /// @}
-
-/// Make a filename relative to $top_srcdir/t
-std::string testDataFilename(const char *filename);
+// (end of test assertions)
 
 #endif // TEST_HPP_
