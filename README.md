@@ -11,6 +11,7 @@ This is a C++11 project using autotools as the build system.
 The modules are:
 
 - `logging`: multi-level logging library
+- `string`: some string functions not in `string.h` and friends
 - `test`: basic testcase-management and test-assertion library
 
 ## Using

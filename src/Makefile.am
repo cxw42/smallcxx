@@ -4,6 +4,7 @@ lib_LIBRARIES = libsmallcxx.a
 
 libsmallcxx_a_SOURCES = \
 	logging.cpp \
+	string.cpp \
 	test.cpp \
 	$(EOL)
 

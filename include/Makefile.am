@@ -5,5 +5,6 @@ include $(top_srcdir)/rules.mk
 nobase_include_HEADERS = \
 	smallcxx/common.hpp \
 	smallcxx/logging.hpp \
+	smallcxx/string.hpp \
 	smallcxx/test.hpp \
 	$(EOL)
