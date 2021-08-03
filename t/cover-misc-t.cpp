@@ -3,6 +3,8 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White
 
+#define SMALLCXX_USE_CHOMP
+#include "smallcxx/string.hpp"
 #include "smallcxx/test.hpp"
 
 TEST_FILE
@@ -28,19 +30,39 @@ invoke_vlogMessage(const char *format, ...)
     va_list args;
 
     va_start(args, format);
-    vlogMessage(LOG_LOG, __FILE__, __LINE__, __func__, format, args);
+    vlogMessage(SMALLCXX_DEFAULT_LOG_DOMAIN,
+                LOG_LOG, __FILE__, __LINE__, __func__, format, args);
     va_end(args);
 }
 
 void
 test_setloglevel()
 {
+    // Valid cases
     setLogLevel((LogLevel) - 1);
+    setLogLevel(LOG_MIN);
     cmp_ok(getLogLevel(), ==, LOG_ERROR);
-    setLogLevel(LOG_NLEVELS);
+    setLogLevel(LOG_MAX);
     cmp_ok(getLogLevel(), ==, LOG_SNOOP);
-    setLogLevel((LogLevel)(LOG_NLEVELS + 1));
-    cmp_ok(getLogLevel(), ==, LOG_SNOOP);
+    setLogLevel(LOG_MIN);
+    cmp_ok(getLogLevel(), ==, LOG_ERROR);
+    setLogLevel(LOG_SILENT);
+    cmp_ok(getLogLevel(), ==, LOG_SILENT);
+
+    // Invalid cases
+    throws_with_msg(
+        setLogLevel((LogLevel)(LOG_MAX + 1)),   // == LOG_PRINT
+        "Ignoring attempt"
+    );
+    throws_with_msg(
+        setLogLevel(LOG_PRINT),
+        "Ignoring attempt"
+    );
+    throws_with_msg(
+        setLogLevel(LOG_PRINTERR),
+        "Ignoring attempt"
+    );
+    cmp_ok(getLogLevel(), ==, LOG_SILENT);
     setLogLevel(LOG_DEBUG);
     cmp_ok(getLogLevel(), ==, LOG_DEBUG);
     LOG_F(LOG, "** If you see this message, there's a bug in logging.cpp! **");
