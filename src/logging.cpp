@@ -3,16 +3,24 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White
 
+#include <ctype.h>
 #include <inttypes.h>
 #include <limits.h>
+#include <sstream>
 #include <stdarg.h>
+#include <stdexcept>
 #include <stdio.h>
 #include <string>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <unordered_map>
 
-#include <smallcxx/logging.hpp>
+#include "smallcxx/common.hpp"
+#include "smallcxx/logging.hpp"
+
+#define SMALLCXX_USE_CHOMP
+#include "smallcxx/string.hpp"
 
 using namespace std;
 
@@ -20,9 +28,12 @@ using namespace std;
 
 /// Human-readable names of the log levels.
 /// Each is <= 5 chars for the `%-5s` in logMessage().
+/// @warning Keep this in sync with enum LogLevel!
 static const char *g_levelnames[] = {
+    "XXXXX",    // LOG_SILENT
     "ERROR",
     "WARN",
+    "FIXME",
     "Info",
     "Debug",
     "Log",
@@ -31,20 +42,57 @@ static const char *g_levelnames[] = {
     "snoop",
 };
 
-/// Current log level.
-static LogLevel g_currLevel = LOG_INFO;
+/// Log level with a default
+struct LogLevelWithDefault {
+    static LogLevel defaultLevel;
+    LogLevel l; ///< the actual level
+    LogLevelWithDefault(): l(defaultLevel) {}
+    LogLevelWithDefault(LogLevel newl): l(newl) {}
+
+    /// @name Other
+    /// @{
+    LogLevelWithDefault(const LogLevelWithDefault&) = default;
+    LogLevelWithDefault& operator=(const LogLevelWithDefault&) = default;
+    LogLevelWithDefault(LogLevelWithDefault&& other) = default;
+    LogLevelWithDefault& operator=(LogLevelWithDefault&& other) = default;
+    /// @}
+};
+LogLevel LogLevelWithDefault::defaultLevel = LOG_INFO;
+
+
+/// Type to hold current system log levels.
+/// Myers singleton since we need it during startup.
+struct LogLevelHolder {
+    using MapType = unordered_map<string, LogLevelWithDefault>;
+    static MapType&
+    levels()
+    {
+        static MapType singleton;
+        return singleton;
+    }
+
+    /// Accessor so you don't have to say `::levels()` all the time
+    MapType::mapped_type&
+    operator[](const MapType::key_type& k)
+    {
+        return levels()[k];
+    }
+}; // class LogLevelHolder
+
+/// Current log levels
+LogLevelHolder g_currSystemLevels;
 
 // Terminal colors
-static const char RED[] = "\e[31;1m";
-static const char YELLOW[] = "\e[33;1m";
-static const char NORMAL[] = "\e[0m";
-static const char *PIDCOLORS[] = {  // not red or yellow, to avoid confusion
-    "\e[30;1m",
-    "\e[32;1m",
-    "\e[34;1m",
-    "\e[35;1m",
-    "\e[36;1m",
-    "\e[37;1m",
+static const char RED[] = "\e[31;1m";       ///< Color for errors
+static const char YELLOW[] = "\e[33;1m";    ///< Color for warnings
+static const char WHITE[] = "\e[37;1m";     ///< Color for fix-me messages
+static const char NORMAL[] = "\e[37;0m";
+static const char *PIDCOLORS[] = {  // not any of the above, to avoid confusion
+    "\e[30;1m", // bold => gray
+    "\e[32m",
+    "\e[34;1m", // bold because blue on black is hard to read on my terminal
+    "\e[35m",
+    "\e[36m",
 };
 
 /// Size of the buffers used in vlogMessage()
@@ -56,32 +104,32 @@ static const int LOG_FD = STDERR_FILENO;
 
 // === Routines ==========================================================
 
+/// @name Writing messages
+/// @{
+
 /// @note Assumes write(2) calls of <= PIPE_BUF bytes are atomic.
 void
-logMessage(LogLevel level, const char *file, const int line,
+logMessage(const std::string& domain,
+           LogLevel msgLevel, const char *file, const int line,
            const char *function,
            const char *format, ...)
 {
-    // Accept the possibility of missing a log message around the time
-    // the level changes.
-    if(level > g_currLevel) {
-        return;
-    }
-
     va_list args;
     va_start(args, format);
-    vlogMessage(level, file, line, function, format, args);
+    vlogMessage(domain, msgLevel, file, line, function, format, args);
     va_end(args);
 }
 
 void
-vlogMessage(LogLevel level, const char *file, const int line,
+vlogMessage(const std::string& domain,
+            LogLevel msgLevel, const char *file, const int line,
             const char *function,
             const char *format, va_list args)
 {
     static bool tty = isatty(LOG_FD) && !getenv("NO_COLOR");
     static intmax_t pid = getpid();
     static const char *pidcolor = tty ? PIDCOLORS[pid % ARRAY_SIZE(PIDCOLORS)] : "";
+    static const char *endcolor = tty ? NORMAL : "";
 
     int __attribute__((unused)) ignore_return_value;
     char preamble[LOGBUF_NBYTES];
@@ -91,7 +139,7 @@ vlogMessage(LogLevel level, const char *file, const int line,
 
     // Accept the possibility of missing a log message around the time
     // the level changes.
-    if(level > g_currLevel) {
+    if(msgLevel > g_currSystemLevels[domain].l) {
         return;
     }
 
@@ -113,10 +161,11 @@ vlogMessage(LogLevel level, const char *file, const int line,
 
     // Level
     const char *levelname =
-        ((level < 0) || (level >= LOG_NLEVELS)) ? "" : g_levelnames[level];
+        ((msgLevel < LOG_MIN) || (msgLevel > LOG_MAX)) ? "" : g_levelnames[msgLevel];
     const char *bodycolor = !tty ? "" : (
-                                (level == LOG_ERROR) ? RED :
-                                (level == LOG_WARNING) ? YELLOW :
+                                (msgLevel == LOG_ERROR) ? RED :
+                                (msgLevel == LOG_WARNING) ? YELLOW :
+                                (msgLevel == LOG_FIXME) ? WHITE :
                                 NORMAL
                             );
 
@@ -150,7 +199,6 @@ vlogMessage(LogLevel level, const char *file, const int line,
     chomp(msg);
 
     // Put it together
-    const char *endcolor = tty ? NORMAL : "";
     int roomForMessage = sizeof(whole) - strlen(preamble)
                          - 2 - strlen(endcolor);   // -2 = room for "\n\0"
     charsWritten = snprintf(whole, sizeof(whole), "%s%-.*s%s\n", preamble,
@@ -168,48 +216,179 @@ vlogMessage(LogLevel level, const char *file, const int line,
     ignore_return_value = write(LOG_FD, whole, charsWritten);
 } //log_message()
 
+/// @}
+
+/// @name Getting and setting the log level from code
+/// @{
 void
-setLogLevel(LogLevel level)
+setLogLevel(LogLevel newLevel, const std::string& domain)
 {
-    if(level < 0) {
-        level = (LogLevel)0;
+    if(!domain.empty() && domain[0] == ' ') {
+        throw domain_error("Logging domains starting with a space are reserved");
     }
-    if(level >= LOG_NLEVELS) {
-        level = (LogLevel)(LOG_NLEVELS - 1);
+
+    if(newLevel == LOG_SILENT) {
+        g_currSystemLevels[domain].l = newLevel;
+        return; // *** EXIT POINT ***
     }
-    g_currLevel = level;
+
+    if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
+        throw domain_error(
+            STR_OF << "Ignoring attempt to set invalid log level for " << domain);
+    }
+
+    if(newLevel < LOG_MIN) {
+        newLevel = (LogLevel)LOG_MIN;
+    }
+    if(newLevel > LOG_MAX) {
+        newLevel = (LogLevel)LOG_MAX;
+    }
+
+    g_currSystemLevels[domain].l = newLevel;
 }
 
 LogLevel
-getLogLevel()
+getLogLevel(const std::string& domain)
 {
-    return g_currLevel;
+    return g_currSystemLevels[domain].l;
+}
+
+/// @}
+
+/// @name Setting the log level from the environment
+/// @{
+
+static int
+parseNonNegInt(const char *c_str)
+{
+    long delta = strtol(c_str, NULL, 10);
+    if( (delta < 0) || (delta == LONG_MAX) || (delta > INT_MAX) ) {
+        throw domain_error("Invalid level value (must be non-negative integer)");
+    }
+    return delta;
+}
+
+static int
+parsePosInt(const char *c_str)
+{
+    int retval = parseNonNegInt(c_str);
+    if(retval == 0) {
+        throw domain_error("Invalid level value (must be positive integer)");
+    }
+    return retval;
+}
+
+static LogLevel
+parseLevel(const std::string& str)
+{
+    int posint = parseNonNegInt(str.c_str());
+
+    // setLogLevel will handle clipping to the range.
+    return (LogLevel)posint;
+}
+
+/// Try to parse a "<domain>:<value>" pair extracted from an env var
+static void
+setLevelFromStrings(const std::string& domain, const std::string& value)
+{
+    LogLevel level = parseLevel(value);
+
+    if(domain == "*") {
+        LogLevelWithDefault::defaultLevel = level;
+    } else {
+        setLogLevel(level, domain);
+    }
+}
+
+/// @return True if \p detailEnvVarName was parsed successfully
+static bool
+parseDetail(const char *detailEnvVarName)
+{
+    char *detail;
+    if(!detailEnvVarName || (detailEnvVarName[0] == '\0') ||
+            ((detail = getenv(detailEnvVarName)) == nullptr)) {
+        return false;
+    }
+
+    enum { get_domain, get_value } state;
+    state = get_domain;
+    string domain, value;
+    for(const auto c : string(detail)) {
+        if(isspace(c)) {
+            continue;
+        }
+        switch(state) {
+        case get_domain:
+            if(c == ':') {
+                state = get_value;
+                continue;
+            }
+            domain += c;
+            break;
+
+        case get_value:
+            if(c == ',') {
+                // Finish
+                setLevelFromStrings(domain, value);
+
+                // Set up for the next one, if any
+                state = get_domain;
+                domain = "";
+                value = "";
+                break;
+            }
+            value += c;
+            break;
+
+        default:
+            throw logic_error("Invalid state while trying to parse logging command!");
+            break;
+        }
+    } //foreach char
+
+    // Reject domain without value
+    if( ( (state == get_domain) && !domain.empty() ) ||
+            ( (state == get_value) && value.empty() )
+      ) {
+        throw domain_error(STR_OF << "No value given for domain " << domain);
+    }
+
+    // Last one, if any
+    if(!domain.empty() && !value.empty()) {
+        setLevelFromStrings(domain, value);
+    }
+
+    return true;
+}
+
+static void
+parseV()
+{
+    const char *c_str = getenv("V");
+    if(!c_str) {
+        return;
+    }
+
+    int delta = parsePosInt(c_str);
+
+    LogLevelWithDefault::defaultLevel = (LogLevel)(LOG_INFO + delta);
+    setLogLevel(LogLevelWithDefault::defaultLevel);
 }
 
 void
-setVerbosityFromEnvironment()
+setVerbosityFromEnvironment(const char* detailEnvVarName)
 {
-    const char *verbosity = getenv("V");
-    if(!verbosity) {
-        return;
-    }
+    try {
+        if(parseDetail(detailEnvVarName)) {
+            return;
+        }
 
-    long delta = strtol(verbosity, NULL, 10);
-    if(delta <= 0 || delta == LONG_MAX) {
-        return;
-    }
-
-    setLogLevel((LogLevel)(LOG_INFO + delta));
-}
-
-void
-chomp(char *str)
-{
-    if(str[0] == '\0') {
-        return;
-    }
-    if(str[strlen(str) - 1] == '\n') {
-        str[strlen(str) - 1] = '\0';
+        parseV();
+    } catch(exception& e) {
+        fprintf(stderr, "Could not parse verbosity: %s\n", e.what());
+    } catch(...) {
+        fprintf(stderr, "Unexpected error while trying to parse verbosity\n");
     }
 }
 
+/// @}
