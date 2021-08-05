@@ -57,3 +57,8 @@ the deps files, and then you should be back in business.
 - `t/`: tests.  `*-t.sh` and `*-t.cpp` are test sources.  `*-s.cpp` are
   supporting programs.
 - `doc/`: documentation.  Doxygen output is in `doc/html/index.html`.
+
+### Coding style
+
+- 4-space tabs, cuddled `else`.  Run `make prettyprint` to format your code.
+- All Doxygen tags start with `@` (not backslash).

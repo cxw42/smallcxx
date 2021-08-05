@@ -23,7 +23,7 @@
 #include <string>
 
 /// Default log domain.  To use your own domain, `#define`
-/// \c SMALLCXX_LOG_DOMAIN to a string constant before `#includ`ing this file
+/// @c SMALLCXX_LOG_DOMAIN to a string constant before `#includ`ing this file
 #define SMALLCXX_DEFAULT_LOG_DOMAIN ""
 
 #ifndef SMALLCXX_LOG_DOMAIN
@@ -65,16 +65,16 @@ enum LogLevel {
 /// @param[in]  domain - A string describing this log domain
 /// @param[in]  msgLevel - The log level of this message
 /// @param[in]  file - file from which this message was printed
-/// @param[in]  line - line number in \p file
+/// @param[in]  line - line number in @p file
 /// @param[in]  format - printf format
-/// @param[in]  ... - args to \p format
+/// @param[in]  ... - args to @p format
 void logMessage(const std::string& domain,
                 LogLevel msgLevel, const char *file, const int line,
                 const char *function,
                 const char *format, ...) __attribute__(( format(printf, 6, 7) ));
 
 /// As logMessage(), but accepts a va_list.
-/// @pre \p line <= 9999
+/// @pre @p line <= 9999
 /// @note   Assumes the PID never changes --- don't put this in a shared
 ///         library unless you change that assumption!
 void vlogMessage(const std::string& domain,
@@ -112,11 +112,11 @@ void vlogMessage(const std::string& domain,
         } \
     } while(0)
 
-/// Set log level for \p domain to \p newLevel.
+/// Set log level for @p domain to @p newLevel.
 /// @param[in]  newLevel - New level.  Must be LOG_SILENT, or between
 ///     LOG_MIN and LOG_MAX (inclusive).  In particular, you may not set
 ///     the level to LOG_PRINT or LOG_PRINTERR.
-/// @param[in]  domain - Which log domain to apply \p newLevel to.
+/// @param[in]  domain - Which log domain to apply @p newLevel to.
 ///
 /// @warning Some log messages may be dropped when the level changes.
 /// @throws std::runtime_error if you try to set LOG_PRINT or LOG_PRINTERR.

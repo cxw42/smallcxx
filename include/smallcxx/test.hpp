@@ -70,7 +70,7 @@ std::string testDataFilename(const char *filename);
 ///   number of failures during this run.
 /// - defines constants used by reached() and unreached() to provide more
 ///   readable assertion-failure messages
-/// - sets the verbosity level based on \c $V.
+/// - sets the verbosity level based on @c $V.
 #define TEST_FILE \
     static unsigned int TEST_failures = 0; \
     static unsigned int TEST_successes = 0; \
@@ -137,7 +137,7 @@ std::string testDataFilename(const char *filename);
 
 /// Run the given void function, with logging around it, inside a
 /// `try` block.  Exceptions are logged and count as test failures,
-/// and exiting \p fn with no exceptions counts as a successful test.
+/// and exiting @p fn with no exceptions counts as a successful test.
 /// @param[in]  fn - The name of the function to run (or anything else
 ///     for which `fn();` is valid).
 #define TEST_CASE(fn) \
@@ -169,11 +169,11 @@ std::string testDataFilename(const char *filename);
 /// @{
 
 /// Master assertion routine.
-/// If \p cond is true, increment \p successes.  Otherwise, increment
-/// \p failures and log a test-failure message.
+/// If @p cond is true, increment @p successes.  Otherwise, increment
+/// @p failures and log a test-failure message.
 ///
-/// @param[in,out]  failures    Incremented if \p cond is false
-/// @param[in,out]  successes   Incremented if \p cond is true
+/// @param[in,out]  failures    Incremented if @p cond is false
+/// @param[in,out]  successes   Incremented if @p cond is true
 /// @param[in]      file        __FILE__
 /// @param[in]      line        __LINE__
 /// @param[in]      function    __func__
@@ -185,7 +185,7 @@ void test_assert(unsigned int& failures, unsigned int& successes,
                  bool cond, const char *format, ...)
 __attribute__(( format(printf, 7, 8) ));
 
-/// Assert that \p cond is true.
+/// Assert that @p cond is true.
 #define ok(cond, ...) \
     do { \
         const bool _result = (cond); \
@@ -208,7 +208,7 @@ __attribute__(( format(printf, 7, 8) ));
 /// Compare string values for equality.
 ///
 /// @pre @parblock
-/// A std::string can be initialized from each of \p got and \p expected.
+/// A std::string can be initialized from each of @p got and @p expected.
 /// This macro copies its arguments into std::string so that it's OK to pass
 /// temporary std::string instances.  E.g.,
 /// ```

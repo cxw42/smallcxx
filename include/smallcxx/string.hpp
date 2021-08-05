@@ -53,7 +53,7 @@ public:
 #define STR_OF (StringFormatter())
 
 #ifdef SMALLCXX_USE_CHOMP
-/// Remove trailing `\n` from \p str.
+/// Remove trailing `\n` from @p str.
 /// Only declared if SMALLCXX_USE_CHOMP is `#define`d, since you might have
 /// your own `chomp()` you want to use.
 void chomp(char *str);

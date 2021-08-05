@@ -12,7 +12,7 @@
 #define ARRAY_SIZE(x) \
     (sizeof(x) / sizeof(x[0]))
 
-/// Throw a message indicating an assertion failed, iff \p cond is false.
+/// Throw a message indicating an assertion failed, iff @p cond is false.
 #define throw_assert(cond) \
     do { \
         const bool _ok = (cond); \
@@ -25,10 +25,10 @@
 /// @name Bit-field manipulation macros
 /// @{
 
-/// Test if flag \p F is set in value \p V
+/// Test if flag @p F is set in value @p V
 #define HAS_FLAG(V, F) ( ((V) & (F)) == (F) )
 
-/// Test if any flags \p FS are set in value \p V
+/// Test if any flags @p FS are set in value @p V
 #define HAS_ANY_FLAG(V, FS) ( ((V) & (FS)) != 0 )
 
 /// OR together two enum values that represent fields.

@@ -300,7 +300,7 @@ setLevelFromStrings(const std::string& domain, const std::string& value)
     }
 }
 
-/// @return True if \p detailEnvVarName was parsed successfully
+/// @return True if @p detailEnvVarName was parsed successfully
 static bool
 parseDetail(const char *detailEnvVarName)
 {
