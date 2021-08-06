@@ -10,6 +10,7 @@ TEST_FILE
 
 using namespace smallcxx;
 using namespace std;
+using smallcxx::glob::Path;
 
 /// A do-nothing concrete GlobstariBase subclass
 class TestGlobstariBaseSanity: public GlobstariBase
@@ -29,7 +30,13 @@ class TestGlobstariBaseSanity: public GlobstariBase
     ProcessStatus
     processEntry(const Entry& entry) override
     {
-        return ProcessStatus::STOP;
+        return ProcessStatus::Stop;
+    }
+
+    Path
+    canonicalize(const Path& path)
+    {
+        return path;
     }
 }; // class TestGlobstariBaseSanity
 

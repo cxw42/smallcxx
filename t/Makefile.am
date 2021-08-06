@@ -41,7 +41,11 @@ testdatafiles =
 
 # globstari
 if HAVE_PCRE2
-testprograms += globstari-basic-t
+testprograms += \
+	globstari-basic-t \
+	globstari-globset-t \
+	globstari-matcher-t \
+	$(EOL)
 endif
 ###########################################################################
 ###########################################################################
