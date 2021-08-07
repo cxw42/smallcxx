@@ -376,7 +376,7 @@ parseV()
 }
 
 void
-setVerbosityFromEnvironment(const char* detailEnvVarName)
+setVerbosityFromEnvironment(const char *detailEnvVarName)
 {
     try {
         if(parseDetail(detailEnvVarName)) {

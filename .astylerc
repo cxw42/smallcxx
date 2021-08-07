@@ -8,3 +8,7 @@
 
 # Line length
 -xC80
+
+# Alignment
+--align-pointer=name
+--align-reference=type
