@@ -42,7 +42,7 @@ tags:
 
 phony += prettyprint
 prettyprint:
-	-astyle --project="$(top_srcdir)/.astylerc" `git ls-files '*.c*' '*.h*'`
+	-astyle --project=".astylerc" `git ls-files '*.c*' '*.h*'`
 
 phony += p
 p:
