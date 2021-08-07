@@ -41,6 +41,10 @@
 
 /// Mark an unreferenced parameter
 #define UNREFERENCED_PARAMETER(p) (void)(p)
+
+/// A do-nothing statement
+#define NOTHING do {} while(0)
+
 /// @}
 
 #endif // SMALLCXX_COMMON_HPP_
