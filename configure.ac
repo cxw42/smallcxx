@@ -14,7 +14,11 @@ AM_INIT_AUTOMAKE([1.11 foreign subdir-objects])
 
 AC_PROG_CC
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11
+
+dnl noext = no GNU extensions; mandatory = die if C++11 not available.
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AC_LANG([C++])
+
 AC_PROG_RANLIB
 
 AX_PTHREAD
