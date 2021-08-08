@@ -71,7 +71,7 @@ struct LogLevelHolder {
         return singleton;
     }
 
-    /// Accessor so you don't have to say `::levels()` all the time
+    /// Accessor so you don't have to say "::levels()" all the time
     MapType::mapped_type&
     operator[](const MapType::key_type& k)
     {

@@ -66,6 +66,7 @@ enum LogLevel {
 /// @param[in]  msgLevel - The log level of this message
 /// @param[in]  file - file from which this message was printed
 /// @param[in]  line - line number in @p file
+/// @param[in]  function - name of function that called logMessage()
 /// @param[in]  format - printf format
 /// @param[in]  ... - args to @p format
 void logMessage(const std::string& domain,
