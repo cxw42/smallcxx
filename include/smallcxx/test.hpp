@@ -242,6 +242,7 @@ __attribute__(( format(printf, 7, 8) ));
         try { \
             stmt; \
             unreached(); \
+            LOG_F_DOMAIN(" test", ERROR, "Did not throw, but expected to"); \
         } catch (std::exception& e) { \
             reached(); \
             LOG_F_DOMAIN(" test", LOG, "Got exception `%s'", e.what()); \
@@ -267,9 +268,10 @@ __attribute__(( format(printf, 7, 8) ));
             unreached(); \
             LOG_F_DOMAIN(" test", ERROR, "Did not throw, but expected to"); \
         } catch (std::exception& e) { \
-            LOG_F_DOMAIN(" test", LOG, "Got exception `%s'", e.what()); \
+            LOG_F_DOMAIN(" test", LOG, "Got exception as expected (`%s')", e.what()); \
             reached(); \
         } catch(...) { \
+            LOG_F_DOMAIN(" test", LOG, "Got exception as expected"); \
             reached(); \
         } \
     } while(0)
@@ -281,12 +283,13 @@ __attribute__(( format(printf, 7, 8) ));
         try { \
             stmt; \
             reached(); \
+            LOG_F_DOMAIN(" test", LOG, "Did not throw, as expected"); \
         } catch (std::exception& e) { \
             unreached(); \
             LOG_F_DOMAIN(" test", ERROR, "Got exception `%s'", e.what()); \
         } catch(...) { \
             unreached(); \
-            LOG_F_DOMAIN(" test", WARNING, "Got unknown exception"); \
+            LOG_F_DOMAIN(" test", ERROR, "Got unknown exception"); \
         } \
     } while(0)
 
