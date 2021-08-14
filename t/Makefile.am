@@ -37,6 +37,12 @@ alsocompile = \
 # Data files needed by the tests
 testdatafiles =
 
+# --- Tests for optional modules ---
+
+# globstari
+if HAVE_PCRE2
+testprograms += globstari-basic-t
+endif
 ###########################################################################
 ###########################################################################
 
