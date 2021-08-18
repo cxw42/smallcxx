@@ -3,25 +3,11 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White
 
-#define SMALLCXX_USE_CHOMP
-#include "smallcxx/string.hpp"
 #include "smallcxx/test.hpp"
 
 TEST_FILE
 
 using namespace std;
-
-void
-test_chomp()
-{
-    char cbuf[16] = {0};
-    chomp(cbuf);
-    isstr(cbuf, (""));
-
-    cbuf[0] = '\n';
-    chomp(cbuf);
-    isstr(cbuf, (""));
-}
 
 /// Helper for test_setloglevel
 void
@@ -103,7 +89,6 @@ emit_possibly_colorful_messages()
 int
 main()
 {
-    TEST_CASE(test_chomp);
     TEST_CASE(test_setloglevel);
     TEST_CASE(test_env_loglevel);
 

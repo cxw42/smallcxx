@@ -26,6 +26,7 @@ testprograms = \
 	cover-no-tests-run-t \
 	cover-test-failures-t \
 	meta-t \
+	string-t \
 	$(EOL)
 
 # Programs to compile in support of tests (check_PROGRAMS but not TESTS)
