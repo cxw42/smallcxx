@@ -68,6 +68,8 @@ enum TestExitCode {
 /// - defines constants used by reached() and unreached() to provide more
 ///   readable assertion-failure messages
 /// - sets the verbosity level based on @c $V.
+///
+/// @note This macro does not create or use any namespaces.
 #define TEST_FILE \
     static unsigned int TEST_failures = 0; \
     static unsigned int TEST_successes = 0; \
