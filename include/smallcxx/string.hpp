@@ -59,4 +59,13 @@ public:
 void chomp(char *str);
 #endif // SMALLCXX_USE_CHOMP
 
+namespace smallcxx
+{
+
+/// Trim leading and trailing whitespace in a string
+/// @param[in] s - the string
+/// @return a copy with any leading and trailing whitespace removed
+std::string trim(const std::string& s);
+
+} // namespace smallcxx
 #endif // SMALLCXX_STRING_HPP_
