@@ -58,9 +58,6 @@ enum TestExitCode {
     TEST_STOP_TESTING = 99,  ///< bail out --- testing can't continue
 };
 
-/// Make a filename relative to $top_srcdir/t
-std::string testDataFilename(const char *filename);
-
 // === Macros ============================================================
 
 /// Create global state for a test file.

@@ -44,15 +44,3 @@ test_assert(unsigned int& failures, unsigned int& successes,
     logMessage(TEST_LOG_DOMAIN, LOG_ERROR, file, line, function,
                "Test failure: %s", cstr);
 }
-
-string
-testDataFilename(const char *filename)
-{
-#ifdef SRCDIR
-    string retval(SRCDIR);
-    retval += '/';
-#else
-    string retval;
-#endif
-    return retval + filename;
-}
