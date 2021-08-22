@@ -37,6 +37,9 @@
 #include <string.h>
 #include <smallcxx/logging.hpp>
 
+// TODO add portability checks for dirname(3)
+#include <libgen.h>
+
 // === Logging control ===================================================
 
 #ifndef TEST_DETAIL_ENV_VAR_NAME
@@ -66,11 +69,15 @@ enum TestExitCode {
 /// - creates the TEST_failures and TEST_successes variables that will hold the
 ///   number of failures during this run.
 /// - defines constants used by reached() and unreached() to provide more
-///   readable assertion-failure messages
+///   readable assertion-failure messages.
 /// - sets the verbosity level based on @c $V.
+/// - defines `std::string MY_PATH`, which is filled in by TEST_MAIN.
+///   You do not have to use `MY_PATH`; you can just use a regular
+///   `int main()` if you want to.
 ///
 /// @note This macro does not create or use any namespaces.
 #define TEST_FILE \
+    static std::string MY_PATH; \
     static unsigned int TEST_failures = 0; \
     static unsigned int TEST_successes = 0; \
     static const bool reached_this_line_as_expected = true; \
@@ -79,10 +86,31 @@ enum TestExitCode {
             setVerbosityFromEnvironment(TEST_DETAIL_ENV_VAR_NAME); \
             LOG_F_DOMAIN(" test", LOG, "Initialized logging"); \
             return true || reached_this_line_as_expected || \
-                reached_this_line_unexpectedly; \
+                reached_this_line_unexpectedly || MY_PATH.empty(); \
     })();
 // The "||reached..." in the above macro are to remove "unused variable"
 // warnings from clang
+
+/// Define `main` and fill in `MY_PATH`.  Optional; if you don't need MY_PATH,
+/// you can use your own `main()` as usual.
+///
+/// Usage:
+/// ```
+/// TEST_MAIN
+/// {
+///     // now in void test_main(int argc, char **argv)
+///     TEST_CASE(...);
+///     // You do not need to call TEST_RETURN!
+/// }
+/// ```
+#define TEST_MAIN \
+    void test_main(int argc, char **argv); \
+    int main(int argc, char **argv) { \
+        MY_PATH = dirname(argv[0]); \
+        test_main(argc, argv); \
+        TEST_RETURN; \
+    } \
+    void test_main(int argc, char **argv)
 
 /// Normal test return, pass/fail.
 #define TEST_RETURN \
@@ -200,7 +228,7 @@ __attribute__(( format(printf, 7, 8) ));
         const auto _expected = (expected); \
         const bool _result = (_got op _expected); \
         test_assert(TEST_failures, TEST_successes, __FILE__, __LINE__, __func__, _result, \
-                "!(%s %s %s): got %" PRIdMAX ", expected %" PRIdMAX, \
+                "(%s %s %s) was false: got %" PRIdMAX ", reference %" PRIdMAX, \
                 (#got), (#op), (#expected), (intmax_t)_got, (intmax_t)_expected); \
     } while(0)
 
