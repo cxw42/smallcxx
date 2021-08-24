@@ -1,0 +1,17 @@
+# t/globstari-basic-disk-ignores/.eignore
+# Part of smallcxx
+# Copyright (c) 2021 Christopher White <cxwembedded@gmail.com>
+# SPDX-License-Identifier: BSD-3-Clause
+
+#
+# ^ the previous line is empty --- there is actually a file here called `#`,
+# and the previous line is to make sure we're not treating comments as globs.
+
+ignored.*
+!ignored.not-actually   # a comment
+
+# test files with escaped # in them
+file*
+!file\#1
+!file\#2 #and a comment!
+!file\#3#and a comment!

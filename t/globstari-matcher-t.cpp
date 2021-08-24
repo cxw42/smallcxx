@@ -62,6 +62,113 @@ test_not_finalized()
     ok(!m.contains(""));
 }
 
+/// https://github.com/editorconfig/editorconfig/issues/455
+void
+test_ec455()
+{
+    {
+        Matcher m({"[[a-b]"}, "/");
+        ok(m.contains("/["));
+        ok(m.contains("/a"));
+        ok(m.contains("/b"));
+        ok(!m.contains("/c"));
+        ok(!m.contains("/\\"));
+        ok(!m.contains("/]"));
+    }
+
+    {
+        Matcher m({R"([a\-c])"}, "/");
+        ok(m.contains("/a"));
+        ok(m.contains("/-"));
+        ok(m.contains("/c"));
+        ok(!m.contains("/b"));  // the - isn't a range
+    }
+
+    {
+        Matcher m({"-"}, "/");
+        ok(!m.contains("/a"));
+        ok(m.contains("/-"));
+    }
+
+    {
+        Matcher m({"}{"}, "/");
+        ok(m.contains("/}{"));
+        ok(!m.contains("/"));
+    }
+
+    {
+        Matcher m({"\\"}, "/");
+        ok(m.contains("/\\"));
+        ok(!m.contains("/"));
+    }
+}
+
+/// Tests of special characters in directory names
+void
+test_specialchar_dirname()
+{
+    // Tests are in order of ec_special_chars
+
+    {
+        Matcher m({"*.txt"}, "/?/");
+        ok(!m.contains("/?"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/?/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/[/");
+        ok(!m.contains("/["));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/[/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/]/");
+        ok(!m.contains("/]"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/]/x.txt"));
+    }
+
+    // TODO what about backslashes in dirnames?
+
+    {
+        Matcher m({"*.txt"}, "/*/");
+        ok(!m.contains("/*"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/*/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/-/");
+        ok(!m.contains("/-"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/-/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/{/");
+        ok(!m.contains("/{"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/{/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/}/");
+        ok(!m.contains("/}"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/}/x.txt"));
+    }
+
+    {
+        Matcher m({"*.txt"}, "/,/");
+        ok(!m.contains("/,"));
+        ok(!m.contains("/x.txt"));
+        ok(m.contains("/,/x.txt"));
+    }
+
+}
+
 // }}}1
 
 /// @name Tests of addGlob(glob)
@@ -1344,12 +1451,57 @@ test_core_utf8()
 
 // }}}1
 
+/// Tests of multiple globs
+void
+test_multi_glob()
+{
+    Matcher m({"a", "{1..10}", "{foo,bar}", "b", "*.txt", "{20..30}"}, "/");
+    ok(!m.contains("/_"));
+    ok(m.contains("/a"));
+    ok(!m.contains("/0"));
+    ok(m.contains("/1"));
+    ok(m.contains("/10"));
+    ok(!m.contains("/11"));
+    ok(m.contains("/foo"));
+    ok(m.contains("/bar"));
+    ok(!m.contains("/bat"));
+    ok(m.contains("/b"));
+    ok(m.contains("/bat.txt"));
+    ok(m.contains("/.txt"));
+    ok(!m.contains("/19"));
+    ok(m.contains("/20"));
+    ok(m.contains("/25"));
+    ok(m.contains("/30"));
+    ok(!m.contains("/31"));
+
+    ok(!m.contains("/foo/_"));
+    ok(m.contains("/foo/a"));
+    ok(!m.contains("/foo/0"));
+    ok(m.contains("/foo/1"));
+    ok(m.contains("/foo/10"));
+    ok(!m.contains("/foo/11"));
+    ok(m.contains("/foo/foo"));
+    ok(m.contains("/foo/bar"));
+    ok(!m.contains("/foo/bat"));
+    ok(m.contains("/foo/b"));
+    ok(m.contains("/foo/bat.txt"));
+    ok(m.contains("/foo/.txt"));
+    ok(!m.contains("/foo/19"));
+    ok(m.contains("/foo/20"));
+    ok(m.contains("/foo/25"));
+    ok(m.contains("/foo/30"));
+    ok(!m.contains("/foo/31"));
+}
+
 int
 main()
 {
     TEST_CASE(test_empty);
     TEST_CASE(test_invalid);
     TEST_CASE(test_not_finalized);
+    TEST_CASE(test_ec455);
+    TEST_CASE(test_specialchar_dirname);
+
     TEST_CASE(test_exact_match);
     TEST_CASE(test_extension);
     TEST_CASE(test_extension_negpos);
@@ -1364,6 +1516,8 @@ main()
     TEST_CASE(test_core_braces);
     TEST_CASE(test_core_globstar);
     TEST_CASE(test_core_utf8);
+
+    TEST_CASE(test_multi_glob);
 
     TEST_RETURN;
 }
