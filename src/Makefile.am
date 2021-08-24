@@ -16,7 +16,13 @@ libsmallcxx_a_CXXFLAGS = -I$(top_srcdir)/include $(AM_CXXFLAGS)
 
 # globstari
 if HAVE_PCRE2
-libsmallcxx_a_SOURCES += globstari.cpp
+
+libsmallcxx_a_SOURCES += \
+	globstari.cpp \
+	globstari-matcher.cpp \
+	globstari-traverse.cpp \
+	$(EOL)
+
 libsmallcxx_a_CXXFLAGS += $(PCRE2_CFLAGS)
 extra_ldflags += $(PCRE2_LIBS)
 endif
