@@ -3,7 +3,7 @@ dnl Copyright (c) 2021 Christopher White <cxwembedded@gmail.com>
 dnl SPDX-License-Identifier: BSD-3-Clause
 
 dnl === Basic setup =======================================================
-AC_INIT([smallcxx], [0.0.1], [], [smallcxx], [https://github.com/cxw42/smallcxx])
+AC_INIT([smallcxx], [0.0.2], [], [smallcxx], [https://github.com/cxw42/smallcxx])
 AC_PREREQ([2.65])
 AC_COPYRIGHT([Copyright (C) 2021 Christopher White])
 AC_CONFIG_SRCDIR([rules.mk])    dnl make sure the srcdir is correctly specified
