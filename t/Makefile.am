@@ -1,5 +1,8 @@
 # t/Makefile.am: Makefile.am for tests
-# NOTE: all tests assume they are run from t/ .
+# Part of smallcxx
+# Copyright (c) 2021 Christopher White <cxwembedded@gmail.com>
+# SPDX-License-Identifier: BSD-3-Clause
+
 include $(top_srcdir)/rules.mk
 
 # Don't put any log files of your own in this directory!
@@ -34,9 +37,24 @@ alsocompile = \
 	log-debug-message-s \
 	$(EOL)
 
-# Data files needed by the tests
-testdatafiles =
+# Data files needed by the tests.
+# If you list directories here, *do not* end them with a trailing slash.
+# E.g., disting `foo/` will give you `foo/foo/` in the tarball.
+testdatafiles = \
+	globstari-basic-disk \
+	globstari-basic-disk-ignores \
+	$(EOL)
 
+# --- Tests for optional modules ---
+
+# globstari
+if HAVE_PCRE2
+testprograms += \
+	globstari-basic-t \
+	globstari-globset-t \
+	globstari-matcher-t \
+	$(EOL)
+endif
 ###########################################################################
 ###########################################################################
 

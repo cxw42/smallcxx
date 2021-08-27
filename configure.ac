@@ -37,6 +37,19 @@ AX_CODE_COVERAGE
 CXW_ASAN
 AX_VALGRIND_CHECK
 
+dnl === Optional dependencies =============================================
+dnl If you don't have these, you simply won't be able to build the relevant
+dnl modules.
+
+dnl PCRE2: required for globstari
+PKG_CHECK_MODULES([PCRE2], [libpcre2-8],
+    [have_pcre2=1],
+    [have_pcre2=0]
+)
+AC_DEFINE_UNQUOTED([HAVE_PCRE2],[$have_pcre2],[Whether we have PCRE2])
+AC_SUBST([HAVE_PCRE2])
+AM_CONDITIONAL([HAVE_PCRE2], [test "$have_pcre2" = '1'])
+
 dnl === Docs ==============================================================
 
 AC_PATH_PROG([DOXYGEN], [doxygen], [no])
@@ -78,11 +91,11 @@ AC_CONFIG_FILES([
 dnl TODO
 dnl dnl Extra-dist all of `git ls-files`.  Only used from the top-level Makefile,
 dnl dnl so we don't need a path.
-dnl 
+dnl
 dnl dnl Tell Automake where it can find the file after configure runs.  We need
 dnl dnl this variable so Automake doesn't try to include it before it's created.
 dnl AC_SUBST([dist_all_git_files], [dist-all-git-files.mk])
-dnl 
+dnl
 dnl AC_CONFIG_FILES([dist-all-git-files.mk],
 dnl     [
 dnl         AS_IF([test "x$git_working_dir" '!=' "xno"],
@@ -97,7 +110,7 @@ dnl     [
 dnl         git_working_dir="$git_working_dir"
 dnl     ]
 dnl )
-dnl 
+dnl
 
 AM_SILENT_RULES([yes])
 AC_OUTPUT

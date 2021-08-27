@@ -14,13 +14,17 @@ phony =
 
 # === Flags ===============================================================
 
+# Added to by subdir Makefiles
+extra_ldflags =
+extra_libs =
+
 # C settings, which are the same throughout.  LOCAL_CFLAGS is filled in
 # by each Makefile.am.
 AM_CFLAGS = -Wall -Werror $(LOCAL_CFLAGS) $(CODE_COVERAGE_CFLAGS) $(ASAN_CFLAGS)
 AM_CXXFLAGS = -Wall -Werror $(LOCAL_CFLAGS) $(CODE_COVERAGE_CXXFLAGS) $(ASAN_CXXFLAGS)
 AM_CPPFLAGS = $(CODE_COVERAGE_CPPFLAGS)
-AM_LDFLAGS = $(ASAN_LDFLAGS)
-LIBS = $(EXTRA_LIBS) $(LOCAL_LIBS) $(CODE_COVERAGE_LIBS)
+AM_LDFLAGS = $(extra_ldflags) $(ASAN_LDFLAGS)
+LIBS = $(extra_libs) $(LOCAL_LIBS) $(CODE_COVERAGE_LIBS)
 
 # === Coverage ============================================================
 

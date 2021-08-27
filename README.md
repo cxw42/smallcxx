@@ -10,9 +10,16 @@ This is a C++11 project using autotools as the build system.
 
 The modules are:
 
+### Always built
+
 - `logging`: multi-level logging library
 - `string`: some string functions not in `string.h` and friends
 - `test`: basic testcase-management and test-assertion library
+
+### Optional
+
+- `globstari`: file-globbing and ignore-files routines
+  - Depends on PCRE2
 
 ## Using
 
@@ -28,6 +35,12 @@ The modules are:
     ./asan.sh clang                             # for Address Sanitizer
 
 Note that `CXX` does have to be `clang++`, not just `clang`.
+
+## Third-party software used by smallcxx
+
+- [editorconfig-core-c](https://github.com/editorconfig/editorconfig-core-c)
+  by the EditorConfig team.  Licensed under various BSD licenses.
+  Included in the `globstari` module
 
 ## Developing
 

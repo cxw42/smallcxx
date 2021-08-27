@@ -8,7 +8,13 @@
 ///
 /// There can be any number of log-message domains, each identified by an
 /// arbitrary string.  Strings starting with `" "` (a space) are reserved for
-/// use by smallcxx/logging.
+/// use by smallcxx/logging.  To define your own domain for messages in
+/// a source file:
+///
+/// ```
+/// #define SMALLCXX_LOG_DOMAIN "myDomain"
+/// #include <smallcxx/logging.hpp>
+/// ```
 ///
 /// This logging library is inspired by (but not copied from):
 /// - [Loguru](https://github.com/emilk/loguru) by
