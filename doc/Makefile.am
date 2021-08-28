@@ -33,7 +33,16 @@ phony += removedoxy
 removedoxy:
 	-rm -rf html
 
+# Generate docs into another directory, e.g., for gh-pages.  Run as
+# `make doxy-to DESTDIR=<whatever>`
+phony += doxy-to
+doxy-to: Doxyfile
+	mkdir -p "$(DESTDIR)"
+	@: # see https://www.doxygen.nl/manual/faq.html#faq_cmdline
+	(cat Doxyfile ; echo 'OUTPUT_DIRECTORY=$(DESTDIR)') | doxygen -
+
 else
+phony += doxygen doccheck
 doxygen:
 	echo "Doxygen not installed"
 doccheck:
