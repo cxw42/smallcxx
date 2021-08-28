@@ -1,0 +1,61 @@
+These use C++11.
+
+All code Copyright (c) 2021 Christopher White, unless otherwise indicated.\hypertarget{index_autotoc_md1}{}\doxysection{Overview}\label{index_autotoc_md1}
+This is a C++11 project using autotools as the build system.
+
+The modules are\+:\hypertarget{index_autotoc_md2}{}\doxysubsection{Always built}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item {\ttfamily logging}\+: multi-\/level logging library
+\item {\ttfamily string}\+: some string functions not in {\ttfamily string.\+h} and friends
+\item {\ttfamily test}\+: basic testcase-\/management and test-\/assertion library
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsection{Optional}\label{index_autotoc_md3}
+
+\begin{DoxyItemize}
+\item {\ttfamily globstari}\+: file-\/globbing and ignore-\/files routines
+\begin{DoxyItemize}
+\item Depends on P\+C\+R\+E2
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{Using}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysubsection{Compiling with gcc}\label{index_autotoc_md5}
+\begin{DoxyVerb}./configure && make -j  # normal
+./coverage.sh           # for code coverage
+./asan.sh               # for Address Sanitizer
+\end{DoxyVerb}
+\hypertarget{index_autotoc_md6}{}\doxysubsection{Compiling with clang}\label{index_autotoc_md6}
+\begin{DoxyVerb}./configure CC=clang CXX=clang++ && make -j
+./asan.sh clang                             # for Address Sanitizer
+\end{DoxyVerb}
+
+
+Note that {\ttfamily C\+XX} does have to be {\ttfamily clang++}, not just {\ttfamily clang}.\hypertarget{index_autotoc_md7}{}\doxysection{Third-\/party software used by smallcxx}\label{index_autotoc_md7}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/editorconfig/editorconfig-core-c}{\texttt{ editorconfig-\/core-\/c}} by the Editor\+Config team. Licensed under various B\+SD licenses. Included in the {\ttfamily globstari} module
+\end{DoxyItemize}\hypertarget{index_autotoc_md8}{}\doxysection{Developing}\label{index_autotoc_md8}
+\hypertarget{index_autotoc_md9}{}\doxysubsection{Development dependencies}\label{index_autotoc_md9}
+
+\begin{DoxyItemize}
+\item Pretty-\/printing\+: Artistic Style, Ubuntu package {\ttfamily astyle}.
+\item Docs\+: Doxygen and dot(1) (Ubuntu packages {\ttfamily doxygen} and {\ttfamily graphviz})
+\end{DoxyItemize}\hypertarget{index_autotoc_md10}{}\doxysubsection{Starting fresh}\label{index_autotoc_md10}
+\begin{DoxyVerb}./autogen.sh && make -j maintainer-clean && ./autogen.sh
+\end{DoxyVerb}
+
+
+That will leave you ready to run {\ttfamily make}
+
+The first time you compile, you may get errors about missing {\ttfamily .deps/$\ast$} files. If so, re-\/run {\ttfamily make}. If that doesn\textquotesingle{}t work, run {\ttfamily make -\/jk} once to generate the deps files, and then you should be back in business.\hypertarget{index_autotoc_md11}{}\doxysubsection{Running the tests}\label{index_autotoc_md11}
+{\ttfamily make -\/j check}, or {\ttfamily ./asan.sh} for Address Sanitizer testing.\hypertarget{index_autotoc_md12}{}\doxysubsection{Structure of the codebase}\label{index_autotoc_md12}
+
+\begin{DoxyItemize}
+\item {\ttfamily src/}\+: implementation files
+\item {\ttfamily include/smallcxx/}\+: header files
+\item {\ttfamily t/}\+: tests. {\ttfamily $\ast$-\/t.sh} and {\ttfamily $\ast$-\/t.cpp} are test sources. {\ttfamily $\ast$-\/s.cpp} are supporting programs.
+\item {\ttfamily doc/}\+: documentation. Doxygen output is in {\ttfamily doc/html/index.\+html}.
+\end{DoxyItemize}\hypertarget{index_autotoc_md13}{}\doxysubsection{Coding style}\label{index_autotoc_md13}
+
+\begin{DoxyItemize}
+\item 4-\/space tabs, cuddled {\ttfamily else}. Run {\ttfamily make prettyprint} to format your code.
+\item All Doxygen tags start with {\ttfamily @} (not backslash). 
+\end{DoxyItemize}

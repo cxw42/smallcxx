@@ -1,0 +1,12 @@
+<map id="/home/cxw/proj/smallcxx/include/smallcxx/test.hpp" name="/home/cxw/proj/smallcxx/include/smallcxx/test.hpp">
+<area shape="rect" id="node1" title="A testing framework &#45; declarations." alt="" coords="849,5,1043,47"/>
+<area shape="rect" id="node2" href="$test_8cpp.html" title="Implementation of a basic test harness." alt="" coords="5,95,191,136"/>
+<area shape="rect" id="node3" href="$cover-misc-t_8cpp.html" title="Coverage for misc. items." alt="" coords="215,95,400,136"/>
+<area shape="rect" id="node4" href="$cover-no-tests-run-t_8cpp.html" title="Coverage for the no&#45;tests&#45;run case. This is an XFAIL." alt="" coords="424,95,615,136"/>
+<area shape="rect" id="node5" href="$cover-test-failures-t_8cpp.html" title="Coverage for things that fail. This is an XFAIL." alt="" coords="639,95,829,136"/>
+<area shape="rect" id="node6" href="$globstari-basic-t_8cpp.html" title="Basic tests of smallcxx/globstari.hpp classes." alt="" coords="853,95,1039,136"/>
+<area shape="rect" id="node7" href="$globstari-globset-t_8cpp.html" title="Tests of smallcxx::glob::GlobSet." alt="" coords="1063,95,1248,136"/>
+<area shape="rect" id="node8" href="$globstari-matcher-t_8cpp.html" title="Tests of smallcxx::glob::Matcher." alt="" coords="1273,95,1459,136"/>
+<area shape="rect" id="node9" href="$meta-t_8cpp.html" title="Tests of test.hpp itself!" alt="" coords="1484,95,1669,136"/>
+<area shape="rect" id="node10" href="$string-t_8cpp.html" title="Tests of smallcxx/string.hpp." alt="" coords="1693,95,1879,136"/>
+</map>

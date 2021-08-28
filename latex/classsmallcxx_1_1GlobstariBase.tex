@@ -1,0 +1,365 @@
+\hypertarget{classsmallcxx_1_1GlobstariBase}{}\doxysection{smallcxx\+::Globstari\+Base Class Reference}
+\label{classsmallcxx_1_1GlobstariBase}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+
+
+S\+A\+X-\/style directory searcher\+: base class.  
+
+
+
+
+{\ttfamily \#include $<$globstari.\+hpp$>$}
+
+
+
+Inheritance diagram for smallcxx\+::Globstari\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classsmallcxx_1_1GlobstariBase__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}}
+\begin{DoxyCompactList}\small\item\em A single entry in a directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28}{Entry\+Type}} \{ \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a0b27918290ff5323bea1e3b78a9cf04e}{Entry\+Type\+::\+File}}, 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a3c4e6dbf3e1df93a734d9959bac9ee94}{Entry\+Type\+::\+Dir}}
+ \}
+\begin{DoxyCompactList}\small\item\em Abstract type of an entry. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{Process\+Status}} \{ \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12aa0bfb8e59e6c13fc8d990781f77694fe}{Process\+Status\+::\+Continue}}, 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a11a755d598c0c417f9a36758c3da7481}{Process\+Status\+::\+Stop}}, 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a72ef2b9b6965d078e3c7f95487a82d1c}{Process\+Status\+::\+Skip}}
+ \}
+\begin{DoxyCompactList}\small\item\em Status values \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}{process\+Entry()}} can return. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} = std\+::string
+\begin{DoxyCompactList}\small\item\em A chunk of data. A convenience typedef, to permit future changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a625ac3898bc882fe43c2d3ac192f8cda}{Globstari\+Base}} ()=default
+\item 
+virtual \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a5ead93140030849588c3bde994a9249b}{$\sim$\+Globstari\+Base}} ()=default
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Virtual functions to implement}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::vector$<$ \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} $>$ \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}{read\+Dir}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&dir\+Name)=0
+\begin{DoxyCompactList}\small\item\em Returns a list of the names of the entries in {\ttfamily dir\+Name}. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a1864c3a27ce15dedef2d9939b5deda76}{ignores\+For\+Dir}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&dir\+Name)
+\begin{DoxyCompactList}\small\item\em Returns a list of ignore files to load, if they exist, for {\ttfamily dir\+Name}. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_af65a7ce7fb5f2d7b924a72f68c2ec431}{read\+File}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path)=0
+\begin{DoxyCompactList}\small\item\em Returns the full content of a file, if the file exists. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{Process\+Status}} \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}{process\+Entry}} (const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} \&entry)=0
+\begin{DoxyCompactList}\small\item\em Process an entry! This can do whatever you want. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a52bbcb1404a4b25dbcc0e5fb3c62be68}{canonicalize}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const =0
+\begin{DoxyCompactList}\small\item\em Canonicalize a path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Methods to call on an instance}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_ad46fdf7308310682be53968f55b9a822}{traverse}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&base\+Path, const std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&needle, ssize\+\_\+t max\+Depth=-\/1)
+\begin{DoxyCompactList}\small\item\em Find files in {\ttfamily base\+Path} matching {\ttfamily needle}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+S\+A\+X-\/style directory searcher\+: base class. 
+
+Subclass this and implement the virtual functions to do your own traversing. All globs follow the \href{https://editorconfig.org}{\texttt{ Editor\+Config}} format. \begin{DoxyNote}{Note}
+Path entries are separated by {\ttfamily /} (forward slash) on all platforms!
+\end{DoxyNote}
+\char`\"{}\+Globstari\char`\"{} = supports {\itshape glob}, glob\+\_\+star\+\_\+, and \+\_\+i\+\_\+gnores.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]
+\begin{DoxyItemize}
+\item Symlinks?
+\item If so, symlink-\/loop checking? 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+Definition at line 259 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}\label{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!Bytes@{Bytes}}
+\index{Bytes@{Bytes}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{Bytes}{Bytes}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{smallcxx\+::\+Globstari\+Base\+::\+Bytes}} =  std\+::string}
+
+
+
+A chunk of data. A convenience typedef, to permit future changes. 
+
+
+
+Definition at line 266 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28}\label{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!EntryType@{EntryType}}
+\index{EntryType@{EntryType}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{EntryType}{EntryType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28}{smallcxx\+::\+Globstari\+Base\+::\+Entry\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Abstract type of an entry. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]symlinks? Special files? \end{DoxyRefDesc}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{File@{File}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!File@{File}}}\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a0b27918290ff5323bea1e3b78a9cf04e}\label{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a0b27918290ff5323bea1e3b78a9cf04e}} 
+File&Don\textquotesingle{}t recurse into this. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dir@{Dir}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!Dir@{Dir}}}\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a3c4e6dbf3e1df93a734d9959bac9ee94}\label{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28a3c4e6dbf3e1df93a734d9959bac9ee94}} 
+Dir&Something we might recurse into. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 270 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}\label{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!ProcessStatus@{ProcessStatus}}
+\index{ProcessStatus@{ProcessStatus}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{ProcessStatus}{ProcessStatus}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{smallcxx\+::\+Globstari\+Base\+::\+Process\+Status}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Status values \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}{process\+Entry()}} can return. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Continue@{Continue}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!Continue@{Continue}}}\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12aa0bfb8e59e6c13fc8d990781f77694fe}\label{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12aa0bfb8e59e6c13fc8d990781f77694fe}} 
+Continue&keep going \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stop@{Stop}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!Stop@{Stop}}}\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a11a755d598c0c417f9a36758c3da7481}\label{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a11a755d598c0c417f9a36758c3da7481}} 
+Stop&don\textquotesingle{}t process any more entries at all \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Skip@{Skip}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!Skip@{Skip}}}\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a72ef2b9b6965d078e3c7f95487a82d1c}\label{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12a72ef2b9b6965d078e3c7f95487a82d1c}} 
+Skip&Skip directories (no effect for files). This is the return value from the subclass\textquotesingle{}s processing, so Skip doesn\textquotesingle{}t mean \char`\"{}don\textquotesingle{}t process this\char`\"{}.
+
+
+\begin{DoxyItemize}
+\item For a directory, don\textquotesingle{}t descend into the dir.
+\item For a file, treated the same as Continue. 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 305 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a625ac3898bc882fe43c2d3ac192f8cda}\label{classsmallcxx_1_1GlobstariBase_a625ac3898bc882fe43c2d3ac192f8cda}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!GlobstariBase@{GlobstariBase}}
+\index{GlobstariBase@{GlobstariBase}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{GlobstariBase()}{GlobstariBase()}}
+{\footnotesize\ttfamily smallcxx\+::\+Globstari\+Base\+::\+Globstari\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a5ead93140030849588c3bde994a9249b}\label{classsmallcxx_1_1GlobstariBase_a5ead93140030849588c3bde994a9249b}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!````~GlobstariBase@{$\sim$GlobstariBase}}
+\index{````~GlobstariBase@{$\sim$GlobstariBase}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{$\sim$GlobstariBase()}{~GlobstariBase()}}
+{\footnotesize\ttfamily virtual smallcxx\+::\+Globstari\+Base\+::$\sim$\+Globstari\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a52bbcb1404a4b25dbcc0e5fb3c62be68}\label{classsmallcxx_1_1GlobstariBase_a52bbcb1404a4b25dbcc0e5fb3c62be68}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!canonicalize@{canonicalize}}
+\index{canonicalize@{canonicalize}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{canonicalize()}{canonicalize()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} smallcxx\+::\+Globstari\+Base\+::canonicalize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Canonicalize a path. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & -\/ the path to canonicalize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item If the path does not exist, \char`\"{}\char`\"{}
+\item Othersise, the canonicalized path (absolute, without {\ttfamily .} or {\ttfamily ..}, and with {\ttfamily /} separators) 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_adb41ab28dff5fdc1bcd700adb30de4c2}{smallcxx\+::\+Globstari\+Disk}}.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a1864c3a27ce15dedef2d9939b5deda76}\label{classsmallcxx_1_1GlobstariBase_a1864c3a27ce15dedef2d9939b5deda76}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!ignoresForDir@{ignoresForDir}}
+\index{ignoresForDir@{ignoresForDir}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{ignoresForDir()}{ignoresForDir()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ smallcxx\+::\+Globstari\+Base\+::ignores\+For\+Dir (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{dir\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Returns a list of ignore files to load, if they exist, for {\ttfamily dir\+Name}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em dir\+Name} & -\/ the canonical path to the directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of zero or more ignore paths, absolute or relative.-\/
+\begin{DoxyItemize}
+\item If absolute, that file is checked.
+\item If relative, that file is checked in {\ttfamily dir\+Name}. Therefore, you can return a fixed vector if you only have relative-\/path ignore files.
+\end{DoxyItemize}
+\end{DoxyReturn}
+The default ignore is {\ttfamily .eignore} in the current directory. The {\ttfamily e} in {\ttfamily .eignore} is because it uses {\ttfamily E}ditor\+Config-\/style globs. 
+
+Definition at line 337 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}\label{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!processEntry@{processEntry}}
+\index{processEntry@{processEntry}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{processEntry()}{processEntry()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{Process\+Status}} smallcxx\+::\+Globstari\+Base\+::process\+Entry (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} \&}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Process an entry! This can do whatever you want. 
+
+The entry can be a directory or a file. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em entry} & -\/ the entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Process\+Status value 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classTestGlobstariBaseSanity_a812b12d37bb297aca479dae36e1cc99a}{Test\+Globstari\+Base\+Sanity}}, and \mbox{\hyperlink{structDiskTraverser_a448f9c15072ce73380253008489cd952}{Disk\+Traverser}}.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}\label{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!readDir@{readDir}}
+\index{readDir@{readDir}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{readDir()}{readDir()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$\mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}}$>$ smallcxx\+::\+Globstari\+Base\+::read\+Dir (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{dir\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns a list of the names of the entries in {\ttfamily dir\+Name}. 
+
+You do not have to take ignores into account.
+
+\begin{DoxyNote}{Note}
+You {\itshape do} have to handle {\ttfamily .} and {\ttfamily ..}! Do not return those, or any other entries you do not want considered during traversal.
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em dir\+Name} & -\/ the path to the directory itself \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The entries, if any. You do not have to fill in \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry_a8d241b4c943bc198d3d7da52652c810f}{Entry\+::depth}}. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::system\+\_\+error} & if {\ttfamily dir\+Name} is unreadable.\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Permit iteratively reading a dir? \end{DoxyRefDesc}
+
+
+Implemented in \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_accf21bcc460f4a05b831c4e48fd25831}{smallcxx\+::\+Globstari\+Disk}}.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_af65a7ce7fb5f2d7b924a72f68c2ec431}\label{classsmallcxx_1_1GlobstariBase_af65a7ce7fb5f2d7b924a72f68c2ec431}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!readFile@{readFile}}
+\index{readFile@{readFile}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} smallcxx\+::\+Globstari\+Base\+::read\+File (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns the full content of a file, if the file exists. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & -\/ the path to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The contents 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em if} & an error occurs \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_af6ed1d7b3a5fae9e15d6790d9ac00446}{smallcxx\+::\+Globstari\+Disk}}.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariBase_ad46fdf7308310682be53968f55b9a822}\label{classsmallcxx_1_1GlobstariBase_ad46fdf7308310682be53968f55b9a822}} 
+\index{smallcxx::GlobstariBase@{smallcxx::GlobstariBase}!traverse@{traverse}}
+\index{traverse@{traverse}!smallcxx::GlobstariBase@{smallcxx::GlobstariBase}}
+\doxysubsubsection{\texorpdfstring{traverse()}{traverse()}}
+{\footnotesize\ttfamily void smallcxx\+::\+Globstari\+Base\+::traverse (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{base\+Path,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&}]{needle,  }\item[{ssize\+\_\+t}]{max\+Depth = {\ttfamily -\/1} }\end{DoxyParamCaption})}
+
+
+
+Find files in {\ttfamily base\+Path} matching {\ttfamily needle}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em base\+Path} & -\/ where to start. This does not have to be a directory on disk. \\
+\hline
+\mbox{\texttt{ in}}  & {\em needle} & -\/ Editor\+Config-\/style globs indicating the files to find. These are with respect to {\ttfamily base\+Path}. \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+Depth} & -\/ maximum recursion depth. -\/1 for unlimited.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+
+
+
+\begin{DoxyItemize}
+\item Glob checks do not treat dot files specially. Therefore, {\ttfamily $\ast$foo} will match {\ttfamily foo} and {\ttfamily .foo}.
+\item All glob checks are done against canonicalized paths. Therefore, {\ttfamily $\ast$$\ast$/$\ast$} will match everything.
+\item \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_ad46fdf7308310682be53968f55b9a822}{traverse()}} will always call process\+Entry on the starting dir.
+\end{DoxyItemize}
+
+
+\end{DoxyNote}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]How to specify which ignore paths to check for? E.\+g., to check each encountered dir for ignore files. \end{DoxyRefDesc}
+
+
+Definition at line 343 of file globstari-\/traverse.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/include/smallcxx/\mbox{\hyperlink{globstari_8hpp}{globstari.\+hpp}}\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari-traverse_8cpp}{globstari-\/traverse.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,76 @@
+\hypertarget{structLogLevelHolder}{}\doxysection{Log\+Level\+Holder Struct Reference}
+\label{structLogLevelHolder}\index{LogLevelHolder@{LogLevelHolder}}
+
+
+Type to hold current system log levels.  
+
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}{Map\+Type}} = unordered\+\_\+map$<$ string, \mbox{\hyperlink{structLogLevelWithDefault}{Log\+Level\+With\+Default}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Map\+Type\+::mapped\+\_\+type \& \mbox{\hyperlink{structLogLevelHolder_a03004d9d1ea7115ff62ab273c91b56a2}{operator\mbox{[}$\,$\mbox{]}}} (const Map\+Type\+::key\+\_\+type \&k)
+\begin{DoxyCompactList}\small\item\em Accessor so you don\textquotesingle{}t have to say \char`\"{}\+::levels()\char`\"{} all the time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}{Map\+Type}} \& \mbox{\hyperlink{structLogLevelHolder_ac673132e0524c8e567f46c29e33bfd7a}{levels}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Type to hold current system log levels. 
+
+Myers singleton since we need it during startup. 
+
+Definition at line 65 of file logging.\+cpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}\label{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}} 
+\index{LogLevelHolder@{LogLevelHolder}!MapType@{MapType}}
+\index{MapType@{MapType}!LogLevelHolder@{LogLevelHolder}}
+\doxysubsubsection{\texorpdfstring{MapType}{MapType}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}{Log\+Level\+Holder\+::\+Map\+Type}} =  unordered\+\_\+map$<$string, \mbox{\hyperlink{structLogLevelWithDefault}{Log\+Level\+With\+Default}}$>$}
+
+
+
+Definition at line 66 of file logging.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structLogLevelHolder_ac673132e0524c8e567f46c29e33bfd7a}\label{structLogLevelHolder_ac673132e0524c8e567f46c29e33bfd7a}} 
+\index{LogLevelHolder@{LogLevelHolder}!levels@{levels}}
+\index{levels@{levels}!LogLevelHolder@{LogLevelHolder}}
+\doxysubsubsection{\texorpdfstring{levels()}{levels()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{structLogLevelHolder_a2d3376b40df4c3a78787362b2f88e703}{Map\+Type}}\& Log\+Level\+Holder\+::levels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 68 of file logging.\+cpp.
+
+\mbox{\Hypertarget{structLogLevelHolder_a03004d9d1ea7115ff62ab273c91b56a2}\label{structLogLevelHolder_a03004d9d1ea7115ff62ab273c91b56a2}} 
+\index{LogLevelHolder@{LogLevelHolder}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!LogLevelHolder@{LogLevelHolder}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily Map\+Type\+::mapped\+\_\+type\& Log\+Level\+Holder\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const Map\+Type\+::key\+\_\+type \&}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Accessor so you don\textquotesingle{}t have to say \char`\"{}\+::levels()\char`\"{} all the time. 
+
+
+
+Definition at line 76 of file logging.\+cpp.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{logging_8cpp}{logging.\+cpp}}\end{DoxyCompactItemize}

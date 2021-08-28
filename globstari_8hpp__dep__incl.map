@@ -1,0 +1,9 @@
+<map id="/home/cxw/proj/smallcxx/include/smallcxx/globstari.hpp" name="/home/cxw/proj/smallcxx/include/smallcxx/globstari.hpp">
+<area shape="rect" id="node1" title="globstar + ignore routines — part of smallcxx" alt="" coords="522,5,747,47"/>
+<area shape="rect" id="node2" href="$globstari-matcher_8cpp.html" title="globstar + ignore routines — Matcher implementation." alt="" coords="5,95,197,136"/>
+<area shape="rect" id="node3" href="$globstari-traverse_8cpp.html" title="globstar + ignore routines — tree&#45;traversal routines" alt="" coords="221,95,413,136"/>
+<area shape="rect" id="node4" href="$globstari_8cpp.html" title="globstar + ignore routines — GlobSet implementation." alt="" coords="438,95,623,136"/>
+<area shape="rect" id="node5" href="$globstari-basic-t_8cpp.html" title="Basic tests of smallcxx/globstari.hpp classes." alt="" coords="647,95,833,136"/>
+<area shape="rect" id="node6" href="$globstari-globset-t_8cpp.html" title="Tests of smallcxx::glob::GlobSet." alt="" coords="857,95,1042,136"/>
+<area shape="rect" id="node7" href="$globstari-matcher-t_8cpp.html" title="Tests of smallcxx::glob::Matcher." alt="" coords="1067,95,1253,136"/>
+</map>

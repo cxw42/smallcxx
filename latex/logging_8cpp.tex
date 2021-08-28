@@ -1,0 +1,450 @@
+\hypertarget{logging_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/src/logging.cpp File Reference}
+\label{logging_8cpp}\index{/home/cxw/proj/smallcxx/src/logging.cpp@{/home/cxw/proj/smallcxx/src/logging.cpp}}
+
+
+Implementation of logging routines.  
+
+
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include \char`\"{}smallcxx/common.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/logging.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/string.\+hpp\char`\"{}}\newline
+Include dependency graph for logging.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{logging_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structLogLevelWithDefault}{Log\+Level\+With\+Default}}
+\begin{DoxyCompactList}\small\item\em Log level with a default. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structLogLevelHolder}{Log\+Level\+Holder}}
+\begin{DoxyCompactList}\small\item\em Type to hold current system log levels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{logging_8cpp_a00b1107b4e4d11bdf1bd427d2d764b24}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+U\+S\+E\+\_\+\+C\+H\+O\+MP}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{Indent}\textbf{ Writing messages}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logging_8cpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message}} (const std\+::string \&domain, \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} msg\+Level, const char $\ast$file, const int line, const char $\ast$function, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Log a message to stderr. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logging_8cpp_aef992f9b28af5cac638d7c2c57737ade}{vlog\+Message}} (const std\+::string \&domain, \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} msg\+Level, const char $\ast$file, const int line, const char $\ast$function, const char $\ast$format, va\+\_\+list args)
+\begin{DoxyCompactList}\small\item\em As \mbox{\hyperlink{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}}, but accepts a va\+\_\+list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Getting and setting the log level from code}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logging_8cpp_a3ad37f7d08be1a89986f65de3cd3568f}{set\+Log\+Level}} (\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} new\+Level, const std\+::string \&domain)
+\begin{DoxyCompactList}\small\item\em Set log level for {\ttfamily domain} to {\ttfamily new\+Level}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} \mbox{\hyperlink{logging_8cpp_a0e9c05696e63379cb3a29242bdb559d7}{get\+Log\+Level}} (const std\+::string \&domain)
+\begin{DoxyCompactList}\small\item\em Get the current log level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Setting the log level from the environment}\par
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{logging_8cpp_a44679d4ae1004afa4be73368ab6d97e8}{parse\+Non\+Neg\+Int}} (const char $\ast$c\+\_\+str)
+\item 
+static int \mbox{\hyperlink{logging_8cpp_a8f4287260e01cba889bf0412af7efa6c}{parse\+Pos\+Int}} (const char $\ast$c\+\_\+str)
+\item 
+static \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} \mbox{\hyperlink{logging_8cpp_a21c918a44c9f0491f162bcb2f1060abb}{parse\+Level}} (const std\+::string \&str)
+\item 
+static void \mbox{\hyperlink{logging_8cpp_acca143f17dd916ab3a2cad3d8c6cd991}{set\+Level\+From\+Strings}} (const std\+::string \&domain, const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Try to parse a \char`\"{}$<$domain$>$\+:$<$value$>$\char`\"{} pair extracted from an env var. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{logging_8cpp_a6f6a1d2efec836e79f6bafb52767cb82}{parse\+Detail}} (const char $\ast$detail\+Env\+Var\+Name)
+\item 
+static void \mbox{\hyperlink{logging_8cpp_ad325f56497af5278ccc683fbb6157229}{parseV}} ()
+\item 
+void \mbox{\hyperlink{logging_8cpp_af1ebc5018852152006dff8f4b53fb8ed}{set\+Verbosity\+From\+Environment}} (const char $\ast$detail\+Env\+Var\+Name)
+\begin{DoxyCompactList}\small\item\em Set the verbosity for all log domains based on \$V. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \mbox{\hyperlink{logging_8cpp_a8c8e9465ab7697e2eade76ae13c02069}{g\+\_\+levelnames}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Human-\/readable names of the log levels. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structLogLevelHolder}{Log\+Level\+Holder}} \mbox{\hyperlink{logging_8cpp_a45bdaf2c22c4848cbfa2fa235a859158}{g\+\_\+curr\+System\+Levels}}
+\begin{DoxyCompactList}\small\item\em Current log levels. \end{DoxyCompactList}\item 
+static const char \mbox{\hyperlink{logging_8cpp_a3268463103de0f21878ae7bd59713670}{R\+ED}} \mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}31;1m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Color for errors. \end{DoxyCompactList}\item 
+static const char \mbox{\hyperlink{logging_8cpp_a2a3b6a6f2d998e31ad45fcbd20c6c577}{Y\+E\+L\+L\+OW}} \mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}33;1m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Color for warnings. \end{DoxyCompactList}\item 
+static const char \mbox{\hyperlink{logging_8cpp_a93d3506255597d645770761c98c24076}{W\+H\+I\+TE}} \mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}37;1m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Color for fix-\/me messages. \end{DoxyCompactList}\item 
+static const char \mbox{\hyperlink{logging_8cpp_af86f77d6e4585c78150a02d68c44bf80}{N\+O\+R\+M\+AL}} \mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}37;0m\char`\"{}
+\item 
+static const char $\ast$ \mbox{\hyperlink{logging_8cpp_a9dfccbc5022487d9b105b3c564f920b9}{P\+I\+D\+C\+O\+L\+O\+RS}} \mbox{[}$\,$\mbox{]}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{logging_8cpp_a280dfdbfd80ade6a8f4468790f71edbe}{L\+O\+G\+B\+U\+F\+\_\+\+N\+B\+Y\+T\+ES}} = 256
+\begin{DoxyCompactList}\small\item\em Size of the buffers used in \mbox{\hyperlink{logging_8cpp_aef992f9b28af5cac638d7c2c57737ade}{vlog\+Message()}} \end{DoxyCompactList}\item 
+static const int \mbox{\hyperlink{logging_8cpp_afef054eb25488a0a234ec45127f8873b}{L\+O\+G\+\_\+\+FD}} = S\+T\+D\+E\+R\+R\+\_\+\+F\+I\+L\+E\+NO
+\begin{DoxyCompactList}\small\item\em Where we write log messages. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of logging routines. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{logging_8cpp_a00b1107b4e4d11bdf1bd427d2d764b24}\label{logging_8cpp_a00b1107b4e4d11bdf1bd427d2d764b24}} 
+\index{logging.cpp@{logging.cpp}!SMALLCXX\_USE\_CHOMP@{SMALLCXX\_USE\_CHOMP}}
+\index{SMALLCXX\_USE\_CHOMP@{SMALLCXX\_USE\_CHOMP}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{SMALLCXX\_USE\_CHOMP}{SMALLCXX\_USE\_CHOMP}}
+{\footnotesize\ttfamily \#define S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+U\+S\+E\+\_\+\+C\+H\+O\+MP}
+
+
+
+Definition at line 22 of file logging.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logging_8cpp_a0e9c05696e63379cb3a29242bdb559d7}\label{logging_8cpp_a0e9c05696e63379cb3a29242bdb559d7}} 
+\index{logging.cpp@{logging.cpp}!getLogLevel@{getLogLevel}}
+\index{getLogLevel@{getLogLevel}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{getLogLevel()}{getLogLevel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} get\+Log\+Level (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain }\end{DoxyParamCaption})}
+
+
+
+Get the current log level. 
+
+
+
+Definition at line 251 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a06c1f3f43faf630be98ffae0355e5277}\label{logging_8cpp_a06c1f3f43faf630be98ffae0355e5277}} 
+\index{logging.cpp@{logging.cpp}!logMessage@{logMessage}}
+\index{logMessage@{logMessage}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{logMessage()}{logMessage()}}
+{\footnotesize\ttfamily void log\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain,  }\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{msg\+Level,  }\item[{const char $\ast$}]{file,  }\item[{const int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Log a message to stderr. 
+
+\begin{DoxyNote}{Note}
+Assumes write(2) calls of $<$= P\+I\+P\+E\+\_\+\+B\+UF bytes are atomic. 
+\end{DoxyNote}
+
+
+Definition at line 112 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a6f6a1d2efec836e79f6bafb52767cb82}\label{logging_8cpp_a6f6a1d2efec836e79f6bafb52767cb82}} 
+\index{logging.cpp@{logging.cpp}!parseDetail@{parseDetail}}
+\index{parseDetail@{parseDetail}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{parseDetail()}{parseDetail()}}
+{\footnotesize\ttfamily static bool parse\+Detail (\begin{DoxyParamCaption}\item[{const char $\ast$}]{detail\+Env\+Var\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+True if {\ttfamily detail\+Env\+Var\+Name} was parsed successfully 
+\end{DoxyReturn}
+
+
+Definition at line 305 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a21c918a44c9f0491f162bcb2f1060abb}\label{logging_8cpp_a21c918a44c9f0491f162bcb2f1060abb}} 
+\index{logging.cpp@{logging.cpp}!parseLevel@{parseLevel}}
+\index{parseLevel@{parseLevel}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{parseLevel()}{parseLevel()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} parse\+Level (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 282 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a44679d4ae1004afa4be73368ab6d97e8}\label{logging_8cpp_a44679d4ae1004afa4be73368ab6d97e8}} 
+\index{logging.cpp@{logging.cpp}!parseNonNegInt@{parseNonNegInt}}
+\index{parseNonNegInt@{parseNonNegInt}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{parseNonNegInt()}{parseNonNegInt()}}
+{\footnotesize\ttfamily static int parse\+Non\+Neg\+Int (\begin{DoxyParamCaption}\item[{const char $\ast$}]{c\+\_\+str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 262 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a8f4287260e01cba889bf0412af7efa6c}\label{logging_8cpp_a8f4287260e01cba889bf0412af7efa6c}} 
+\index{logging.cpp@{logging.cpp}!parsePosInt@{parsePosInt}}
+\index{parsePosInt@{parsePosInt}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{parsePosInt()}{parsePosInt()}}
+{\footnotesize\ttfamily static int parse\+Pos\+Int (\begin{DoxyParamCaption}\item[{const char $\ast$}]{c\+\_\+str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 272 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_ad325f56497af5278ccc683fbb6157229}\label{logging_8cpp_ad325f56497af5278ccc683fbb6157229}} 
+\index{logging.cpp@{logging.cpp}!parseV@{parseV}}
+\index{parseV@{parseV}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{parseV()}{parseV()}}
+{\footnotesize\ttfamily static void parseV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 365 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_acca143f17dd916ab3a2cad3d8c6cd991}\label{logging_8cpp_acca143f17dd916ab3a2cad3d8c6cd991}} 
+\index{logging.cpp@{logging.cpp}!setLevelFromStrings@{setLevelFromStrings}}
+\index{setLevelFromStrings@{setLevelFromStrings}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{setLevelFromStrings()}{setLevelFromStrings()}}
+{\footnotesize\ttfamily static void set\+Level\+From\+Strings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain,  }\item[{const std\+::string \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Try to parse a \char`\"{}$<$domain$>$\+:$<$value$>$\char`\"{} pair extracted from an env var. 
+
+
+
+Definition at line 292 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a3ad37f7d08be1a89986f65de3cd3568f}\label{logging_8cpp_a3ad37f7d08be1a89986f65de3cd3568f}} 
+\index{logging.cpp@{logging.cpp}!setLogLevel@{setLogLevel}}
+\index{setLogLevel@{setLogLevel}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{setLogLevel()}{setLogLevel()}}
+{\footnotesize\ttfamily void set\+Log\+Level (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{new\+Level,  }\item[{const std\+::string \&}]{domain = {\ttfamily \mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}} }\end{DoxyParamCaption})}
+
+
+
+Set log level for {\ttfamily domain} to {\ttfamily new\+Level}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em new\+Level} & -\/ New level. Must be L\+O\+G\+\_\+\+S\+I\+L\+E\+NT, or between L\+O\+G\+\_\+\+M\+IN and L\+O\+G\+\_\+\+M\+AX (inclusive). In particular, you may not set the level to L\+O\+G\+\_\+\+P\+R\+I\+NT or L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR. \\
+\hline
+\mbox{\texttt{ in}}  & {\em domain} & -\/ Which log domain to apply {\ttfamily new\+Level} to.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Some log messages may be dropped when the level changes. 
+\end{DoxyWarning}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if you try to set L\+O\+G\+\_\+\+P\+R\+I\+NT or L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 224 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_af1ebc5018852152006dff8f4b53fb8ed}\label{logging_8cpp_af1ebc5018852152006dff8f4b53fb8ed}} 
+\index{logging.cpp@{logging.cpp}!setVerbosityFromEnvironment@{setVerbosityFromEnvironment}}
+\index{setVerbosityFromEnvironment@{setVerbosityFromEnvironment}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{setVerbosityFromEnvironment()}{setVerbosityFromEnvironment()}}
+{\footnotesize\ttfamily void set\+Verbosity\+From\+Environment (\begin{DoxyParamCaption}\item[{const char $\ast$}]{detail\+Env\+Var\+Name = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Set the verbosity for all log domains based on \$V. 
+
+If \$V exists and is a decimal $>$=1, the system level is set to I\+N\+FO + \$V (e.\+g., 1 = L\+O\+G\+\_\+\+D\+E\+B\+UG, 2 = L\+O\+G\+\_\+\+L\+OG). \begin{DoxyNote}{Note}
+Does not set verbosities for all log domains. 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]implement a {\ttfamily G\+S\+T\+\_\+\+D\+E\+B\+UG}-\/style log-\/level selector. \end{DoxyRefDesc}
+\begin{DoxyWarning}{Warning}
+Must be called before any messages are logged if it is to affect all log domains.
+\end{DoxyWarning}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em detail\+Env\+Var\+Name} & -\/ if given, non-\/\+N\+U\+LL, and nonempty, the name of a G\+Streamer-\/style log-\/level variable to be used instead of {\ttfamily \$V} if the given variable exists. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 379 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_aef992f9b28af5cac638d7c2c57737ade}\label{logging_8cpp_aef992f9b28af5cac638d7c2c57737ade}} 
+\index{logging.cpp@{logging.cpp}!vlogMessage@{vlogMessage}}
+\index{vlogMessage@{vlogMessage}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{vlogMessage()}{vlogMessage()}}
+{\footnotesize\ttfamily void vlog\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain,  }\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{msg\+Level,  }\item[{const char $\ast$}]{file,  }\item[{const int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{const char $\ast$}]{format,  }\item[{va\+\_\+list}]{args }\end{DoxyParamCaption})}
+
+
+
+As \mbox{\hyperlink{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}}, but accepts a va\+\_\+list. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily line} $<$= 9999 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Note}
+Assumes the P\+ID never changes --- don\textquotesingle{}t put this in a shared library unless you change that assumption! 
+\end{DoxyNote}
+
+
+Definition at line 124 of file logging.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{logging_8cpp_a45bdaf2c22c4848cbfa2fa235a859158}\label{logging_8cpp_a45bdaf2c22c4848cbfa2fa235a859158}} 
+\index{logging.cpp@{logging.cpp}!g\_currSystemLevels@{g\_currSystemLevels}}
+\index{g\_currSystemLevels@{g\_currSystemLevels}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{g\_currSystemLevels}{g\_currSystemLevels}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLogLevelHolder}{Log\+Level\+Holder}} g\+\_\+curr\+System\+Levels}
+
+
+
+Current log levels. 
+
+
+
+Definition at line 83 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a8c8e9465ab7697e2eade76ae13c02069}\label{logging_8cpp_a8c8e9465ab7697e2eade76ae13c02069}} 
+\index{logging.cpp@{logging.cpp}!g\_levelnames@{g\_levelnames}}
+\index{g\_levelnames@{g\_levelnames}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{g\_levelnames}{g\_levelnames}}
+{\footnotesize\ttfamily const char$\ast$ g\+\_\+levelnames\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{stringliteral}{"XXXXX"},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"ERROR"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"WARN"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"FIXME"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Info"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Debug"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Log"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"trace"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"peek"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"snoop"},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Human-\/readable names of the log levels. 
+
+Each is $<$= 5 chars for the {\ttfamily \%-\/5s} in \mbox{\hyperlink{logging_8cpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}}. \begin{DoxyWarning}{Warning}
+Keep this in sync with enum Log\+Level! 
+\end{DoxyWarning}
+
+
+Definition at line 32 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_afef054eb25488a0a234ec45127f8873b}\label{logging_8cpp_afef054eb25488a0a234ec45127f8873b}} 
+\index{logging.cpp@{logging.cpp}!LOG\_FD@{LOG\_FD}}
+\index{LOG\_FD@{LOG\_FD}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{LOG\_FD}{LOG\_FD}}
+{\footnotesize\ttfamily const int L\+O\+G\+\_\+\+FD = S\+T\+D\+E\+R\+R\+\_\+\+F\+I\+L\+E\+NO\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Where we write log messages. 
+
+
+
+Definition at line 103 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a280dfdbfd80ade6a8f4468790f71edbe}\label{logging_8cpp_a280dfdbfd80ade6a8f4468790f71edbe}} 
+\index{logging.cpp@{logging.cpp}!LOGBUF\_NBYTES@{LOGBUF\_NBYTES}}
+\index{LOGBUF\_NBYTES@{LOGBUF\_NBYTES}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{LOGBUF\_NBYTES}{LOGBUF\_NBYTES}}
+{\footnotesize\ttfamily const size\+\_\+t L\+O\+G\+B\+U\+F\+\_\+\+N\+B\+Y\+T\+ES = 256\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Size of the buffers used in \mbox{\hyperlink{logging_8cpp_aef992f9b28af5cac638d7c2c57737ade}{vlog\+Message()}} 
+
+
+
+Definition at line 99 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_af86f77d6e4585c78150a02d68c44bf80}\label{logging_8cpp_af86f77d6e4585c78150a02d68c44bf80}} 
+\index{logging.cpp@{logging.cpp}!NORMAL@{NORMAL}}
+\index{NORMAL@{NORMAL}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{NORMAL}{NORMAL}}
+{\footnotesize\ttfamily const char N\+O\+R\+M\+AL\mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}37;0m\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 89 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a9dfccbc5022487d9b105b3c564f920b9}\label{logging_8cpp_a9dfccbc5022487d9b105b3c564f920b9}} 
+\index{logging.cpp@{logging.cpp}!PIDCOLORS@{PIDCOLORS}}
+\index{PIDCOLORS@{PIDCOLORS}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{PIDCOLORS}{PIDCOLORS}}
+{\footnotesize\ttfamily const char$\ast$ P\+I\+D\+C\+O\+L\+O\+RS\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{  }
+\DoxyCodeLine{    \textcolor{stringliteral}{"\(\backslash\)e[30;1m"}, }
+\DoxyCodeLine{    \textcolor{stringliteral}{"\(\backslash\)e[32m"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"\(\backslash\)e[34;1m"}, }
+\DoxyCodeLine{    \textcolor{stringliteral}{"\(\backslash\)e[35m"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"\(\backslash\)e[36m"},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 90 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a3268463103de0f21878ae7bd59713670}\label{logging_8cpp_a3268463103de0f21878ae7bd59713670}} 
+\index{logging.cpp@{logging.cpp}!RED@{RED}}
+\index{RED@{RED}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{RED}{RED}}
+{\footnotesize\ttfamily const char R\+ED\mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}31;1m\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Color for errors. 
+
+
+
+Definition at line 86 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a93d3506255597d645770761c98c24076}\label{logging_8cpp_a93d3506255597d645770761c98c24076}} 
+\index{logging.cpp@{logging.cpp}!WHITE@{WHITE}}
+\index{WHITE@{WHITE}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{WHITE}{WHITE}}
+{\footnotesize\ttfamily const char W\+H\+I\+TE\mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}37;1m\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Color for fix-\/me messages. 
+
+
+
+Definition at line 88 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8cpp_a2a3b6a6f2d998e31ad45fcbd20c6c577}\label{logging_8cpp_a2a3b6a6f2d998e31ad45fcbd20c6c577}} 
+\index{logging.cpp@{logging.cpp}!YELLOW@{YELLOW}}
+\index{YELLOW@{YELLOW}!logging.cpp@{logging.cpp}}
+\doxysubsubsection{\texorpdfstring{YELLOW}{YELLOW}}
+{\footnotesize\ttfamily const char Y\+E\+L\+L\+OW\mbox{[}$\,$\mbox{]} = \char`\"{}\textbackslash{}e\mbox{[}33;1m\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Color for warnings. 
+
+
+
+Definition at line 87 of file logging.\+cpp.
+

@@ -1,0 +1,5 @@
+<map id="smallcxx::Traverser" name="smallcxx::Traverser">
+<area shape="rect" id="node1" title="Helper class to do the traversal." alt="" coords="121,95,271,121"/>
+<area shape="rect" id="node2" href="$classsmallcxx_1_1glob_1_1Matcher.html" title="A matcher holding any number of glob patterns, include or exclude." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node3" href="$classsmallcxx_1_1GlobstariBase.html" title="SAX&#45;style directory searcher: base class." alt="" coords="209,5,389,32"/>
+</map>

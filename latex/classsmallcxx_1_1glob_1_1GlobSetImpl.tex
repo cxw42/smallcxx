@@ -1,0 +1,142 @@
+\hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl}{}\doxysection{smallcxx\+::glob\+::Glob\+Set\+Impl Class Reference}
+\label{classsmallcxx_1_1glob_1_1GlobSetImpl}\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a350729f66f53a6180f54c1373d9c5771}{add\+Glob}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&glob)
+\begin{DoxyCompactList}\small\item\em Add a single glob to the set. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}{finalize}} ()
+\begin{DoxyCompactList}\small\item\em Implementation of Glob\+Set\+::\+Finalize(). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a7ceed955662977df6fee8f2efbe10d26}{finalized}} () const
+\begin{DoxyCompactList}\small\item\em Whether \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}{finalize()}} has been called. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a49a0b9da6a2feece5b3381748f5268bc}{contains}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const
+\begin{DoxyCompactList}\small\item\em Implementation of \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet_a56e63b2f8677cd9a261d12b1f32e522f}{Glob\+Set\+::contains()}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{Path\+Set}} \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a0fe64055964360bccc8ba6a05f6b60af}{globs\+\_\+}}
+\begin{DoxyCompactList}\small\item\em individual globs (input) \end{DoxyCompactList}\item 
+std\+::list$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria}{Criteria}} $>$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_ae1c5fccce45ff56699acd4b16f0eb28b}{criteria\+\_\+}}
+\begin{DoxyCompactList}\small\item\em What we match. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_ad758eabe02cf98f3a6976909390d658f}{finalized\+\_\+}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 463 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_a350729f66f53a6180f54c1373d9c5771}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_a350729f66f53a6180f54c1373d9c5771}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!addGlob@{addGlob}}
+\index{addGlob@{addGlob}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{addGlob()}{addGlob()}}
+{\footnotesize\ttfamily void smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::add\+Glob (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{glob }\end{DoxyParamCaption})}
+
+
+
+Add a single glob to the set. 
+
+
+
+Definition at line 497 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_a49a0b9da6a2feece5b3381748f5268bc}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_a49a0b9da6a2feece5b3381748f5268bc}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!contains@{contains}}
+\index{contains@{contains}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::contains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption}) const}
+
+
+
+Implementation of \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet_a56e63b2f8677cd9a261d12b1f32e522f}{Glob\+Set\+::contains()}}. 
+
+Adapted from editorconfig-\/core-\/c/src/lib/ec\+\_\+glob.\+c\+:ec\+\_\+glob(), the second half of the function. 
+
+Definition at line 563 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!finalize@{finalize}}
+\index{finalize@{finalize}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{finalize()}{finalize()}}
+{\footnotesize\ttfamily void smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::finalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Implementation of Glob\+Set\+::\+Finalize(). 
+
+Fill in criteria\+\_\+ from globs\+\_\+. 
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if any regex cannot be constructed. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyNote}{Note}
+Calling \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}{finalize()}} without first adding any globs is not an error! It will give you a \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{Glob\+Set}} that matches nothing. 
+\end{DoxyNote}
+
+
+Definition at line 506 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_a7ceed955662977df6fee8f2efbe10d26}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_a7ceed955662977df6fee8f2efbe10d26}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!finalized@{finalized}}
+\index{finalized@{finalized}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{finalized()}{finalized()}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::finalized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Whether \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl_a5a6ca1cc6f56e2b2224acff717b458ad}{finalize()}} has been called. 
+
+
+
+Definition at line 486 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_ae1c5fccce45ff56699acd4b16f0eb28b}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_ae1c5fccce45ff56699acd4b16f0eb28b}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!criteria\_@{criteria\_}}
+\index{criteria\_@{criteria\_}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{criteria\_}{criteria\_}}
+{\footnotesize\ttfamily std\+::list$<$\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria}{Criteria}}$>$ smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::criteria\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+What we match. 
+
+
+
+Definition at line 468 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_ad758eabe02cf98f3a6976909390d658f}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_ad758eabe02cf98f3a6976909390d658f}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!finalized\_@{finalized\_}}
+\index{finalized\_@{finalized\_}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{finalized\_}{finalized\_}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::finalized\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 470 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1GlobSetImpl_a0fe64055964360bccc8ba6a05f6b60af}\label{classsmallcxx_1_1glob_1_1GlobSetImpl_a0fe64055964360bccc8ba6a05f6b60af}} 
+\index{smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}!globs\_@{globs\_}}
+\index{globs\_@{globs\_}!smallcxx::glob::GlobSetImpl@{smallcxx::glob::GlobSetImpl}}
+\doxysubsubsection{\texorpdfstring{globs\_}{globs\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{Path\+Set}} smallcxx\+::glob\+::\+Glob\+Set\+Impl\+::globs\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+individual globs (input) 
+
+
+
+Definition at line 465 of file globstari.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari_8cpp}{globstari.\+cpp}}\end{DoxyCompactItemize}

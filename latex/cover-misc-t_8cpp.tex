@@ -1,0 +1,101 @@
+\hypertarget{cover-misc-t_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/t/cover-\/misc-\/t.cpp File Reference}
+\label{cover-misc-t_8cpp}\index{/home/cxw/proj/smallcxx/t/cover-\/misc-\/t.cpp@{/home/cxw/proj/smallcxx/t/cover-\/misc-\/t.cpp}}
+
+
+Coverage for misc. items.  
+
+
+{\ttfamily \#include \char`\"{}smallcxx/test.\+hpp\char`\"{}}\newline
+Include dependency graph for cover-\/misc-\/t.cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cover-misc-t_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{cover-misc-t_8cpp_a56e7f81e206f1ae0e3f49da9f12681f7}{invoke\+\_\+vlog\+Message}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Helper for test\+\_\+setloglevel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{cover-misc-t_8cpp_a55451ed7f67339bf7a94483a9e8aac54}{test\+\_\+setloglevel}} ()
+\item 
+void \mbox{\hyperlink{cover-misc-t_8cpp_a9f9089787996ac0001cbc0156351e314}{test\+\_\+env\+\_\+loglevel}} ()
+\item 
+void \mbox{\hyperlink{cover-misc-t_8cpp_a777247bd3737432f501071dd77d73c10}{emit\+\_\+possibly\+\_\+colorful\+\_\+messages}} ()
+\begin{DoxyCompactList}\small\item\em Log an error and a warning, which will be in color if output is going to the tty. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Coverage for misc. items. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{cover-misc-t_8cpp_a777247bd3737432f501071dd77d73c10}\label{cover-misc-t_8cpp_a777247bd3737432f501071dd77d73c10}} 
+\index{cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}!emit\_possibly\_colorful\_messages@{emit\_possibly\_colorful\_messages}}
+\index{emit\_possibly\_colorful\_messages@{emit\_possibly\_colorful\_messages}!cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{emit\_possibly\_colorful\_messages()}{emit\_possibly\_colorful\_messages()}}
+{\footnotesize\ttfamily void emit\+\_\+possibly\+\_\+colorful\+\_\+messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Log an error and a warning, which will be in color if output is going to the tty. 
+
+This is for coverage of {\ttfamily bodycolor} in \mbox{\hyperlink{logging_8hpp_aef992f9b28af5cac638d7c2c57737ade}{vlog\+Message()}}. 
+
+Definition at line 81 of file cover-\/misc-\/t.\+cpp.
+
+\mbox{\Hypertarget{cover-misc-t_8cpp_a56e7f81e206f1ae0e3f49da9f12681f7}\label{cover-misc-t_8cpp_a56e7f81e206f1ae0e3f49da9f12681f7}} 
+\index{cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}!invoke\_vlogMessage@{invoke\_vlogMessage}}
+\index{invoke\_vlogMessage@{invoke\_vlogMessage}!cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{invoke\_vlogMessage()}{invoke\_vlogMessage()}}
+{\footnotesize\ttfamily void invoke\+\_\+vlog\+Message (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Helper for test\+\_\+setloglevel. 
+
+
+
+Definition at line 14 of file cover-\/misc-\/t.\+cpp.
+
+\mbox{\Hypertarget{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}!main@{main}}
+\index{main@{main}!cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file cover-\/misc-\/t.\+cpp.
+
+\mbox{\Hypertarget{cover-misc-t_8cpp_a9f9089787996ac0001cbc0156351e314}\label{cover-misc-t_8cpp_a9f9089787996ac0001cbc0156351e314}} 
+\index{cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}!test\_env\_loglevel@{test\_env\_loglevel}}
+\index{test\_env\_loglevel@{test\_env\_loglevel}!cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_env\_loglevel()}{test\_env\_loglevel()}}
+{\footnotesize\ttfamily void test\+\_\+env\+\_\+loglevel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 59 of file cover-\/misc-\/t.\+cpp.
+
+\mbox{\Hypertarget{cover-misc-t_8cpp_a55451ed7f67339bf7a94483a9e8aac54}\label{cover-misc-t_8cpp_a55451ed7f67339bf7a94483a9e8aac54}} 
+\index{cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}!test\_setloglevel@{test\_setloglevel}}
+\index{test\_setloglevel@{test\_setloglevel}!cover-\/misc-\/t.cpp@{cover-\/misc-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_setloglevel()}{test\_setloglevel()}}
+{\footnotesize\ttfamily void test\+\_\+setloglevel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 25 of file cover-\/misc-\/t.\+cpp.
+

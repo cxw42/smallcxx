@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['glob_138',['glob',['../namespacesmallcxx_1_1glob.html',1,'smallcxx']]],
+  ['smallcxx_20_2d_20small_20c_2b_2b_20libraries_139',['smallcxx - Small C++ libraries',['../index.html',1,'']]],
+  ['seen_5f_140',['seen_',['../classsmallcxx_1_1Traverser.html#a67650709a0bcf91a358dd678eef8aaa9',1,'smallcxx::Traverser']]],
+  ['setandpolarity_141',['SetAndPolarity',['../structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity.html',1,'smallcxx::glob::Matcher::SetAndPolarity'],['../structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity.html#afbf432ab357e51c222005111522e646b',1,'smallcxx::glob::Matcher::SetAndPolarity::SetAndPolarity(Polarity pol)'],['../structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity.html#a7a04f139ded16010c42d9b15b9c64ad4',1,'smallcxx::glob::Matcher::SetAndPolarity::SetAndPolarity(const SetAndPolarity &amp;other)=default']]],
+  ['setlevelfromstrings_142',['setLevelFromStrings',['../logging_8cpp.html#acca143f17dd916ab3a2cad3d8c6cd991',1,'logging.cpp']]],
+  ['setloglevel_143',['setLogLevel',['../logging_8hpp.html#aa59e2c31852d8cb475fd41046988c505',1,'setLogLevel(LogLevel newLevel, const std::string &amp;domain=SMALLCXX_DEFAULT_LOG_DOMAIN):&#160;logging.cpp'],['../logging_8cpp.html#a3ad37f7d08be1a89986f65de3cd3568f',1,'setLogLevel(LogLevel newLevel, const std::string &amp;domain):&#160;logging.cpp']]],
+  ['setverbosityfromenvironment_144',['setVerbosityFromEnvironment',['../logging_8hpp.html#a10f677e75bb110f750a9e5835d0dc43e',1,'setVerbosityFromEnvironment(const char *detailEnvVarName=nullptr):&#160;logging.cpp'],['../logging_8cpp.html#af1ebc5018852152006dff8f4b53fb8ed',1,'setVerbosityFromEnvironment(const char *detailEnvVarName):&#160;logging.cpp']]],
+  ['skip_145',['Skip',['../classsmallcxx_1_1GlobstariBase.html#a463b70117b9c8b4b1ad7a2e06784be12a72ef2b9b6965d078e3c7f95487a82d1c',1,'smallcxx::GlobstariBase']]],
+  ['smallcxx_146',['smallcxx',['../namespacesmallcxx.html',1,'']]],
+  ['smallcxx_5fdefault_5flog_5fdomain_147',['SMALLCXX_DEFAULT_LOG_DOMAIN',['../logging_8hpp.html#a17f2f64f791201edff8613986f463647',1,'logging.hpp']]],
+  ['smallcxx_5flog_5fdomain_148',['SMALLCXX_LOG_DOMAIN',['../logging_8hpp.html#a74923aab146431a66fae0773ae15d0fe',1,'logging.hpp']]],
+  ['smallcxx_5flog_5fdomain_5fname_149',['SMALLCXX_LOG_DOMAIN_NAME',['../logging_8hpp.html#a4818a25be66bbcbd2c52c3909ebbf238',1,'logging.hpp']]],
+  ['smallcxx_5fuse_5fchomp_150',['SMALLCXX_USE_CHOMP',['../logging_8cpp.html#a00b1107b4e4d11bdf1bd427d2d764b24',1,'SMALLCXX_USE_CHOMP():&#160;logging.cpp'],['../string_8cpp.html#a00b1107b4e4d11bdf1bd427d2d764b24',1,'SMALLCXX_USE_CHOMP():&#160;string.cpp'],['../string-t_8cpp.html#a00b1107b4e4d11bdf1bd427d2d764b24',1,'SMALLCXX_USE_CHOMP():&#160;string-t.cpp']]],
+  ['ss_151',['ss',['../classStringFormatter.html#ae695fa6500be37f5cfb095a8f92eabda',1,'StringFormatter']]],
+  ['stop_152',['Stop',['../classsmallcxx_1_1GlobstariBase.html#a463b70117b9c8b4b1ad7a2e06784be12a11a755d598c0c417f9a36758c3da7481',1,'smallcxx::GlobstariBase']]],
+  ['stoptraversal_153',['StopTraversal',['../structsmallcxx_1_1StopTraversal.html',1,'smallcxx']]],
+  ['str_154',['str',['../classStringFormatter.html#ab331f7095e83cae884782ee54e60c0a6',1,'StringFormatter']]],
+  ['str_5fof_155',['STR_OF',['../string_8hpp.html#a8d6319707a882a5164aee34d23dd3c97',1,'string.hpp']]],
+  ['string_2dt_2ecpp_156',['string-t.cpp',['../string-t_8cpp.html',1,'']]],
+  ['string_2ecpp_157',['string.cpp',['../string_8cpp.html',1,'']]],
+  ['string_2ehpp_158',['string.hpp',['../string_8hpp.html',1,'']]],
+  ['stringformatter_159',['StringFormatter',['../classStringFormatter.html',1,'']]]
+];

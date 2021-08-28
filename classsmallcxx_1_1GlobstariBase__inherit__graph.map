@@ -1,0 +1,6 @@
+<map id="smallcxx::GlobstariBase" name="smallcxx::GlobstariBase">
+<area shape="rect" id="node1" title="SAX&#45;style directory searcher: base class." alt="" coords="105,5,285,32"/>
+<area shape="rect" id="node2" href="$classsmallcxx_1_1GlobstariDisk.html" title="Globstari for disk files (abstract base class)." alt="" coords="5,80,183,107"/>
+<area shape="rect" id="node4" href="$classTestGlobstariBaseSanity.html" title="A do&#45;nothing concrete GlobstariBase subclass." alt="" coords="207,80,387,107"/>
+<area shape="rect" id="node3" href="$structDiskTraverser.html" title="Save filenames traversed." alt="" coords="38,155,150,181"/>
+</map>

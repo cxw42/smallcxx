@@ -1,0 +1,99 @@
+\hypertarget{namespacesmallcxx}{}\doxysection{smallcxx Namespace Reference}
+\label{namespacesmallcxx}\index{smallcxx@{smallcxx}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx_1_1glob}{glob}}
+\begin{DoxyCompactList}\small\item\em Glob-\/testing routines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}}
+\begin{DoxyCompactList}\small\item\em S\+A\+X-\/style directory searcher\+: base class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk}{Globstari\+Disk}}
+\begin{DoxyCompactList}\small\item\em Globstari for disk files (abstract base class). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1StopTraversal}{Stop\+Traversal}}
+\begin{DoxyCompactList}\small\item\em Control exception used to stop traversal early. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1Traverser}{Traverser}}
+\begin{DoxyCompactList}\small\item\em Helper class to do the traversal. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1WorkItem}{Work\+Item}}
+\begin{DoxyCompactList}\small\item\em An entry and corresponding ignores. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{namespacesmallcxx_acec09ff7404e077f81374df82aae64fb}{trim}} (const std\+::string \&s)
+\begin{DoxyCompactList}\small\item\em Trim leading and trailing whitespace in a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \mbox{\hyperlink{namespacesmallcxx_a47022bdf70a47807e11ffb26d08a4be4}{Path\+Check\+Result\+Names}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Human-\/readable Path\+Check\+Result\+Names. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}\label{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}} 
+\index{smallcxx@{smallcxx}!MatcherPtr@{MatcherPtr}}
+\index{MatcherPtr@{MatcherPtr}!smallcxx@{smallcxx}}
+\doxysubsubsection{\texorpdfstring{MatcherPtr}{MatcherPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{smallcxx\+::\+Matcher\+Ptr}} = typedef std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}$>$}
+
+
+
+Definition at line 60 of file globstari-\/traverse.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_acec09ff7404e077f81374df82aae64fb}\label{namespacesmallcxx_acec09ff7404e077f81374df82aae64fb}} 
+\index{smallcxx@{smallcxx}!trim@{trim}}
+\index{trim@{trim}!smallcxx@{smallcxx}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}}
+{\footnotesize\ttfamily std\+::string smallcxx\+::trim (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Trim leading and trailing whitespace in a string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em s} & -\/ the string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a copy with any leading and trailing whitespace removed 
+\end{DoxyReturn}
+
+
+Definition at line 30 of file string.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_a47022bdf70a47807e11ffb26d08a4be4}\label{namespacesmallcxx_a47022bdf70a47807e11ffb26d08a4be4}} 
+\index{smallcxx@{smallcxx}!PathCheckResultNames@{PathCheckResultNames}}
+\index{PathCheckResultNames@{PathCheckResultNames}!smallcxx@{smallcxx}}
+\doxysubsubsection{\texorpdfstring{PathCheckResultNames}{PathCheckResultNames}}
+{\footnotesize\ttfamily const char$\ast$ smallcxx\+::\+Path\+Check\+Result\+Names\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{stringliteral}{"included"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"excluded"},}
+\DoxyCodeLine{    \textcolor{stringliteral}{"unknown "},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Human-\/readable Path\+Check\+Result\+Names. 
+
+All the same width to make the logs easier to read. 
+
+Definition at line 31 of file globstari-\/traverse.\+cpp.
+

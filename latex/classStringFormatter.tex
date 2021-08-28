@@ -1,0 +1,101 @@
+\hypertarget{classStringFormatter}{}\doxysection{String\+Formatter Class Reference}
+\label{classStringFormatter}\index{StringFormatter@{StringFormatter}}
+
+
+A wrapper around an ostringstream so you can use it inline.  
+
+
+
+
+{\ttfamily \#include $<$string.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\\mbox{\hyperlink{classStringFormatter}{String\+Formatter}} \& \mbox{\hyperlink{classStringFormatter_a505b8f95c4e7908ab91597165ebc537b}{operator$<$$<$}} (T \&\&rhs)
+\item 
+\mbox{\hyperlink{classStringFormatter_ab969a98009129dfcf1d02cdc62403f78}{operator std\+::string}} ()
+\item 
+std\+::string \mbox{\hyperlink{classStringFormatter_ab331f7095e83cae884782ee54e60c0a6}{str}} ()
+\item 
+const char $\ast$ \mbox{\hyperlink{classStringFormatter_a549e1dba243d9139a4c6c7d24703f47c}{c\+\_\+str}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostringstream \mbox{\hyperlink{classStringFormatter_ae695fa6500be37f5cfb095a8f92eabda}{ss}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A wrapper around an ostringstream so you can use it inline. 
+
+\begin{DoxyWarning}{Warning}
+Any particular instance should be used only from a single thread. 
+\end{DoxyWarning}
+
+
+Definition at line 17 of file string.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classStringFormatter_a549e1dba243d9139a4c6c7d24703f47c}\label{classStringFormatter_a549e1dba243d9139a4c6c7d24703f47c}} 
+\index{StringFormatter@{StringFormatter}!c\_str@{c\_str}}
+\index{c\_str@{c\_str}!StringFormatter@{StringFormatter}}
+\doxysubsubsection{\texorpdfstring{c\_str()}{c\_str()}}
+{\footnotesize\ttfamily const char$\ast$ String\+Formatter\+::c\+\_\+str (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file string.\+hpp.
+
+\mbox{\Hypertarget{classStringFormatter_ab969a98009129dfcf1d02cdc62403f78}\label{classStringFormatter_ab969a98009129dfcf1d02cdc62403f78}} 
+\index{StringFormatter@{StringFormatter}!operator std::string@{operator std::string}}
+\index{operator std::string@{operator std::string}!StringFormatter@{StringFormatter}}
+\doxysubsubsection{\texorpdfstring{operator std::string()}{operator std::string()}}
+{\footnotesize\ttfamily String\+Formatter\+::operator std\+::string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 30 of file string.\+hpp.
+
+\mbox{\Hypertarget{classStringFormatter_a505b8f95c4e7908ab91597165ebc537b}\label{classStringFormatter_a505b8f95c4e7908ab91597165ebc537b}} 
+\index{StringFormatter@{StringFormatter}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!StringFormatter@{StringFormatter}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classStringFormatter}{String\+Formatter}}\& String\+Formatter\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{T \&\&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 24 of file string.\+hpp.
+
+\mbox{\Hypertarget{classStringFormatter_ab331f7095e83cae884782ee54e60c0a6}\label{classStringFormatter_ab331f7095e83cae884782ee54e60c0a6}} 
+\index{StringFormatter@{StringFormatter}!str@{str}}
+\index{str@{str}!StringFormatter@{StringFormatter}}
+\doxysubsubsection{\texorpdfstring{str()}{str()}}
+{\footnotesize\ttfamily std\+::string String\+Formatter\+::str (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 36 of file string.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classStringFormatter_ae695fa6500be37f5cfb095a8f92eabda}\label{classStringFormatter_ae695fa6500be37f5cfb095a8f92eabda}} 
+\index{StringFormatter@{StringFormatter}!ss@{ss}}
+\index{ss@{ss}!StringFormatter@{StringFormatter}}
+\doxysubsubsection{\texorpdfstring{ss}{ss}}
+{\footnotesize\ttfamily std\+::ostringstream String\+Formatter\+::ss\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 19 of file string.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/include/smallcxx/\mbox{\hyperlink{string_8hpp}{string.\+hpp}}\end{DoxyCompactItemize}

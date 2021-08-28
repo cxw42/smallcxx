@@ -1,0 +1,93 @@
+\hypertarget{test_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/src/test.cpp File Reference}
+\label{test_8cpp}\index{/home/cxw/proj/smallcxx/src/test.cpp@{/home/cxw/proj/smallcxx/src/test.cpp}}
+
+
+Implementation of a basic test harness.  
+
+
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$smallcxx/test.\+hpp$>$}\newline
+Include dependency graph for test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test_8cpp_afde77c69480aa916683b4e751d0b88b0}{T\+E\+S\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}~(\char`\"{} test\char`\"{})
+\begin{DoxyCompactList}\small\item\em Internal domain (starts with space). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{test_8cpp_a352825605d1edb54517ec6da224bf127}{test\+\_\+assert}} (unsigned int \&failures, unsigned int \&successes, const char $\ast$file, int line, const char $\ast$function, bool cond, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Master assertion routine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of a basic test harness. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{test_8cpp_afde77c69480aa916683b4e751d0b88b0}\label{test_8cpp_afde77c69480aa916683b4e751d0b88b0}} 
+\index{test.cpp@{test.cpp}!TEST\_LOG\_DOMAIN@{TEST\_LOG\_DOMAIN}}
+\index{TEST\_LOG\_DOMAIN@{TEST\_LOG\_DOMAIN}!test.cpp@{test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_LOG\_DOMAIN}{TEST\_LOG\_DOMAIN}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN~(\char`\"{} test\char`\"{})}
+
+
+
+Internal domain (starts with space). 
+
+We use this so our messages get printed even if the default domain\textquotesingle{}s log level has been changed. 
+
+Definition at line 13 of file test.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test_8cpp_a352825605d1edb54517ec6da224bf127}\label{test_8cpp_a352825605d1edb54517ec6da224bf127}} 
+\index{test.cpp@{test.cpp}!test\_assert@{test\_assert}}
+\index{test\_assert@{test\_assert}!test.cpp@{test.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_assert()}{test\_assert()}}
+{\footnotesize\ttfamily void test\+\_\+assert (\begin{DoxyParamCaption}\item[{unsigned int \&}]{failures,  }\item[{unsigned int \&}]{successes,  }\item[{const char $\ast$}]{file,  }\item[{int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{bool}]{cond,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Master assertion routine. 
+
+If {\ttfamily cond} is true, increment {\ttfamily successes}. Otherwise, increment {\ttfamily failures} and log a test-\/failure message.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em failures} & Incremented if {\ttfamily cond} is false \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em successes} & Incremented if {\ttfamily cond} is true \\
+\hline
+\mbox{\texttt{ in}}  & {\em file} & {\bfseries{F\+I\+LE}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em line} & {\bfseries{L\+I\+NE}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em function} & {\bfseries{func}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em cond} & True if the test passed, false otherwise \\
+\hline
+\mbox{\texttt{ in}}  & {\em format} & Failure message format string \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 18 of file test.\+cpp.
+

@@ -1,0 +1,52 @@
+\hypertarget{globstari-matcher_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/src/globstari-\/matcher.cpp File Reference}
+\label{globstari-matcher_8cpp}\index{/home/cxw/proj/smallcxx/src/globstari-\/matcher.cpp@{/home/cxw/proj/smallcxx/src/globstari-\/matcher.cpp}}
+
+
+globstar + ignore routines --- Matcher implementation.  
+
+
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$istream$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include \char`\"{}smallcxx/globstari.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/logging.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/string.\+hpp\char`\"{}}\newline
+Include dependency graph for globstari-\/matcher.cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{globstari-matcher_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx}{smallcxx}}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx_1_1glob}{smallcxx\+::glob}}
+\begin{DoxyCompactList}\small\item\em Glob-\/testing routines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const string \mbox{\hyperlink{namespacesmallcxx_1_1glob_aa9d08d57396bbba9f5babe7bf3a6efc2}{smallcxx\+::glob\+::ec\+\_\+special\+\_\+chars}} = \char`\"{}?\mbox{[}$\,$\mbox{]}\textbackslash{}\textbackslash{}$\ast$-\/\{\},\char`\"{}
+\begin{DoxyCompactList}\small\item\em Characters that are special in globs so should be escaped. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+globstar + ignore routines --- Matcher implementation. 
+
+Part of smallcxx \begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+
+Uses some code from editorconfig-\/core-\/c, licensed B\+SD. See below for the editorconfig-\/core-\/c copyright statement. 
+\end{DoxyCopyright}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]permit matching only directories (trailing slash on globs) \end{DoxyRefDesc}

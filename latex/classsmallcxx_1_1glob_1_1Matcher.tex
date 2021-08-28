@@ -1,0 +1,344 @@
+\hypertarget{classsmallcxx_1_1glob_1_1Matcher}{}\doxysection{smallcxx\+::glob\+::Matcher Class Reference}
+\label{classsmallcxx_1_1glob_1_1Matcher}\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+
+
+A matcher holding any number of glob patterns, include or exclude.  
+
+
+
+
+{\ttfamily \#include $<$globstari.\+hpp$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity}{Set\+And\+Polarity}}
+\begin{DoxyCompactList}\small\item\em A \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{Glob\+Set}} and its polarity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_aeb811104ec4d8a03bd46dc2976be36e6}{Matcher}} ()=default
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a1b3f773696135655713e268a697aadf6}{$\sim$\+Matcher}} ()=default
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_aea30e421fe6e4ce61ee5e929948c5728}{Matcher}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$ \&delegate)
+\begin{DoxyCompactList}\small\item\em Construct a matcher having a delegate. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a6bd1a7de92ce05b58e2b587687468dc8}{Matcher}} (const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&globs, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} path, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$ \&delegate=nullptr)
+\begin{DoxyCompactList}\small\item\em Construct and finalize a matcher with multiple calls to add\+Glob(\+Path,\+Path). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a79a9a8754972a50e0d78c032074c8abd}{add\+Glob}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&glob)
+\begin{DoxyCompactList}\small\item\em Add a single glob to the matcher. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_abefd26d2bd843d8523174ab1a33cb481}{add\+Glob}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&glob, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path)
+\begin{DoxyCompactList}\small\item\em Add a single glob, relative to a path, to the matcher. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_aababfbe53488e799204d34f85c507c2a}{add\+Globs}} (const T \&globs)
+\begin{DoxyCompactList}\small\item\em Add multiple globs to the matcher. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a96857f2078853e24977b07fc6183b239}{add\+Globs}} (const T \&globs, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path)
+\begin{DoxyCompactList}\small\item\em Add multiple globs to the matcher. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a68f1a77ff0f573a4c764601e8a371dca}{finalize}} ()
+\begin{DoxyCompactList}\small\item\em Call this once all the globs have been added. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a2f472afed1548d1b28c3eb4ea05d46ba}{ready}} () const
+\begin{DoxyCompactList}\small\item\em Whether you can run \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a89b52bd17869df043cd29674ad16e2a0}{contains()}} \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a89b52bd17869df043cd29674ad16e2a0}{contains}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const
+\begin{DoxyCompactList}\small\item\em Check whether the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} contains {\ttfamily path}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}{Path\+Check\+Result}} \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a63c5710016bdbd34caf7a74d68075aae}{check}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const
+\begin{DoxyCompactList}\small\item\em Check whether {\ttfamily path} is included, excluded, or not in this \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_ad6476bbfff4f0fd101fd589c5ebf7f62}{delegate\+\_\+}}
+\begin{DoxyCompactList}\small\item\em If non-\/null, a \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} to delegate to if a path is neither included nor excluded by this \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity}{Set\+And\+Polarity}} $>$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a8b683fb3f5b016ff95f8f1b3102a372b}{globsets\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The globs we match (or don\textquotesingle{}t). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A matcher holding any number of glob patterns, include or exclude. 
+
+The patterns are grouped into sets, each glob in a set having the same Polarity. For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{*.bak}
+\DoxyCodeLine{*.swp}
+\DoxyCodeLine{!*.foo}
+\DoxyCodeLine{*.bar}
+\end{DoxyCode}
+
+
+will have, in order, a \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}{Polarity\+::\+Include}} set matching {\ttfamily $\ast$.\{bak,swp\}}; a \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}{Polarity\+::\+Exclude}} set matching {\ttfamily $\ast$.foo}; and a \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}{Polarity\+::\+Include}} set matching {\ttfamily $\ast$.bar}.
+
+All globs follow the \href{https://editorconfig.org}{\texttt{ Editor\+Config}} format. \begin{DoxyNote}{Note}
+Path entries are separated by {\ttfamily /} (forward slash) on all platforms! 
+\end{DoxyNote}
+
+
+Definition at line 125 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_aeb811104ec4d8a03bd46dc2976be36e6}\label{classsmallcxx_1_1glob_1_1Matcher_aeb811104ec4d8a03bd46dc2976be36e6}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!Matcher@{Matcher}}
+\index{Matcher@{Matcher}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{Matcher()}{Matcher()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Matcher\+::\+Matcher (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a1b3f773696135655713e268a697aadf6}\label{classsmallcxx_1_1glob_1_1Matcher_a1b3f773696135655713e268a697aadf6}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!````~Matcher@{$\sim$Matcher}}
+\index{````~Matcher@{$\sim$Matcher}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{$\sim$Matcher()}{~Matcher()}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Matcher\+::$\sim$\+Matcher (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_aea30e421fe6e4ce61ee5e929948c5728}\label{classsmallcxx_1_1glob_1_1Matcher_aea30e421fe6e4ce61ee5e929948c5728}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!Matcher@{Matcher}}
+\index{Matcher@{Matcher}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{Matcher()}{Matcher()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Matcher\+::\+Matcher (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$ \&}]{delegate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a matcher having a delegate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em delegate} & -\/ The \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} to delegate to for unknown results. E.\+g., a parent ignore set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 33 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a6bd1a7de92ce05b58e2b587687468dc8}\label{classsmallcxx_1_1glob_1_1Matcher_a6bd1a7de92ce05b58e2b587687468dc8}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!Matcher@{Matcher}}
+\index{Matcher@{Matcher}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{Matcher()}{Matcher()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Matcher\+::\+Matcher (\begin{DoxyParamCaption}\item[{const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&}]{globs,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}}}]{path,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$ \&}]{delegate = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Construct and finalize a matcher with multiple calls to add\+Glob(\+Path,\+Path). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em globs} & -\/ the globs to add \\
+\hline
+\mbox{\texttt{ in}}  & {\em path} & -\/ where each of the globs should be anchored. Must be nonempty and end with a {\ttfamily /}. \\
+\hline
+\mbox{\texttt{ in}}  & {\em delegate} & -\/ The \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} to delegate to for unknown results. E.\+g., a parent ignore set. Optional; default nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 38 of file globstari-\/matcher.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a79a9a8754972a50e0d78c032074c8abd}\label{classsmallcxx_1_1glob_1_1Matcher_a79a9a8754972a50e0d78c032074c8abd}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!addGlob@{addGlob}}
+\index{addGlob@{addGlob}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{addGlob()}{addGlob()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void smallcxx\+::glob\+::\+Matcher\+::add\+Glob (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{glob }\end{DoxyParamCaption})}
+
+
+
+Add a single glob to the matcher. 
+
+
+
+Definition at line 51 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_abefd26d2bd843d8523174ab1a33cb481}\label{classsmallcxx_1_1glob_1_1Matcher_abefd26d2bd843d8523174ab1a33cb481}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!addGlob@{addGlob}}
+\index{addGlob@{addGlob}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{addGlob()}{addGlob()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void smallcxx\+::glob\+::\+Matcher\+::add\+Glob (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{glob,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Add a single glob, relative to a path, to the matcher. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em glob} & -\/ the glob \\
+\hline
+\mbox{\texttt{ in}}  & {\em path} & -\/ where the glob should be anchored. Must be nonempty and end with a {\ttfamily /}.\\
+\hline
+\end{DoxyParams}
+E.\+g., if {\ttfamily path} is {\ttfamily /foo} and {\ttfamily glob} is {\ttfamily $\ast$.txt}, only {\ttfamily /foo/$\ast$.txt} will match. However, if {\ttfamily glob} is {\ttfamily $\ast$$\ast$/$\ast$.txt}, {\ttfamily /foo/bar/$\ast$.txt} will also match.
+
+Adapted from editorconfig-\/core-\/c/src/lib/editorconfig.\+c\+:ini\+\_\+handler() 
+
+Definition at line 78 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_aababfbe53488e799204d34f85c507c2a}\label{classsmallcxx_1_1glob_1_1Matcher_aababfbe53488e799204d34f85c507c2a}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!addGlobs@{addGlobs}}
+\index{addGlobs@{addGlobs}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{addGlobs()}{addGlobs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void smallcxx\+::glob\+::\+Matcher\+::add\+Globs (\begin{DoxyParamCaption}\item[{const T \&}]{globs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add multiple globs to the matcher. 
+
+Templated so you can use vectors or initializer\+\_\+lists. 
+
+Definition at line 189 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a96857f2078853e24977b07fc6183b239}\label{classsmallcxx_1_1glob_1_1Matcher_a96857f2078853e24977b07fc6183b239}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!addGlobs@{addGlobs}}
+\index{addGlobs@{addGlobs}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{addGlobs()}{addGlobs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void smallcxx\+::glob\+::\+Matcher\+::add\+Globs (\begin{DoxyParamCaption}\item[{const T \&}]{globs,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add multiple globs to the matcher. 
+
+Templated so you can use vectors or initializer\+\_\+lists. 
+
+Definition at line 200 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a63c5710016bdbd34caf7a74d68075aae}\label{classsmallcxx_1_1glob_1_1Matcher_a63c5710016bdbd34caf7a74d68075aae}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!check@{check}}
+\index{check@{check}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{check()}{check()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}{Path\+Check\+Result}} smallcxx\+::glob\+::\+Matcher\+::check (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption}) const}
+
+
+
+Check whether {\ttfamily path} is included, excluded, or not in this \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & -\/ the path to check. Must be either the empty string (in which case the result is Unknown) or an absolute path. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em logic\+\_\+error} & if not \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a2f472afed1548d1b28c3eb4ea05d46ba}{ready()}}. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a984ceac16fab685fc50b8d8a5eabf7de}{Path\+Check\+Result\+::\+Included}} if {\ttfamily path} is included;
+\item \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a122180683375b33fd7171ebba4660f80}{Path\+Check\+Result\+::\+Excluded}} if {\ttfamily path} is excluded,
+\item \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a88183b946cc5f0e8c96b2e66e1c74a7e}{Path\+Check\+Result\+::\+Unknown}} if\+:
+\begin{DoxyItemize}
+\item {\ttfamily path} does not match any globset in the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}, regardless of polarity, or
+\item there are no globsets in the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line 161 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a89b52bd17869df043cd29674ad16e2a0}\label{classsmallcxx_1_1glob_1_1Matcher_a89b52bd17869df043cd29674ad16e2a0}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!contains@{contains}}
+\index{contains@{contains}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Matcher\+::contains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption}) const}
+
+
+
+Check whether the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} contains {\ttfamily path}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & -\/ the path to check. Must be either the empty string (in which case it doesn\textquotesingle{}t match) or an absolute path. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if {\ttfamily path} is in this \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{Glob\+Set}}; false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em logic\+\_\+error} & if not \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a2f472afed1548d1b28c3eb4ea05d46ba}{ready()}}. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item true if {\ttfamily path} is included, or
+\item false if\+:
+\begin{DoxyItemize}
+\item {\ttfamily path} is excluded,
+\item {\ttfamily path} does not match any globset in the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}, regardless of polarity, or
+\item there are no globsets in the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line 155 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a68f1a77ff0f573a4c764601e8a371dca}\label{classsmallcxx_1_1glob_1_1Matcher_a68f1a77ff0f573a4c764601e8a371dca}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!finalize@{finalize}}
+\index{finalize@{finalize}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{finalize()}{finalize()}}
+{\footnotesize\ttfamily void smallcxx\+::glob\+::\+Matcher\+::finalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Call this once all the globs have been added. 
+
+
+
+Definition at line 139 of file globstari-\/matcher.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a2f472afed1548d1b28c3eb4ea05d46ba}\label{classsmallcxx_1_1glob_1_1Matcher_a2f472afed1548d1b28c3eb4ea05d46ba}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!ready@{ready}}
+\index{ready@{ready}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{ready()}{ready()}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Matcher\+::ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Whether you can run \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a89b52bd17869df043cd29674ad16e2a0}{contains()}} 
+
+
+
+Definition at line 147 of file globstari-\/matcher.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_ad6476bbfff4f0fd101fd589c5ebf7f62}\label{classsmallcxx_1_1glob_1_1Matcher_ad6476bbfff4f0fd101fd589c5ebf7f62}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!delegate\_@{delegate\_}}
+\index{delegate\_@{delegate\_}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{delegate\_}{delegate\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}$>$ smallcxx\+::glob\+::\+Matcher\+::delegate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If non-\/null, a \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} to delegate to if a path is neither included nor excluded by this \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. 
+
+
+
+Definition at line 131 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Matcher_a8b683fb3f5b016ff95f8f1b3102a372b}\label{classsmallcxx_1_1glob_1_1Matcher_a8b683fb3f5b016ff95f8f1b3102a372b}} 
+\index{smallcxx::glob::Matcher@{smallcxx::glob::Matcher}!globsets\_@{globsets\_}}
+\index{globsets\_@{globsets\_}!smallcxx::glob::Matcher@{smallcxx::glob::Matcher}}
+\doxysubsubsection{\texorpdfstring{globsets\_}{globsets\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity}{Set\+And\+Polarity}}$>$ smallcxx\+::glob\+::\+Matcher\+::globsets\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The globs we match (or don\textquotesingle{}t). 
+
+Invariant\+:
+\begin{DoxyItemize}
+\item until \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a68f1a77ff0f573a4c764601e8a371dca}{finalize()}} is called, all globsets except the last one have been finalized.
+\item once \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher_a68f1a77ff0f573a4c764601e8a371dca}{finalize()}} completes, all globsets have been finalized. 
+\end{DoxyItemize}
+
+Definition at line 147 of file globstari.\+hpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/include/smallcxx/\mbox{\hyperlink{globstari_8hpp}{globstari.\+hpp}}\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari-matcher_8cpp}{globstari-\/matcher.\+cpp}}\end{DoxyCompactItemize}

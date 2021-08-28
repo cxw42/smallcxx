@@ -1,0 +1,62 @@
+\hypertarget{globstari-traverse_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/src/globstari-\/traverse.cpp File Reference}
+\label{globstari-traverse_8cpp}\index{/home/cxw/proj/smallcxx/src/globstari-\/traverse.cpp@{/home/cxw/proj/smallcxx/src/globstari-\/traverse.cpp}}
+
+
+globstar + ignore routines --- tree-\/traversal routines  
+
+
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$system\+\_\+error$>$}\newline
+{\ttfamily \#include \char`\"{}smallcxx/globstari.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/logging.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/string.\+hpp\char`\"{}}\newline
+Include dependency graph for globstari-\/traverse.cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{globstari-traverse_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1StopTraversal}{smallcxx\+::\+Stop\+Traversal}}
+\begin{DoxyCompactList}\small\item\em Control exception used to stop traversal early. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1WorkItem}{smallcxx\+::\+Work\+Item}}
+\begin{DoxyCompactList}\small\item\em An entry and corresponding ignores. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1Traverser}{smallcxx\+::\+Traverser}}
+\begin{DoxyCompactList}\small\item\em Helper class to do the traversal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx}{smallcxx}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{smallcxx\+::\+Matcher\+Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \mbox{\hyperlink{namespacesmallcxx_a47022bdf70a47807e11ffb26d08a4be4}{smallcxx\+::\+Path\+Check\+Result\+Names}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Human-\/readable Path\+Check\+Result\+Names. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+globstar + ignore routines --- tree-\/traversal routines 
+
+Part of smallcxx \begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]permit matching only directories (trailing slash on globs) \end{DoxyRefDesc}

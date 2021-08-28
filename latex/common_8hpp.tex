@@ -1,0 +1,169 @@
+\hypertarget{common_8hpp}{}\doxysection{/home/cxw/proj/smallcxx/include/smallcxx/common.hpp File Reference}
+\label{common_8hpp}\index{/home/cxw/proj/smallcxx/include/smallcxx/common.hpp@{/home/cxw/proj/smallcxx/include/smallcxx/common.hpp}}
+
+
+Common definitions for smallcxx.  
+
+
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for common.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{common_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{common_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{common_8hpp_a6242a25f9d996f0cc4f4cdb911218b75}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(x)~(sizeof(x) / sizeof(x\mbox{[}0\mbox{]}))
+\item 
+\#define \mbox{\hyperlink{common_8hpp_a728775aa81ad14322f6602e05b69a40a}{throw\+\_\+assert}}(cond)
+\begin{DoxyCompactList}\small\item\em Throw a message indicating an assertion failed, iff {\ttfamily cond} is false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Bit-\/field manipulation macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{common_8hpp_aa40c336d3896b74dbbda3b6563a24b46}{H\+A\+S\+\_\+\+F\+L\+AG}}(V,  F)~( ((V) \& (F)) == (F) )
+\begin{DoxyCompactList}\small\item\em Test if flag {\ttfamily F} is set in value {\ttfamily V}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{common_8hpp_a6a736d4a983e93dab77b2d1ae82eb4ff}{H\+A\+S\+\_\+\+A\+N\+Y\+\_\+\+F\+L\+AG}}(V,  FS)~( ((V) \& (FS)) != 0 )
+\begin{DoxyCompactList}\small\item\em Test if any flags {\ttfamily FS} are set in value {\ttfamily V}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{common_8hpp_a7f472ccd43cb8eb6294bce80bf018b42}{O\+R\+\_\+\+B\+I\+T\+W\+I\+SE}}(a,  b)~( (decltype(a))( ((int)(a)) $\vert$ ((int)(b)) ) )
+\begin{DoxyCompactList}\small\item\em OR together two enum values that represent fields. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Compiler-\/related macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{common_8hpp_afa7a9b3762abcb241362aaf05c2d0884}{U\+N\+R\+E\+F\+E\+R\+E\+N\+C\+E\+D\+\_\+\+P\+A\+R\+A\+M\+E\+T\+ER}}(p)~(void)(p)
+\begin{DoxyCompactList}\small\item\em Mark an unreferenced parameter. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{common_8hpp_aad4a7ebff687dc5228cc3fd4d25067f2}{N\+O\+T\+H\+I\+NG}}~do \{\} while(0)
+\begin{DoxyCompactList}\small\item\em A do-\/nothing statement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+Common definitions for smallcxx. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{common_8hpp_a6242a25f9d996f0cc4f4cdb911218b75}\label{common_8hpp_a6242a25f9d996f0cc4f4cdb911218b75}} 
+\index{common.hpp@{common.hpp}!ARRAY\_SIZE@{ARRAY\_SIZE}}
+\index{ARRAY\_SIZE@{ARRAY\_SIZE}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{ARRAY\_SIZE}{ARRAY\_SIZE}}
+{\footnotesize\ttfamily \#define A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(sizeof(x) / sizeof(x\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 12 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_a6a736d4a983e93dab77b2d1ae82eb4ff}\label{common_8hpp_a6a736d4a983e93dab77b2d1ae82eb4ff}} 
+\index{common.hpp@{common.hpp}!HAS\_ANY\_FLAG@{HAS\_ANY\_FLAG}}
+\index{HAS\_ANY\_FLAG@{HAS\_ANY\_FLAG}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{HAS\_ANY\_FLAG}{HAS\_ANY\_FLAG}}
+{\footnotesize\ttfamily \#define H\+A\+S\+\_\+\+A\+N\+Y\+\_\+\+F\+L\+AG(\begin{DoxyParamCaption}\item[{}]{V,  }\item[{}]{FS }\end{DoxyParamCaption})~( ((V) \& (FS)) != 0 )}
+
+
+
+Test if any flags {\ttfamily FS} are set in value {\ttfamily V}. 
+
+
+
+Definition at line 32 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_aa40c336d3896b74dbbda3b6563a24b46}\label{common_8hpp_aa40c336d3896b74dbbda3b6563a24b46}} 
+\index{common.hpp@{common.hpp}!HAS\_FLAG@{HAS\_FLAG}}
+\index{HAS\_FLAG@{HAS\_FLAG}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{HAS\_FLAG}{HAS\_FLAG}}
+{\footnotesize\ttfamily \#define H\+A\+S\+\_\+\+F\+L\+AG(\begin{DoxyParamCaption}\item[{}]{V,  }\item[{}]{F }\end{DoxyParamCaption})~( ((V) \& (F)) == (F) )}
+
+
+
+Test if flag {\ttfamily F} is set in value {\ttfamily V}. 
+
+
+
+Definition at line 29 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_aad4a7ebff687dc5228cc3fd4d25067f2}\label{common_8hpp_aad4a7ebff687dc5228cc3fd4d25067f2}} 
+\index{common.hpp@{common.hpp}!NOTHING@{NOTHING}}
+\index{NOTHING@{NOTHING}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{NOTHING}{NOTHING}}
+{\footnotesize\ttfamily \#define N\+O\+T\+H\+I\+NG~do \{\} while(0)}
+
+
+
+A do-\/nothing statement. 
+
+
+
+Definition at line 46 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_a7f472ccd43cb8eb6294bce80bf018b42}\label{common_8hpp_a7f472ccd43cb8eb6294bce80bf018b42}} 
+\index{common.hpp@{common.hpp}!OR\_BITWISE@{OR\_BITWISE}}
+\index{OR\_BITWISE@{OR\_BITWISE}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{OR\_BITWISE}{OR\_BITWISE}}
+{\footnotesize\ttfamily \#define O\+R\+\_\+\+B\+I\+T\+W\+I\+SE(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})~( (decltype(a))( ((int)(a)) $\vert$ ((int)(b)) ) )}
+
+
+
+OR together two enum values that represent fields. 
+
+
+
+Definition at line 35 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_a728775aa81ad14322f6602e05b69a40a}\label{common_8hpp_a728775aa81ad14322f6602e05b69a40a}} 
+\index{common.hpp@{common.hpp}!throw\_assert@{throw\_assert}}
+\index{throw\_assert@{throw\_assert}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{throw\_assert}{throw\_assert}}
+{\footnotesize\ttfamily \#define throw\+\_\+assert(\begin{DoxyParamCaption}\item[{}]{cond }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keywordtype}{bool} \_ok = (cond); \(\backslash\)}
+\DoxyCodeLine{        if(!\_ok) \{ \(\backslash\)}
+\DoxyCodeLine{            throw std::runtime\_error(\mbox{\hyperlink{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}{STR\_OF}} << \_\_FILE\_\_ << \textcolor{charliteral}{':'} << \_\_LINE\_\_ \(\backslash\)}
+\DoxyCodeLine{                    << \textcolor{stringliteral}{": failure in assertion "} << \#cond); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Throw a message indicating an assertion failed, iff {\ttfamily cond} is false. 
+
+
+
+Definition at line 16 of file common.\+hpp.
+
+\mbox{\Hypertarget{common_8hpp_afa7a9b3762abcb241362aaf05c2d0884}\label{common_8hpp_afa7a9b3762abcb241362aaf05c2d0884}} 
+\index{common.hpp@{common.hpp}!UNREFERENCED\_PARAMETER@{UNREFERENCED\_PARAMETER}}
+\index{UNREFERENCED\_PARAMETER@{UNREFERENCED\_PARAMETER}!common.hpp@{common.hpp}}
+\doxysubsubsection{\texorpdfstring{UNREFERENCED\_PARAMETER}{UNREFERENCED\_PARAMETER}}
+{\footnotesize\ttfamily \#define U\+N\+R\+E\+F\+E\+R\+E\+N\+C\+E\+D\+\_\+\+P\+A\+R\+A\+M\+E\+T\+ER(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~(void)(p)}
+
+
+
+Mark an unreferenced parameter. 
+
+
+
+Definition at line 43 of file common.\+hpp.
+

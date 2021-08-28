@@ -1,0 +1,107 @@
+\hypertarget{classsmallcxx_1_1GlobstariDisk}{}\doxysection{smallcxx\+::Globstari\+Disk Class Reference}
+\label{classsmallcxx_1_1GlobstariDisk}\index{smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}}
+
+
+Globstari for disk files (abstract base class).  
+
+
+
+
+{\ttfamily \#include $<$globstari.\+hpp$>$}
+
+
+
+Inheritance diagram for smallcxx\+::Globstari\+Disk\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classsmallcxx_1_1GlobstariDisk__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for smallcxx\+::Globstari\+Disk\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classsmallcxx_1_1GlobstariDisk__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} $>$ \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_accf21bcc460f4a05b831c4e48fd25831}{read\+Dir}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&dir\+Name) override
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_af6ed1d7b3a5fae9e15d6790d9ac00446}{read\+File}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) override
+\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_adb41ab28dff5fdc1bcd700adb30de4c2}{canonicalize}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Globstari for disk files (abstract base class). 
+
+This implements \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}{Globstari\+Base\+::read\+Dir()}} and \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_af65a7ce7fb5f2d7b924a72f68c2ec431}{Globstari\+Base\+::read\+File()}} for files on disk. 
+
+Definition at line 412 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariDisk_adb41ab28dff5fdc1bcd700adb30de4c2}\label{classsmallcxx_1_1GlobstariDisk_adb41ab28dff5fdc1bcd700adb30de4c2}} 
+\index{smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}!canonicalize@{canonicalize}}
+\index{canonicalize@{canonicalize}!smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}}
+\doxysubsubsection{\texorpdfstring{canonicalize()}{canonicalize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} smallcxx\+::\+Globstari\+Disk\+::canonicalize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]document symlink behaviour.\end{DoxyRefDesc}
+realpath(3) removes them, so other implementations should do so also. (Right?) 
+
+Implements \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a52bbcb1404a4b25dbcc0e5fb3c62be68}{smallcxx\+::\+Globstari\+Base}}.
+
+
+
+Definition at line 414 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariDisk_accf21bcc460f4a05b831c4e48fd25831}\label{classsmallcxx_1_1GlobstariDisk_accf21bcc460f4a05b831c4e48fd25831}} 
+\index{smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}!readDir@{readDir}}
+\index{readDir@{readDir}!smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}}
+\doxysubsubsection{\texorpdfstring{readDir()}{readDir()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Globstari\+Base\+::\+Entry}} $>$ smallcxx\+::\+Globstari\+Disk\+::read\+Dir (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{dir\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000010}{Todo}}]P\+O\+R\+T\+A\+B\+I\+L\+I\+TY\+: handle readdir() that doesn\textquotesingle{}t set d\+\_\+type \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}{smallcxx\+::\+Globstari\+Base}}.
+
+
+
+Definition at line 355 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1GlobstariDisk_af6ed1d7b3a5fae9e15d6790d9ac00446}\label{classsmallcxx_1_1GlobstariDisk_af6ed1d7b3a5fae9e15d6790d9ac00446}} 
+\index{smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}!readFile@{readFile}}
+\index{readFile@{readFile}!smallcxx::GlobstariDisk@{smallcxx::GlobstariDisk}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Globstari\+Base\+::\+Bytes}} smallcxx\+::\+Globstari\+Disk\+::read\+File (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]make this more efficient (fewer copies) \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_af65a7ce7fb5f2d7b924a72f68c2ec431}{smallcxx\+::\+Globstari\+Base}}.
+
+
+
+Definition at line 403 of file globstari-\/traverse.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/include/smallcxx/\mbox{\hyperlink{globstari_8hpp}{globstari.\+hpp}}\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari-traverse_8cpp}{globstari-\/traverse.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,392 @@
+\hypertarget{logging_8hpp}{}\doxysection{/home/cxw/proj/smallcxx/include/smallcxx/logging.hpp File Reference}
+\label{logging_8hpp}\index{/home/cxw/proj/smallcxx/include/smallcxx/logging.hpp@{/home/cxw/proj/smallcxx/include/smallcxx/logging.hpp}}
+
+
+Header for logging library.  
+
+
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for logging.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{logging_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{logging_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}~\char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em Default log domain. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{logging_8hpp_a74923aab146431a66fae0773ae15d0fe}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}~\mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}
+\item 
+\#define \mbox{\hyperlink{logging_8hpp_a51347da5063750b9b55e5d7b53ee49a0}{L\+O\+G\+\_\+F}}(level,  format, ...)~\mbox{\hyperlink{logging_8hpp_a85535bc3a1db4770520bc8c2dfc1cf83}{L\+O\+G\+\_\+\+F\+\_\+\+D\+O\+M\+A\+IN}}(\mbox{\hyperlink{logging_8hpp_a4818a25be66bbcbd2c52c3909ebbf238}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+N\+A\+ME}}, level, (format), \#\# \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+);
+\begin{DoxyCompactList}\small\item\em Main logging macro. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{logging_8hpp_a85535bc3a1db4770520bc8c2dfc1cf83}{L\+O\+G\+\_\+\+F\+\_\+\+D\+O\+M\+A\+IN}}(domain,  level,  format, ...)
+\begin{DoxyCompactList}\small\item\em Log, with a particular log domain. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} \{ \newline
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4cc1d453e8d6a9c9344cb1a9fe50b5cc}{L\+O\+G\+\_\+\+S\+I\+L\+E\+NT}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a230506cce5c68c3bac5a821c42ed3473}{L\+O\+G\+\_\+\+E\+R\+R\+OR}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a8f6fe15bfe15104da6d1b360194a5400}{L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aece872659048a1e2973389bc6f697fb5}{L\+O\+G\+\_\+\+F\+I\+X\+ME}}, 
+\newline
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a6e98ff471e3ce6c4ef2d75c37ee51837}{L\+O\+G\+\_\+\+I\+N\+FO}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ab9f002c6ffbfd511da8090213227454e}{L\+O\+G\+\_\+\+D\+E\+B\+UG}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a2741b7f0f12cd2356cc489b4adc27d57}{L\+O\+G\+\_\+\+L\+OG}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5b76dd51db62558b1952158ba38b723f}{L\+O\+G\+\_\+\+T\+R\+A\+CE}}, 
+\newline
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a0b991e8e5cc289f567a16e1cac363c70}{L\+O\+G\+\_\+\+P\+E\+EK}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ad9d5eaa46b0b38d778edb5e80e0ded60}{L\+O\+G\+\_\+\+S\+N\+O\+OP}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5f6a8cc3fc9f18f8e7d21e7320526ae5}{L\+O\+G\+\_\+\+M\+IN}} = L\+O\+G\+\_\+\+E\+R\+R\+OR, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4d2cff97bbbd04ab091dd39f0f0ca82a}{L\+O\+G\+\_\+\+M\+AX}} = L\+O\+G\+\_\+\+S\+N\+O\+OP, 
+\newline
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aee4828d1d02cd3e4dec8facca625152a}{L\+O\+G\+\_\+\+P\+R\+I\+NT}}, 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a70fea89639127ffcb9a277707ef4132c}{L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \mbox{\hyperlink{logging_8hpp_a4818a25be66bbcbd2c52c3909ebbf238}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+N\+A\+ME}} (\mbox{\hyperlink{logging_8hpp_a74923aab146431a66fae0773ae15d0fe}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}})
+\begin{DoxyCompactList}\small\item\em The string we will use as a hash key for this file\textquotesingle{}s messages. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message}} (const std\+::string \&domain, \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} msg\+Level, const char $\ast$file, const int line, const char $\ast$function, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Log a message to stderr. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logging_8hpp_aef992f9b28af5cac638d7c2c57737ade}{vlog\+Message}} (const std\+::string \&domain, \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} msg\+Level, const char $\ast$file, const int line, const char $\ast$function, const char $\ast$format, va\+\_\+list args)
+\begin{DoxyCompactList}\small\item\em As \mbox{\hyperlink{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}}, but accepts a va\+\_\+list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logging_8hpp_aa59e2c31852d8cb475fd41046988c505}{set\+Log\+Level}} (\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} new\+Level, const std\+::string \&domain=\mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}})
+\begin{DoxyCompactList}\small\item\em Set log level for {\ttfamily domain} to {\ttfamily new\+Level}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} \mbox{\hyperlink{logging_8hpp_af45db57fc3dc37001a1177871f7b44c7}{get\+Log\+Level}} (const std\+::string \&domain=\mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}})
+\begin{DoxyCompactList}\small\item\em Get the current log level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logging_8hpp_a10f677e75bb110f750a9e5835d0dc43e}{set\+Verbosity\+From\+Environment}} (const char $\ast$detail\+Env\+Var\+Name=nullptr)
+\begin{DoxyCompactList}\small\item\em Set the verbosity for all log domains based on \$V. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for logging library. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White
+\end{DoxyCopyright}
+Terminology\+: messages are logged if the \char`\"{}message level\char`\"{} is less than or equal to the \char`\"{}system level\char`\"{}.
+
+There can be any number of log-\/message domains, each identified by an arbitrary string. Strings starting with {\ttfamily \char`\"{} \char`\"{}} (a space) are reserved for use by smallcxx/logging. To define your own domain for messages in a source file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define SMALLCXX\_LOG\_DOMAIN "myDomain"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <smallcxx/logging.hpp>}}
+\end{DoxyCode}
+
+
+This logging library is inspired by (but not copied from)\+:
+\begin{DoxyItemize}
+\item \href{https://github.com/emilk/loguru}{\texttt{ Loguru}} by Emil Ernerfeldt, licensed public domain.
+\item \href{https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html}{\texttt{ G\+Streamer logging}} 
+\end{DoxyItemize}
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{logging_8hpp_a51347da5063750b9b55e5d7b53ee49a0}\label{logging_8hpp_a51347da5063750b9b55e5d7b53ee49a0}} 
+\index{logging.hpp@{logging.hpp}!LOG\_F@{LOG\_F}}
+\index{LOG\_F@{LOG\_F}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{LOG\_F}{LOG\_F}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+F(\begin{DoxyParamCaption}\item[{}]{level,  }\item[{}]{format,  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{logging_8hpp_a85535bc3a1db4770520bc8c2dfc1cf83}{L\+O\+G\+\_\+\+F\+\_\+\+D\+O\+M\+A\+IN}}(\mbox{\hyperlink{logging_8hpp_a4818a25be66bbcbd2c52c3909ebbf238}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+N\+A\+ME}}, level, (format), \#\# \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+);}
+
+
+
+Main logging macro. 
+
+Usage example\+: {\ttfamily L\+O\+G\+\_\+F(I\+N\+FO, \char`\"{}foo \%s\char`\"{}, some\+\_\+string);} \begin{DoxyNote}{Note}
+{\ttfamily \mbox{\hyperlink{logging_8hpp_a51347da5063750b9b55e5d7b53ee49a0}{L\+O\+G\+\_\+\+F(\+S\+I\+L\+E\+N\+T, ...)}}} is forbidden. 
+\end{DoxyNote}
+
+
+Definition at line 95 of file logging.\+hpp.
+
+\mbox{\Hypertarget{logging_8hpp_a85535bc3a1db4770520bc8c2dfc1cf83}\label{logging_8hpp_a85535bc3a1db4770520bc8c2dfc1cf83}} 
+\index{logging.hpp@{logging.hpp}!LOG\_F\_DOMAIN@{LOG\_F\_DOMAIN}}
+\index{LOG\_F\_DOMAIN@{LOG\_F\_DOMAIN}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{LOG\_F\_DOMAIN}{LOG\_F\_DOMAIN}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+F\+\_\+\+D\+O\+M\+A\+IN(\begin{DoxyParamCaption}\item[{}]{domain,  }\item[{}]{level,  }\item[{}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* forbid LOG\_SILENT */} \(\backslash\)}
+\DoxyCodeLine{        static\_assert( \(\backslash\)}
+\DoxyCodeLine{                ( (LOG\_\#\#level >= \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5f6a8cc3fc9f18f8e7d21e7320526ae5}{LOG\_MIN}}) \&\& (LOG\_\#\#level <= \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4d2cff97bbbd04ab091dd39f0f0ca82a}{LOG\_MAX}}) ) || \(\backslash\)}
+\DoxyCodeLine{                ( LOG\_\#\#level == \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aee4828d1d02cd3e4dec8facca625152a}{LOG\_PRINT}} ) || \(\backslash\)}
+\DoxyCodeLine{                ( LOG\_\#\#level == \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a70fea89639127ffcb9a277707ef4132c}{LOG\_PRINTERR}} ) \(\backslash\)}
+\DoxyCodeLine{        ); \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* print it */} \(\backslash\)}
+\DoxyCodeLine{        if(LOG\_\#\#level == \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aee4828d1d02cd3e4dec8facca625152a}{LOG\_PRINT}}) \{ \(\backslash\)}
+\DoxyCodeLine{            if(\mbox{\hyperlink{logging_8hpp_af45db57fc3dc37001a1177871f7b44c7}{getLogLevel}}(domain) != \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4cc1d453e8d6a9c9344cb1a9fe50b5cc}{LOG\_SILENT}}) \{ \(\backslash\)}
+\DoxyCodeLine{                printf((format), \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{            \} \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(LOG\_\#\#level == \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a70fea89639127ffcb9a277707ef4132c}{LOG\_PRINTERR}}) \{ \(\backslash\)}
+\DoxyCodeLine{            if(\mbox{\hyperlink{logging_8hpp_af45db57fc3dc37001a1177871f7b44c7}{getLogLevel}}(domain) != \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4cc1d453e8d6a9c9344cb1a9fe50b5cc}{LOG\_SILENT}}) \{ \(\backslash\)}
+\DoxyCodeLine{                fprintf(stderr, (format), \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{            \} \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{ \(\backslash\)}
+\DoxyCodeLine{            logMessage(domain, LOG\_\#\#level, \_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_, \(\backslash\)}
+\DoxyCodeLine{                    (format), \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Log, with a particular log domain. 
+
+
+
+Definition at line 99 of file logging.\+hpp.
+
+\mbox{\Hypertarget{logging_8hpp_a17f2f64f791201edff8613986f463647}\label{logging_8hpp_a17f2f64f791201edff8613986f463647}} 
+\index{logging.hpp@{logging.hpp}!SMALLCXX\_DEFAULT\_LOG\_DOMAIN@{SMALLCXX\_DEFAULT\_LOG\_DOMAIN}}
+\index{SMALLCXX\_DEFAULT\_LOG\_DOMAIN@{SMALLCXX\_DEFAULT\_LOG\_DOMAIN}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{SMALLCXX\_DEFAULT\_LOG\_DOMAIN}{SMALLCXX\_DEFAULT\_LOG\_DOMAIN}}
+{\footnotesize\ttfamily \#define S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN~\char`\"{}\char`\"{}}
+
+
+
+Default log domain. 
+
+To use your own domain, {\ttfamily \#define} {\ttfamily S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN} to a string constant before {\ttfamily \#includ}ing this file 
+
+Definition at line 33 of file logging.\+hpp.
+
+\mbox{\Hypertarget{logging_8hpp_a74923aab146431a66fae0773ae15d0fe}\label{logging_8hpp_a74923aab146431a66fae0773ae15d0fe}} 
+\index{logging.hpp@{logging.hpp}!SMALLCXX\_LOG\_DOMAIN@{SMALLCXX\_LOG\_DOMAIN}}
+\index{SMALLCXX\_LOG\_DOMAIN@{SMALLCXX\_LOG\_DOMAIN}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{SMALLCXX\_LOG\_DOMAIN}{SMALLCXX\_LOG\_DOMAIN}}
+{\footnotesize\ttfamily \#define S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN~\mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}}
+
+
+
+Definition at line 36 of file logging.\+hpp.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}} 
+\index{logging.hpp@{logging.hpp}!LogLevel@{LogLevel}}
+\index{LogLevel@{LogLevel}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{LogLevel}{LogLevel}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_SILENT@{LOG\_SILENT}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_SILENT@{LOG\_SILENT}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4cc1d453e8d6a9c9344cb1a9fe50b5cc}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4cc1d453e8d6a9c9344cb1a9fe50b5cc}} 
+L\+O\+G\+\_\+\+S\+I\+L\+E\+NT&Nothing prints. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_ERROR@{LOG\_ERROR}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_ERROR@{LOG\_ERROR}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a230506cce5c68c3bac5a821c42ed3473}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a230506cce5c68c3bac5a821c42ed3473}} 
+L\+O\+G\+\_\+\+E\+R\+R\+OR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_WARNING@{LOG\_WARNING}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_WARNING@{LOG\_WARNING}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a8f6fe15bfe15104da6d1b360194a5400}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a8f6fe15bfe15104da6d1b360194a5400}} 
+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_FIXME@{LOG\_FIXME}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_FIXME@{LOG\_FIXME}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aece872659048a1e2973389bc6f697fb5}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aece872659048a1e2973389bc6f697fb5}} 
+L\+O\+G\+\_\+\+F\+I\+X\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_INFO@{LOG\_INFO}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_INFO@{LOG\_INFO}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a6e98ff471e3ce6c4ef2d75c37ee51837}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a6e98ff471e3ce6c4ef2d75c37ee51837}} 
+L\+O\+G\+\_\+\+I\+N\+FO&default log level \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_DEBUG@{LOG\_DEBUG}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_DEBUG@{LOG\_DEBUG}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ab9f002c6ffbfd511da8090213227454e}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ab9f002c6ffbfd511da8090213227454e}} 
+L\+O\+G\+\_\+\+D\+E\+B\+UG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_LOG@{LOG\_LOG}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_LOG@{LOG\_LOG}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a2741b7f0f12cd2356cc489b4adc27d57}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a2741b7f0f12cd2356cc489b4adc27d57}} 
+L\+O\+G\+\_\+\+L\+OG&G\+Streamer-\/inspired naming. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_TRACE@{LOG\_TRACE}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_TRACE@{LOG\_TRACE}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5b76dd51db62558b1952158ba38b723f}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5b76dd51db62558b1952158ba38b723f}} 
+L\+O\+G\+\_\+\+T\+R\+A\+CE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_PEEK@{LOG\_PEEK}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_PEEK@{LOG\_PEEK}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a0b991e8e5cc289f567a16e1cac363c70}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a0b991e8e5cc289f567a16e1cac363c70}} 
+L\+O\+G\+\_\+\+P\+E\+EK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_SNOOP@{LOG\_SNOOP}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_SNOOP@{LOG\_SNOOP}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ad9d5eaa46b0b38d778edb5e80e0ded60}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9ad9d5eaa46b0b38d778edb5e80e0ded60}} 
+L\+O\+G\+\_\+\+S\+N\+O\+OP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_MIN@{LOG\_MIN}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_MIN@{LOG\_MIN}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5f6a8cc3fc9f18f8e7d21e7320526ae5}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a5f6a8cc3fc9f18f8e7d21e7320526ae5}} 
+L\+O\+G\+\_\+\+M\+IN&Used for range checks. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_MAX@{LOG\_MAX}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_MAX@{LOG\_MAX}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4d2cff97bbbd04ab091dd39f0f0ca82a}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a4d2cff97bbbd04ab091dd39f0f0ca82a}} 
+L\+O\+G\+\_\+\+M\+AX&Used for range checks. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_PRINT@{LOG\_PRINT}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_PRINT@{LOG\_PRINT}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aee4828d1d02cd3e4dec8facca625152a}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9aee4828d1d02cd3e4dec8facca625152a}} 
+L\+O\+G\+\_\+\+P\+R\+I\+NT&A special level\+: print, to stdout, only the message. Use this for messages you want L\+O\+G\+\_\+\+S\+I\+L\+E\+NT to suppress. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_PRINTERR@{LOG\_PRINTERR}!logging.hpp@{logging.hpp}}\index{logging.hpp@{logging.hpp}!LOG\_PRINTERR@{LOG\_PRINTERR}}}\mbox{\Hypertarget{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a70fea89639127ffcb9a277707ef4132c}\label{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9a70fea89639127ffcb9a277707ef4132c}} 
+L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR&Use this for messages you want L\+O\+G\+\_\+\+S\+I\+L\+E\+NT to suppress. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 45 of file logging.\+hpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logging_8hpp_af45db57fc3dc37001a1177871f7b44c7}\label{logging_8hpp_af45db57fc3dc37001a1177871f7b44c7}} 
+\index{logging.hpp@{logging.hpp}!getLogLevel@{getLogLevel}}
+\index{getLogLevel@{getLogLevel}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{getLogLevel()}{getLogLevel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} get\+Log\+Level (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain = {\ttfamily \mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}} }\end{DoxyParamCaption})}
+
+
+
+Get the current log level. 
+
+
+
+Definition at line 251 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}\label{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}} 
+\index{logging.hpp@{logging.hpp}!logMessage@{logMessage}}
+\index{logMessage@{logMessage}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{logMessage()}{logMessage()}}
+{\footnotesize\ttfamily void log\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain,  }\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{msg\+Level,  }\item[{const char $\ast$}]{file,  }\item[{const int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Log a message to stderr. 
+
+Messages are arbitrarily limited to 256 bytes. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em domain} & -\/ A string describing this log domain \\
+\hline
+\mbox{\texttt{ in}}  & {\em msg\+Level} & -\/ The log level of this message \\
+\hline
+\mbox{\texttt{ in}}  & {\em file} & -\/ file from which this message was printed \\
+\hline
+\mbox{\texttt{ in}}  & {\em line} & -\/ line number in {\ttfamily file} \\
+\hline
+\mbox{\texttt{ in}}  & {\em function} & -\/ name of function that called \mbox{\hyperlink{logging_8cpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em format} & -\/ printf format \\
+\hline
+\mbox{\texttt{ in}}  & {\em ...} & -\/ args to {\ttfamily format} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Assumes write(2) calls of $<$= P\+I\+P\+E\+\_\+\+B\+UF bytes are atomic. 
+\end{DoxyNote}
+
+
+Definition at line 112 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8hpp_aa59e2c31852d8cb475fd41046988c505}\label{logging_8hpp_aa59e2c31852d8cb475fd41046988c505}} 
+\index{logging.hpp@{logging.hpp}!setLogLevel@{setLogLevel}}
+\index{setLogLevel@{setLogLevel}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{setLogLevel()}{setLogLevel()}}
+{\footnotesize\ttfamily void set\+Log\+Level (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{new\+Level,  }\item[{const std\+::string \&}]{domain = {\ttfamily \mbox{\hyperlink{logging_8hpp_a17f2f64f791201edff8613986f463647}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}} }\end{DoxyParamCaption})}
+
+
+
+Set log level for {\ttfamily domain} to {\ttfamily new\+Level}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em new\+Level} & -\/ New level. Must be L\+O\+G\+\_\+\+S\+I\+L\+E\+NT, or between L\+O\+G\+\_\+\+M\+IN and L\+O\+G\+\_\+\+M\+AX (inclusive). In particular, you may not set the level to L\+O\+G\+\_\+\+P\+R\+I\+NT or L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR. \\
+\hline
+\mbox{\texttt{ in}}  & {\em domain} & -\/ Which log domain to apply {\ttfamily new\+Level} to.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Some log messages may be dropped when the level changes. 
+\end{DoxyWarning}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if you try to set L\+O\+G\+\_\+\+P\+R\+I\+NT or L\+O\+G\+\_\+\+P\+R\+I\+N\+T\+E\+RR. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 224 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8hpp_a10f677e75bb110f750a9e5835d0dc43e}\label{logging_8hpp_a10f677e75bb110f750a9e5835d0dc43e}} 
+\index{logging.hpp@{logging.hpp}!setVerbosityFromEnvironment@{setVerbosityFromEnvironment}}
+\index{setVerbosityFromEnvironment@{setVerbosityFromEnvironment}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{setVerbosityFromEnvironment()}{setVerbosityFromEnvironment()}}
+{\footnotesize\ttfamily void set\+Verbosity\+From\+Environment (\begin{DoxyParamCaption}\item[{const char $\ast$}]{detail\+Env\+Var\+Name = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Set the verbosity for all log domains based on \$V. 
+
+If \$V exists and is a decimal $>$=1, the system level is set to I\+N\+FO + \$V (e.\+g., 1 = L\+O\+G\+\_\+\+D\+E\+B\+UG, 2 = L\+O\+G\+\_\+\+L\+OG). \begin{DoxyNote}{Note}
+Does not set verbosities for all log domains. 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]implement a {\ttfamily G\+S\+T\+\_\+\+D\+E\+B\+UG}-\/style log-\/level selector. \end{DoxyRefDesc}
+\begin{DoxyWarning}{Warning}
+Must be called before any messages are logged if it is to affect all log domains.
+\end{DoxyWarning}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em detail\+Env\+Var\+Name} & -\/ if given, non-\/\+N\+U\+LL, and nonempty, the name of a G\+Streamer-\/style log-\/level variable to be used instead of {\ttfamily \$V} if the given variable exists. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 379 of file logging.\+cpp.
+
+\mbox{\Hypertarget{logging_8hpp_a4818a25be66bbcbd2c52c3909ebbf238}\label{logging_8hpp_a4818a25be66bbcbd2c52c3909ebbf238}} 
+\index{logging.hpp@{logging.hpp}!SMALLCXX\_LOG\_DOMAIN\_NAME@{SMALLCXX\_LOG\_DOMAIN\_NAME}}
+\index{SMALLCXX\_LOG\_DOMAIN\_NAME@{SMALLCXX\_LOG\_DOMAIN\_NAME}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{SMALLCXX\_LOG\_DOMAIN\_NAME()}{SMALLCXX\_LOG\_DOMAIN\_NAME()}}
+{\footnotesize\ttfamily static const std\+::string S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+I\+N\+\_\+\+N\+A\+ME (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logging_8hpp_a74923aab146431a66fae0773ae15d0fe}{S\+M\+A\+L\+L\+C\+X\+X\+\_\+\+L\+O\+G\+\_\+\+D\+O\+M\+A\+IN}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The string we will use as a hash key for this file\textquotesingle{}s messages. 
+
+\mbox{\Hypertarget{logging_8hpp_aef992f9b28af5cac638d7c2c57737ade}\label{logging_8hpp_aef992f9b28af5cac638d7c2c57737ade}} 
+\index{logging.hpp@{logging.hpp}!vlogMessage@{vlogMessage}}
+\index{vlogMessage@{vlogMessage}!logging.hpp@{logging.hpp}}
+\doxysubsubsection{\texorpdfstring{vlogMessage()}{vlogMessage()}}
+{\footnotesize\ttfamily void vlog\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{domain,  }\item[{\mbox{\hyperlink{logging_8hpp_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{msg\+Level,  }\item[{const char $\ast$}]{file,  }\item[{const int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{const char $\ast$}]{format,  }\item[{va\+\_\+list}]{args }\end{DoxyParamCaption})}
+
+
+
+As \mbox{\hyperlink{logging_8hpp_a06c1f3f43faf630be98ffae0355e5277}{log\+Message()}}, but accepts a va\+\_\+list. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily line} $<$= 9999 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Note}
+Assumes the P\+ID never changes --- don\textquotesingle{}t put this in a shared library unless you change that assumption! 
+\end{DoxyNote}
+
+
+Definition at line 124 of file logging.\+cpp.
+

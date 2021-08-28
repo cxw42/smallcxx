@@ -1,0 +1,110 @@
+\hypertarget{classTestGlobstariBaseSanity}{}\doxysection{Test\+Globstari\+Base\+Sanity Class Reference}
+\label{classTestGlobstariBaseSanity}\index{TestGlobstariBaseSanity@{TestGlobstariBaseSanity}}
+
+
+A do-\/nothing concrete Globstari\+Base subclass.  
+
+
+
+
+Inheritance diagram for Test\+Globstari\+Base\+Sanity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classTestGlobstariBaseSanity__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Test\+Globstari\+Base\+Sanity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classTestGlobstariBaseSanity__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} $>$ \mbox{\hyperlink{classTestGlobstariBaseSanity_af67980bd46655cdc4030f800823adbbf}{read\+Dir}} (const Path \&dir\+Path) override
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} \mbox{\hyperlink{classTestGlobstariBaseSanity_a89868d2199c7324187e69ba9daf15b28}{read\+File}} (const Path \&path) override
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{Process\+Status}} \mbox{\hyperlink{classTestGlobstariBaseSanity_a812b12d37bb297aca479dae36e1cc99a}{process\+Entry}} (const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} \&entry) override
+\begin{DoxyCompactList}\small\item\em Process an entry! This can do whatever you want. \end{DoxyCompactList}\item 
+Path \mbox{\hyperlink{classTestGlobstariBaseSanity_ab00e56ccc046ac56ed3c6b7f6f605268}{canonicalize}} (const Path \&path) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A do-\/nothing concrete Globstari\+Base subclass. 
+
+Definition at line 18 of file globstari-\/basic-\/t.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTestGlobstariBaseSanity_ab00e56ccc046ac56ed3c6b7f6f605268}\label{classTestGlobstariBaseSanity_ab00e56ccc046ac56ed3c6b7f6f605268}} 
+\index{TestGlobstariBaseSanity@{TestGlobstariBaseSanity}!canonicalize@{canonicalize}}
+\index{canonicalize@{canonicalize}!TestGlobstariBaseSanity@{TestGlobstariBaseSanity}}
+\doxysubsubsection{\texorpdfstring{canonicalize()}{canonicalize()}}
+{\footnotesize\ttfamily Path Test\+Globstari\+Base\+Sanity\+::canonicalize (\begin{DoxyParamCaption}\item[{const Path \&}]{path }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 39 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{classTestGlobstariBaseSanity_a812b12d37bb297aca479dae36e1cc99a}\label{classTestGlobstariBaseSanity_a812b12d37bb297aca479dae36e1cc99a}} 
+\index{TestGlobstariBaseSanity@{TestGlobstariBaseSanity}!processEntry@{processEntry}}
+\index{processEntry@{processEntry}!TestGlobstariBaseSanity@{TestGlobstariBaseSanity}}
+\doxysubsubsection{\texorpdfstring{processEntry()}{processEntry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a463b70117b9c8b4b1ad7a2e06784be12}{Process\+Status}} Test\+Globstari\+Base\+Sanity\+::process\+Entry (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}} \&}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Process an entry! This can do whatever you want. 
+
+The entry can be a directory or a file. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em entry} & -\/ the entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Process\+Status value 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a814c008f7d34057da866db2414e5244b}{smallcxx\+::\+Globstari\+Base}}.
+
+
+
+Definition at line 33 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{classTestGlobstariBaseSanity_af67980bd46655cdc4030f800823adbbf}\label{classTestGlobstariBaseSanity_af67980bd46655cdc4030f800823adbbf}} 
+\index{TestGlobstariBaseSanity@{TestGlobstariBaseSanity}!readDir@{readDir}}
+\index{readDir@{readDir}!TestGlobstariBaseSanity@{TestGlobstariBaseSanity}}
+\doxysubsubsection{\texorpdfstring{readDir()}{readDir()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Entry}}$>$ Test\+Globstari\+Base\+Sanity\+::read\+Dir (\begin{DoxyParamCaption}\item[{const Path \&}]{dir\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}}
+
+
+
+Definition at line 21 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{classTestGlobstariBaseSanity_a89868d2199c7324187e69ba9daf15b28}\label{classTestGlobstariBaseSanity_a89868d2199c7324187e69ba9daf15b28}} 
+\index{TestGlobstariBaseSanity@{TestGlobstariBaseSanity}!readFile@{readFile}}
+\index{readFile@{readFile}!TestGlobstariBaseSanity@{TestGlobstariBaseSanity}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Bytes}} Test\+Globstari\+Base\+Sanity\+::read\+File (\begin{DoxyParamCaption}\item[{const Path \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}}
+
+
+
+Definition at line 27 of file globstari-\/basic-\/t.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/t/\mbox{\hyperlink{globstari-basic-t_8cpp}{globstari-\/basic-\/t.\+cpp}}\end{DoxyCompactItemize}

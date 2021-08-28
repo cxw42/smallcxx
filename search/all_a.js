@@ -1,0 +1,10 @@
+var searchData=
+[
+  ['main_97',['main',['../cover-misc-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;cover-misc-t.cpp'],['../cover-no-tests-run-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;cover-no-tests-run-t.cpp'],['../cover-test-failures-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;cover-test-failures-t.cpp'],['../globstari-globset-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;globstari-globset-t.cpp'],['../log-debug-message-s_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;log-debug-message-s.cpp'],['../meta-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;meta-t.cpp'],['../string-t_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;string-t.cpp']]],
+  ['maptype_98',['MapType',['../structLogLevelHolder.html#a2d3376b40df4c3a78787362b2f88e703',1,'LogLevelHolder']]],
+  ['matchdataptr_99',['MatchDataPtr',['../namespacesmallcxx_1_1glob.html#a723db8976e7c9e225a031157e313686c',1,'smallcxx::glob']]],
+  ['matcher_100',['Matcher',['../classsmallcxx_1_1glob_1_1Matcher.html',1,'smallcxx::glob::Matcher'],['../classsmallcxx_1_1glob_1_1Matcher.html#aeb811104ec4d8a03bd46dc2976be36e6',1,'smallcxx::glob::Matcher::Matcher()=default'],['../classsmallcxx_1_1glob_1_1Matcher.html#aea30e421fe6e4ce61ee5e929948c5728',1,'smallcxx::glob::Matcher::Matcher(const std::shared_ptr&lt; Matcher &gt; &amp;delegate)'],['../classsmallcxx_1_1glob_1_1Matcher.html#a6bd1a7de92ce05b58e2b587687468dc8',1,'smallcxx::glob::Matcher::Matcher(const std::initializer_list&lt; smallcxx::glob::Path &gt; &amp;globs, const smallcxx::glob::Path path, const std::shared_ptr&lt; Matcher &gt; &amp;delegate=nullptr)']]],
+  ['matcherptr_101',['MatcherPtr',['../namespacesmallcxx.html#aae5c012813ab790128c3b4503eb69b6d',1,'smallcxx']]],
+  ['maxdepth_5f_102',['maxDepth_',['../classsmallcxx_1_1Traverser.html#a22db999755a7370c8574cf32edd8b563',1,'smallcxx::Traverser']]],
+  ['meta_2dt_2ecpp_103',['meta-t.cpp',['../meta-t_8cpp.html',1,'']]]
+];

@@ -1,0 +1,134 @@
+\hypertarget{classsmallcxx_1_1glob_1_1Criteria}{}\doxysection{smallcxx\+::glob\+::Criteria Class Reference}
+\label{classsmallcxx_1_1glob_1_1Criteria}\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+
+
+Regex and ranges for $>$=1 globs.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a76bfdddd91c1e67c4235d4dd5fe17352}{Criteria}} ()
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a4f522ff02cc249513044122f289e204c}{Criteria}} (const \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria}{Criteria}} \&other)
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a45064a28f5dcc2e3938aa843a4041e5d}{$\sim$\+Criteria}} ()=default
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a7ec32d80df3ffb70c6cf337673a6fe38}{Criteria}} (const std\+::string \&re\+Src)
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a8fc7f3e5699722e85280e332745a1b8b}{Criteria}} (const std\+::string \&re\+Src, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} \&ranges)
+\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_ae8f7eaffa9a89a0d82ce2cec9f1aaa27}{accepts}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&str) const
+\begin{DoxyCompactList}\small\item\em Does {\ttfamily str} match compiled\+\_\+? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}{Re\+Ptr}} \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_ac16f318cda13b14f149c4ae82f4b7dad}{compiled\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria_a9f3af3ec0a9113d126d24e6cec3eaf71}{ranges\+\_\+}}
+\begin{DoxyCompactList}\small\item\em may be empty \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Regex and ranges for $>$=1 globs. 
+
+Definition at line 61 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a76bfdddd91c1e67c4235d4dd5fe17352}\label{classsmallcxx_1_1glob_1_1Criteria_a76bfdddd91c1e67c4235d4dd5fe17352}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!Criteria@{Criteria}}
+\index{Criteria@{Criteria}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{Criteria()}{Criteria()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Criteria\+::\+Criteria (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 68 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a4f522ff02cc249513044122f289e204c}\label{classsmallcxx_1_1glob_1_1Criteria_a4f522ff02cc249513044122f289e204c}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!Criteria@{Criteria}}
+\index{Criteria@{Criteria}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{Criteria()}{Criteria()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Criteria\+::\+Criteria (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria}{Criteria}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 69 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a45064a28f5dcc2e3938aa843a4041e5d}\label{classsmallcxx_1_1glob_1_1Criteria_a45064a28f5dcc2e3938aa843a4041e5d}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!````~Criteria@{$\sim$Criteria}}
+\index{````~Criteria@{$\sim$Criteria}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{$\sim$Criteria()}{~Criteria()}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Criteria\+::$\sim$\+Criteria (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a7ec32d80df3ffb70c6cf337673a6fe38}\label{classsmallcxx_1_1glob_1_1Criteria_a7ec32d80df3ffb70c6cf337673a6fe38}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!Criteria@{Criteria}}
+\index{Criteria@{Criteria}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{Criteria()}{Criteria()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Criteria\+::\+Criteria (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{re\+Src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 79 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a8fc7f3e5699722e85280e332745a1b8b}\label{classsmallcxx_1_1glob_1_1Criteria_a8fc7f3e5699722e85280e332745a1b8b}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!Criteria@{Criteria}}
+\index{Criteria@{Criteria}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{Criteria()}{Criteria()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily smallcxx\+::glob\+::\+Criteria\+::\+Criteria (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{re\+Src,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} \&}]{ranges }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 81 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_ae8f7eaffa9a89a0d82ce2cec9f1aaa27}\label{classsmallcxx_1_1glob_1_1Criteria_ae8f7eaffa9a89a0d82ce2cec9f1aaa27}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!accepts@{accepts}}
+\index{accepts@{accepts}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{accepts()}{accepts()}}
+{\footnotesize\ttfamily bool smallcxx\+::glob\+::\+Criteria\+::accepts (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{str }\end{DoxyParamCaption}) const}
+
+
+
+Does {\ttfamily str} match compiled\+\_\+? 
+
+Some code from editorconfig-\/core-\/c/src/lib/ec\+\_\+glob.\+c\+:ec\+\_\+glob() 
+
+Definition at line 111 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_ac16f318cda13b14f149c4ae82f4b7dad}\label{classsmallcxx_1_1glob_1_1Criteria_ac16f318cda13b14f149c4ae82f4b7dad}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!compiled\_@{compiled\_}}
+\index{compiled\_@{compiled\_}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{compiled\_}{compiled\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}{Re\+Ptr}} smallcxx\+::glob\+::\+Criteria\+::compiled\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 63 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1glob_1_1Criteria_a9f3af3ec0a9113d126d24e6cec3eaf71}\label{classsmallcxx_1_1glob_1_1Criteria_a9f3af3ec0a9113d126d24e6cec3eaf71}} 
+\index{smallcxx::glob::Criteria@{smallcxx::glob::Criteria}!ranges\_@{ranges\_}}
+\index{ranges\_@{ranges\_}!smallcxx::glob::Criteria@{smallcxx::glob::Criteria}}
+\doxysubsubsection{\texorpdfstring{ranges\_}{ranges\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} smallcxx\+::glob\+::\+Criteria\+::ranges\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+may be empty 
+
+
+
+Definition at line 64 of file globstari.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari_8cpp}{globstari.\+cpp}}\end{DoxyCompactItemize}

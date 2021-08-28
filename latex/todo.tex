@@ -1,0 +1,52 @@
+
+\begin{DoxyRefList}
+\item[File \mbox{\hyperlink{globstari-matcher_8cpp}{globstari-\/matcher.cpp}} ]\label{todo__todo000006}%
+\Hypertarget{todo__todo000006}%
+permit matching only directories (trailing slash on globs)  
+\item[File \mbox{\hyperlink{globstari-traverse_8cpp}{globstari-\/traverse.cpp}} ]\label{todo__todo000007}%
+\Hypertarget{todo__todo000007}%
+permit matching only directories (trailing slash on globs)  
+\item[File \mbox{\hyperlink{globstari_8cpp}{globstari.cpp}} ]\label{todo__todo000013}%
+\Hypertarget{todo__todo000013}%
+permit matching only directories (trailing slash on globs)  
+\item[Member \mbox{\hyperlink{logging_8cpp_af1ebc5018852152006dff8f4b53fb8ed}{set\+Verbosity\+From\+Environment}} (const char $\ast$detail\+Env\+Var\+Name)]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+implement a {\ttfamily G\+S\+T\+\_\+\+D\+E\+B\+UG}-\/style log-\/level selector.  
+\item[Member \mbox{\hyperlink{logging_8cpp_af1ebc5018852152006dff8f4b53fb8ed}{set\+Verbosity\+From\+Environment}} (const char $\ast$detail\+Env\+Var\+Name)]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+implement a {\ttfamily G\+S\+T\+\_\+\+D\+E\+B\+UG}-\/style log-\/level selector.  
+\item[Member \mbox{\hyperlink{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}{smallcxx::glob::Re\+Ptr}} ]\label{todo__todo000014}%
+\Hypertarget{todo__todo000014}%
+Make this a std\+::shared\+\_\+ptr?  
+\item[Class \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{smallcxx::Globstari\+Base}} ]\label{todo__todo000001}%
+\Hypertarget{todo__todo000001}%
+
+\begin{DoxyItemize}
+\item Symlinks?
+\item If so, symlink-\/loop checking?  
+\end{DoxyItemize}
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a88fb168fe7119f9db5484a6aacafff28}{smallcxx::Globstari\+Base::Entry\+Type}} ]\label{todo__todo000002}%
+\Hypertarget{todo__todo000002}%
+symlinks? Special files?  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_acfacd1b48c26cd6b0844ca691e289f88}{smallcxx::Globstari\+Base::read\+Dir}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&dir\+Name)=0]\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+Permit iteratively reading a dir?  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_ad46fdf7308310682be53968f55b9a822}{smallcxx::Globstari\+Base::traverse}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&base\+Path, const std\+::vector$<$ smallcxx\+::glob\+::\+Path $>$ \&needle, ssize\+\_\+t max\+Depth=-\/1)]\label{todo__todo000004}%
+\Hypertarget{todo__todo000004}%
+How to specify which ignore paths to check for? E.\+g., to check each encountered dir for ignore files.  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_adb41ab28dff5fdc1bcd700adb30de4c2}{smallcxx::Globstari\+Disk::canonicalize}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) const override]\label{todo__todo000012}%
+\Hypertarget{todo__todo000012}%
+document symlink behaviour. 
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_accf21bcc460f4a05b831c4e48fd25831}{smallcxx::Globstari\+Disk::read\+Dir}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&dir\+Name) override]\label{todo__todo000010}%
+\Hypertarget{todo__todo000010}%
+P\+O\+R\+T\+A\+B\+I\+L\+I\+TY\+: handle readdir() that doesn\textquotesingle{}t set d\+\_\+type  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk_af6ed1d7b3a5fae9e15d6790d9ac00446}{smallcxx::Globstari\+Disk::read\+File}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&path) override]\label{todo__todo000011}%
+\Hypertarget{todo__todo000011}%
+make this more efficient (fewer copies)  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1Traverser_a217de4cb8835c55878d829410679e640}{smallcxx::Traverser::load\+Ignore\+Files}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&relative\+To, std\+::vector$<$ smallcxx\+::glob\+::\+Path $>$ load\+From, Matcher\+Ptr parent\+Ignores)]\label{todo__todo000008}%
+\Hypertarget{todo__todo000008}%
+Document and verify which paths have to end with a /  
+\item[Member \mbox{\hyperlink{classsmallcxx_1_1Traverser_aaa00b3ffed5fbd2eaf70c9227084a227}{smallcxx::Traverser::parse\+Contents\+Into}} (const \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Globstari\+Base\+::\+Bytes}} \&contents, Matcher \&retval, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&relative\+To)]\label{todo__todo000009}%
+\Hypertarget{todo__todo000009}%
+make this part of the public A\+PI 
+\end{DoxyRefList}

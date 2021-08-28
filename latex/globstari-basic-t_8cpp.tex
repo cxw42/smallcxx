@@ -1,0 +1,155 @@
+\hypertarget{globstari-basic-t_8cpp}{}\doxysection{/home/cxw/proj/smallcxx/t/globstari-\/basic-\/t.cpp File Reference}
+\label{globstari-basic-t_8cpp}\index{/home/cxw/proj/smallcxx/t/globstari-\/basic-\/t.cpp@{/home/cxw/proj/smallcxx/t/globstari-\/basic-\/t.cpp}}
+
+
+Basic tests of \mbox{\hyperlink{globstari_8hpp}{smallcxx/globstari.\+hpp}} classes.  
+
+
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include \char`\"{}smallcxx/globstari.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}smallcxx/test.\+hpp\char`\"{}}\newline
+Include dependency graph for globstari-\/basic-\/t.cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{globstari-basic-t_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTestGlobstariBaseSanity}{Test\+Globstari\+Base\+Sanity}}
+\begin{DoxyCompactList}\small\item\em A do-\/nothing concrete Globstari\+Base subclass. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structDiskTraverser}{Disk\+Traverser}}
+\begin{DoxyCompactList}\small\item\em Save filenames traversed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{globstari-basic-t_8cpp_a060d1a8638b1f6972b7708fba9b68227}{test\+\_\+sanity}} ()
+\item 
+\mbox{\hyperlink{globstari-basic-t_8cpp_a58c42273f9483379a91da860c53afa79}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\mbox{\hyperlink{globstari-basic-t_8cpp_a060d1a8638b1f6972b7708fba9b68227}{test\+\_\+sanity}})
+\item 
+\mbox{\hyperlink{globstari-basic-t_8cpp_ae5883c36f6e4237b74a9d64d5b0106f9}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\mbox{\hyperlink{globstari-basic-t_8cpp_a2aa5de76c3246c34a8e2276a5fb4060c}{test\+\_\+disk}})
+\item 
+\mbox{\hyperlink{globstari-basic-t_8cpp_a2928ed056d6281889c54dbf7a921aa88}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\mbox{\hyperlink{globstari-basic-t_8cpp_aed61b359fd9e5779aa8c282bb43a2df4}{test\+\_\+disk\+\_\+ignores}})
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Tests of disk globbing}\par
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{globstari-basic-t_8cpp_ae17425f02522042bb5636f7c38eca9fb}{compare\+\_\+sequence}} (const set$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{glob\+::\+Path}} $>$ \&got, const vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{glob\+::\+Path}} $>$ \&expected\+Paths, const char $\ast$func, const size\+\_\+t line)
+\begin{DoxyCompactList}\small\item\em Test if {\ttfamily got} matches {\ttfamily expected\+Paths}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{globstari-basic-t_8cpp_a2aa5de76c3246c34a8e2276a5fb4060c}{test\+\_\+disk}} ()
+\begin{DoxyCompactList}\small\item\em Tests using the contents of {\ttfamily t/globstari-\/basic-\/disk}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{globstari-basic-t_8cpp_aed61b359fd9e5779aa8c282bb43a2df4}{test\+\_\+disk\+\_\+ignores}} ()
+\begin{DoxyCompactList}\small\item\em Tests using the contents of {\ttfamily t/globstari-\/basic-\/disk-\/ignores}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{globstari-basic-t_8cpp_a0d567a62bae46706ae575b0a8a41def4}{T\+E\+S\+T\+\_\+\+M\+A\+IN}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic tests of \mbox{\hyperlink{globstari_8hpp}{smallcxx/globstari.\+hpp}} classes. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{globstari-basic-t_8cpp_ae17425f02522042bb5636f7c38eca9fb}\label{globstari-basic-t_8cpp_ae17425f02522042bb5636f7c38eca9fb}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!compare\_sequence@{compare\_sequence}}
+\index{compare\_sequence@{compare\_sequence}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{compare\_sequence()}{compare\_sequence()}}
+{\footnotesize\ttfamily static void compare\+\_\+sequence (\begin{DoxyParamCaption}\item[{const set$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{glob\+::\+Path}} $>$ \&}]{got,  }\item[{const vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{glob\+::\+Path}} $>$ \&}]{expected\+Paths,  }\item[{const char $\ast$}]{func,  }\item[{const size\+\_\+t}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Test if {\ttfamily got} matches {\ttfamily expected\+Paths}. 
+
+
+
+Definition at line 64 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_ae5883c36f6e4237b74a9d64d5b0106f9}\label{globstari-basic-t_8cpp_ae5883c36f6e4237b74a9d64d5b0106f9}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{globstari-basic-t_8cpp_a2aa5de76c3246c34a8e2276a5fb4060c}{test\+\_\+disk}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_a2928ed056d6281889c54dbf7a921aa88}\label{globstari-basic-t_8cpp_a2928ed056d6281889c54dbf7a921aa88}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{globstari-basic-t_8cpp_aed61b359fd9e5779aa8c282bb43a2df4}{test\+\_\+disk\+\_\+ignores}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_a58c42273f9483379a91da860c53afa79}\label{globstari-basic-t_8cpp_a58c42273f9483379a91da860c53afa79}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{globstari-basic-t_8cpp_a060d1a8638b1f6972b7708fba9b68227}{test\+\_\+sanity}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_a2aa5de76c3246c34a8e2276a5fb4060c}\label{globstari-basic-t_8cpp_a2aa5de76c3246c34a8e2276a5fb4060c}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!test\_disk@{test\_disk}}
+\index{test\_disk@{test\_disk}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_disk()}{test\_disk()}}
+{\footnotesize\ttfamily static void test\+\_\+disk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Tests using the contents of {\ttfamily t/globstari-\/basic-\/disk}. 
+
+
+
+Definition at line 105 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_aed61b359fd9e5779aa8c282bb43a2df4}\label{globstari-basic-t_8cpp_aed61b359fd9e5779aa8c282bb43a2df4}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!test\_disk\_ignores@{test\_disk\_ignores}}
+\index{test\_disk\_ignores@{test\_disk\_ignores}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_disk\_ignores()}{test\_disk\_ignores()}}
+{\footnotesize\ttfamily static void test\+\_\+disk\+\_\+ignores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Tests using the contents of {\ttfamily t/globstari-\/basic-\/disk-\/ignores}. 
+
+
+
+Definition at line 142 of file globstari-\/basic-\/t.\+cpp.
+
+\mbox{\Hypertarget{globstari-basic-t_8cpp_a060d1a8638b1f6972b7708fba9b68227}\label{globstari-basic-t_8cpp_a060d1a8638b1f6972b7708fba9b68227}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!test\_sanity@{test\_sanity}}
+\index{test\_sanity@{test\_sanity}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_sanity()}{test\_sanity()}}
+{\footnotesize\ttfamily static void test\+\_\+sanity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 46 of file globstari-\/basic-\/t.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{globstari-basic-t_8cpp_a0d567a62bae46706ae575b0a8a41def4}\label{globstari-basic-t_8cpp_a0d567a62bae46706ae575b0a8a41def4}} 
+\index{globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}!TEST\_MAIN@{TEST\_MAIN}}
+\index{TEST\_MAIN@{TEST\_MAIN}!globstari-\/basic-\/t.cpp@{globstari-\/basic-\/t.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_MAIN}{TEST\_MAIN}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+M\+A\+IN}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{logging_8hpp_a51347da5063750b9b55e5d7b53ee49a0}{LOG\_F}}(INFO, \textcolor{stringliteral}{"SRCDIR [\%s], MY\_PATH [\%s], argv[0] [\%s]"},}
+\DoxyCodeLine{          SRCDIR, MY\_PATH.c\_str(), argv[0])}
+
+\end{DoxyCode}
+
+
+Definition at line 199 of file globstari-\/basic-\/t.\+cpp.
+

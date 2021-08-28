@@ -1,0 +1,73 @@
+\hypertarget{string_8hpp}{}\doxysection{/home/cxw/proj/smallcxx/include/smallcxx/string.hpp File Reference}
+\label{string_8hpp}\index{/home/cxw/proj/smallcxx/include/smallcxx/string.hpp@{/home/cxw/proj/smallcxx/include/smallcxx/string.hpp}}
+
+
+String-\/related definitions for smallcxx.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+Include dependency graph for string.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{string_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classStringFormatter}{String\+Formatter}}
+\begin{DoxyCompactList}\small\item\em A wrapper around an ostringstream so you can use it inline. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx}{smallcxx}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}{S\+T\+R\+\_\+\+OF}}~(\mbox{\hyperlink{classStringFormatter}{String\+Formatter}}())
+\begin{DoxyCompactList}\small\item\em Sugar for creating strings using iostream syntax. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{namespacesmallcxx_acec09ff7404e077f81374df82aae64fb}{smallcxx\+::trim}} (const std\+::string \&s)
+\begin{DoxyCompactList}\small\item\em Trim leading and trailing whitespace in a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+String-\/related definitions for smallcxx. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}\label{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}} 
+\index{string.hpp@{string.hpp}!STR\_OF@{STR\_OF}}
+\index{STR\_OF@{STR\_OF}!string.hpp@{string.hpp}}
+\doxysubsubsection{\texorpdfstring{STR\_OF}{STR\_OF}}
+{\footnotesize\ttfamily \#define S\+T\+R\+\_\+\+OF~(\mbox{\hyperlink{classStringFormatter}{String\+Formatter}}())}
+
+
+
+Sugar for creating strings using iostream syntax. 
+
+E.\+g., {\ttfamily string foo = S\+T\+R\+\_\+\+OF $<$$<$ \char`\"{}answer=\char`\"{} $<$$<$ answer;} 
+
+Definition at line 53 of file string.\+hpp.
+

@@ -1,0 +1,83 @@
+\hypertarget{globstari_8hpp}{}\doxysection{/home/cxw/proj/smallcxx/include/smallcxx/globstari.hpp File Reference}
+\label{globstari_8hpp}\index{/home/cxw/proj/smallcxx/include/smallcxx/globstari.hpp@{/home/cxw/proj/smallcxx/include/smallcxx/globstari.hpp}}
+
+
+globstar + ignore routines --- part of smallcxx  
+
+
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$initializer\+\_\+list$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$deque$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for globstari.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{globstari_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{globstari_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{smallcxx\+::glob\+::\+Glob\+Set}}
+\begin{DoxyCompactList}\small\item\em A set of globs. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{smallcxx\+::glob\+::\+Matcher}}
+\begin{DoxyCompactList}\small\item\em A matcher holding any number of glob patterns, include or exclude. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1glob_1_1Matcher_1_1SetAndPolarity}{smallcxx\+::glob\+::\+Matcher\+::\+Set\+And\+Polarity}}
+\begin{DoxyCompactList}\small\item\em A \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{Glob\+Set}} and its polarity. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{smallcxx\+::\+Globstari\+Base}}
+\begin{DoxyCompactList}\small\item\em S\+A\+X-\/style directory searcher\+: base class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{smallcxx\+::\+Globstari\+Base\+::\+Entry}}
+\begin{DoxyCompactList}\small\item\em A single entry in a directory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1GlobstariDisk}{smallcxx\+::\+Globstari\+Disk}}
+\begin{DoxyCompactList}\small\item\em Globstari for disk files (abstract base class). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx}{smallcxx}}
+\item 
+ \mbox{\hyperlink{namespacesmallcxx_1_1glob}{smallcxx\+::glob}}
+\begin{DoxyCompactList}\small\item\em Glob-\/testing routines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} = std\+::string
+\begin{DoxyCompactList}\small\item\em A path or filename. A convenience typedef, to permit future changes. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{smallcxx\+::glob\+::\+Path\+Set}} = std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$
+\begin{DoxyCompactList}\small\item\em Set of globs or paths. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3}{smallcxx\+::glob\+::\+Polarity}} \{ \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}{smallcxx\+::glob\+::\+Polarity\+::\+Include}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}{smallcxx\+::glob\+::\+Polarity\+::\+Exclude}}
+ \}
+\begin{DoxyCompactList}\small\item\em Polarity of globs\+: include or exclude. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}{smallcxx\+::glob\+::\+Path\+Check\+Result}} \{ \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a984ceac16fab685fc50b8d8a5eabf7de}{smallcxx\+::glob\+::\+Path\+Check\+Result\+::\+Included}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a122180683375b33fd7171ebba4660f80}{smallcxx\+::glob\+::\+Path\+Check\+Result\+::\+Excluded}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a88183b946cc5f0e8c96b2e66e1c74a7e}{smallcxx\+::glob\+::\+Path\+Check\+Result\+::\+Unknown}}
+ \}
+\begin{DoxyCompactList}\small\item\em The state of a path w.\+r.\+t. a Matcher. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+globstar + ignore routines --- part of smallcxx 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White S\+P\+D\+X-\/\+License-\/\+Identifier\+: B\+S\+D-\/3-\/\+Clause 
+\end{DoxyCopyright}

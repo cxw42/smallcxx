@@ -1,0 +1,244 @@
+\hypertarget{classsmallcxx_1_1Traverser}{}\doxysection{smallcxx\+::Traverser Class Reference}
+\label{classsmallcxx_1_1Traverser}\index{smallcxx::Traverser@{smallcxx::Traverser}}
+
+
+Helper class to do the traversal.  
+
+
+
+
+Collaboration diagram for smallcxx\+::Traverser\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classsmallcxx_1_1Traverser__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1Traverser_a914f8a2fb165b6153e4f8dee9db5fd1a}{Traverser}} (\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}} $\ast$client, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&base\+Path, const std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&needle, ssize\+\_\+t max\+Depth)
+\item 
+void \mbox{\hyperlink{classsmallcxx_1_1Traverser_a73ba0e3335fd755ad42aa73239b18019}{run}} ()
+\begin{DoxyCompactList}\small\item\em Run the traversal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classsmallcxx_1_1Traverser_ad587075a6c48a4bad7c3bbde8f221168}{worker}} ()
+\begin{DoxyCompactList}\small\item\em Do the work. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1Traverser_a0ccf0d103d8c2a6144c259f4280b9420}{load\+Dir}} (const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Globstari\+Base\+::\+Entry}} \&entry, \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}} parent\+Ignores)
+\begin{DoxyCompactList}\small\item\em Prepare to descend into a directory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}} \mbox{\hyperlink{classsmallcxx_1_1Traverser_a217de4cb8835c55878d829410679e640}{load\+Ignore\+Files}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&relative\+To, std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ load\+From, \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}} parent\+Ignores)
+\begin{DoxyCompactList}\small\item\em Load the contents of ignore files. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classsmallcxx_1_1Traverser_aaa00b3ffed5fbd2eaf70c9227084a227}{parse\+Contents\+Into}} (const \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Globstari\+Base\+::\+Bytes}} \&contents, \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} \&retval, const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&relative\+To)
+\begin{DoxyCompactList}\small\item\em Read ignore file {\ttfamily contents}, which lives in {\ttfamily relative\+To}, and add its contents to {\ttfamily retval}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}} $\ast$ \mbox{\hyperlink{classsmallcxx_1_1Traverser_a4fbb855a6f8ef3340c162a03ae64561b}{client\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Who we are working for. \end{DoxyCompactList}\item 
+std\+::deque$<$ \mbox{\hyperlink{structsmallcxx_1_1WorkItem}{Work\+Item}} $>$ \mbox{\hyperlink{classsmallcxx_1_1Traverser_a8c34131cae9e0f026f663049e7632495}{items\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Work queue for breadth-\/first search. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{smallcxx\+::glob\+::\+Matcher}} \mbox{\hyperlink{classsmallcxx_1_1Traverser_ad6f48f64d3aa4fc9049325a704032dff}{needle\+Matcher\+\_\+}}
+\begin{DoxyCompactList}\small\item\em What we are looking for. \end{DoxyCompactList}\item 
+ssize\+\_\+t \mbox{\hyperlink{classsmallcxx_1_1Traverser_a22db999755a7370c8574cf32edd8b563}{max\+Depth\+\_\+}}
+\begin{DoxyCompactList}\small\item\em How low can you go? \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{glob\+::\+Path\+Set}} \mbox{\hyperlink{classsmallcxx_1_1Traverser_a67650709a0bcf91a358dd678eef8aaa9}{seen\+\_\+}}
+\begin{DoxyCompactList}\small\item\em which paths we have seen so far \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classsmallcxx_1_1Traverser_a413ca3e573f42c2faedd7285e19557f4}{traversed\+\_\+}}
+\begin{DoxyCompactList}\small\item\em have we already been run? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper class to do the traversal. 
+
+Not part of \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}} because it doesn\textquotesingle{}t need access to any private data thereof. 
+
+Definition at line 87 of file globstari-\/traverse.\+cpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a914f8a2fb165b6153e4f8dee9db5fd1a}\label{classsmallcxx_1_1Traverser_a914f8a2fb165b6153e4f8dee9db5fd1a}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!Traverser@{Traverser}}
+\index{Traverser@{Traverser}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{Traverser()}{Traverser()}}
+{\footnotesize\ttfamily smallcxx\+::\+Traverser\+::\+Traverser (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}} $\ast$}]{client,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{base\+Path,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$ \&}]{needle,  }\item[{ssize\+\_\+t}]{max\+Depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 106 of file globstari-\/traverse.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a0ccf0d103d8c2a6144c259f4280b9420}\label{classsmallcxx_1_1Traverser_a0ccf0d103d8c2a6144c259f4280b9420}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!loadDir@{loadDir}}
+\index{loadDir@{loadDir}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{loadDir()}{loadDir()}}
+{\footnotesize\ttfamily void smallcxx\+::\+Traverser\+::load\+Dir (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structsmallcxx_1_1GlobstariBase_1_1Entry}{Globstari\+Base\+::\+Entry}} \&}]{entry,  }\item[{\mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}}}]{parent\+Ignores }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Prepare to descend into a directory. 
+
+
+
+Definition at line 249 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a217de4cb8835c55878d829410679e640}\label{classsmallcxx_1_1Traverser_a217de4cb8835c55878d829410679e640}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!loadIgnoreFiles@{loadIgnoreFiles}}
+\index{loadIgnoreFiles@{loadIgnoreFiles}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{loadIgnoreFiles()}{loadIgnoreFiles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}} smallcxx\+::\+Traverser\+::load\+Ignore\+Files (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{relative\+To,  }\item[{std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$}]{load\+From,  }\item[{\mbox{\hyperlink{namespacesmallcxx_aae5c012813ab790128c3b4503eb69b6d}{Matcher\+Ptr}}}]{parent\+Ignores }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Load the contents of ignore files. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]Document and verify which paths have to end with a / \end{DoxyRefDesc}
+
+
+Definition at line 266 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_aaa00b3ffed5fbd2eaf70c9227084a227}\label{classsmallcxx_1_1Traverser_aaa00b3ffed5fbd2eaf70c9227084a227}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!parseContentsInto@{parseContentsInto}}
+\index{parseContentsInto@{parseContentsInto}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{parseContentsInto()}{parseContentsInto()}}
+{\footnotesize\ttfamily void smallcxx\+::\+Traverser\+::parse\+Contents\+Into (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase_a7f521985ed968c46ce2cb40eb0c1c627}{Globstari\+Base\+::\+Bytes}} \&}]{contents,  }\item[{\mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}} \&}]{retval,  }\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{relative\+To }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Read ignore file {\ttfamily contents}, which lives in {\ttfamily relative\+To}, and add its contents to {\ttfamily retval}. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000009}{Todo}}]make this part of the public A\+PI \end{DoxyRefDesc}
+
+
+Definition at line 310 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a73ba0e3335fd755ad42aa73239b18019}\label{classsmallcxx_1_1Traverser_a73ba0e3335fd755ad42aa73239b18019}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!run@{run}}
+\index{run@{run}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void smallcxx\+::\+Traverser\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Run the traversal. 
+
+\begin{DoxyNote}{Note}
+Only one traversal per instantiation of Traverser! 
+\end{DoxyNote}
+
+
+Definition at line 145 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_ad587075a6c48a4bad7c3bbde8f221168}\label{classsmallcxx_1_1Traverser_ad587075a6c48a4bad7c3bbde8f221168}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!worker@{worker}}
+\index{worker@{worker}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{worker()}{worker()}}
+{\footnotesize\ttfamily void smallcxx\+::\+Traverser\+::worker (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Do the work. 
+
+
+
+Definition at line 161 of file globstari-\/traverse.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a4fbb855a6f8ef3340c162a03ae64561b}\label{classsmallcxx_1_1Traverser_a4fbb855a6f8ef3340c162a03ae64561b}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!client\_@{client\_}}
+\index{client\_@{client\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{client\_}{client\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}}$\ast$ smallcxx\+::\+Traverser\+::client\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Who we are working for. 
+
+
+
+Definition at line 90 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a8c34131cae9e0f026f663049e7632495}\label{classsmallcxx_1_1Traverser_a8c34131cae9e0f026f663049e7632495}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!items\_@{items\_}}
+\index{items\_@{items\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{items\_}{items\_}}
+{\footnotesize\ttfamily std\+::deque$<$\mbox{\hyperlink{structsmallcxx_1_1WorkItem}{Work\+Item}}$>$ smallcxx\+::\+Traverser\+::items\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Work queue for breadth-\/first search. 
+
+
+
+Definition at line 93 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a22db999755a7370c8574cf32edd8b563}\label{classsmallcxx_1_1Traverser_a22db999755a7370c8574cf32edd8b563}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!maxDepth\_@{maxDepth\_}}
+\index{maxDepth\_@{maxDepth\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{maxDepth\_}{maxDepth\_}}
+{\footnotesize\ttfamily ssize\+\_\+t smallcxx\+::\+Traverser\+::max\+Depth\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+How low can you go? 
+
+
+
+Definition at line 99 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_ad6f48f64d3aa4fc9049325a704032dff}\label{classsmallcxx_1_1Traverser_ad6f48f64d3aa4fc9049325a704032dff}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!needleMatcher\_@{needleMatcher\_}}
+\index{needleMatcher\_@{needleMatcher\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{needleMatcher\_}{needleMatcher\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{smallcxx\+::glob\+::\+Matcher}} smallcxx\+::\+Traverser\+::needle\+Matcher\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+What we are looking for. 
+
+
+
+Definition at line 96 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a67650709a0bcf91a358dd678eef8aaa9}\label{classsmallcxx_1_1Traverser_a67650709a0bcf91a358dd678eef8aaa9}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!seen\_@{seen\_}}
+\index{seen\_@{seen\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{seen\_}{seen\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{glob\+::\+Path\+Set}} smallcxx\+::\+Traverser\+::seen\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+which paths we have seen so far 
+
+
+
+Definition at line 101 of file globstari-\/traverse.\+cpp.
+
+\mbox{\Hypertarget{classsmallcxx_1_1Traverser_a413ca3e573f42c2faedd7285e19557f4}\label{classsmallcxx_1_1Traverser_a413ca3e573f42c2faedd7285e19557f4}} 
+\index{smallcxx::Traverser@{smallcxx::Traverser}!traversed\_@{traversed\_}}
+\index{traversed\_@{traversed\_}!smallcxx::Traverser@{smallcxx::Traverser}}
+\doxysubsubsection{\texorpdfstring{traversed\_}{traversed\_}}
+{\footnotesize\ttfamily bool smallcxx\+::\+Traverser\+::traversed\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+have we already been run? 
+
+
+
+Definition at line 103 of file globstari-\/traverse.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cxw/proj/smallcxx/src/\mbox{\hyperlink{globstari-traverse_8cpp}{globstari-\/traverse.\+cpp}}\end{DoxyCompactItemize}

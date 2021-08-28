@@ -1,0 +1,687 @@
+\hypertarget{test_8hpp}{}\doxysection{/home/cxw/proj/smallcxx/include/smallcxx/test.hpp File Reference}
+\label{test_8hpp}\index{/home/cxw/proj/smallcxx/include/smallcxx/test.hpp@{/home/cxw/proj/smallcxx/include/smallcxx/test.hpp}}
+
+
+A testing framework -\/ declarations.  
+
+
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$smallcxx/logging.\+hpp$>$}\newline
+{\ttfamily \#include $<$libgen.\+h$>$}\newline
+Include dependency graph for test.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test_8hpp_acd5494333c24b4bbdf06df3cc95c78d4}{T\+E\+S\+T\+\_\+\+D\+E\+T\+A\+I\+L\+\_\+\+E\+N\+V\+\_\+\+V\+A\+R\+\_\+\+N\+A\+ME}}
+\begin{DoxyCompactList}\small\item\em The name of an environment variable used for detailed log-\/level control. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a67e802d43408bfc73c063c8a4233576d}{T\+E\+S\+T\+\_\+\+F\+I\+LE}}
+\begin{DoxyCompactList}\small\item\em Create global state for a test file. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a6ae82246e415b0258c23068cc7a4d5be}{T\+E\+S\+T\+\_\+\+M\+A\+IN}}
+\begin{DoxyCompactList}\small\item\em Define {\ttfamily main} and fill in {\ttfamily M\+Y\+\_\+\+P\+A\+TH}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a8617b5064b571b22f7469846aea54b3b}{T\+E\+S\+T\+\_\+\+R\+E\+T\+U\+RN}}
+\begin{DoxyCompactList}\small\item\em Normal test return, pass/fail. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a790b9f78e76703a7a866a9a459c24b43}{T\+E\+S\+T\+\_\+\+S\+K\+I\+P\+\_\+\+A\+LL}}(format, ...)
+\begin{DoxyCompactList}\small\item\em Abort this test and return T\+E\+S\+T\+\_\+\+S\+K\+IP. Logs an Info message. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a741a78d8a8fd46aa37a15b8050d13e5f}{T\+E\+S\+T\+\_\+\+A\+B\+O\+RT}}(format, ...)
+\begin{DoxyCompactList}\small\item\em Abort and fail this test. Logs an Error message. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_aababc003d54e0c2b44e76d08bbeddac7}{T\+E\+S\+T\+\_\+\+B\+A\+I\+L\+\_\+\+O\+UT}}(format, ...)
+\begin{DoxyCompactList}\small\item\em Abort this test and return T\+E\+S\+T\+\_\+\+S\+T\+O\+P\+\_\+\+T\+E\+S\+T\+I\+NG. Logs an Error message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Specifying test cases}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test_8hpp_adbe0a09b0450db4aeb8c883da7d4d333}{T\+E\+S\+T\+\_\+\+C\+A\+S\+E\+\_\+\+N\+O\+T\+RY}}(fn)
+\begin{DoxyCompactList}\small\item\em Run the given void function, with logging around it. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_ae302eb87d568caa943aab29188d5b163}{T\+E\+S\+T\+\_\+\+C\+A\+SE}}(fn)
+\begin{DoxyCompactList}\small\item\em Run the given void function, with logging around it, inside a {\ttfamily try} block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1d}{Test\+Exit\+Code}} \{ \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1dacff5fe9593274d56dce9f3636d9bf834}{T\+E\+S\+T\+\_\+\+P\+A\+SS}} = 0, 
+\mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}{T\+E\+S\+T\+\_\+\+F\+A\+IL}} = 1, 
+\mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daa076f57979ac42b0b9e35ab8b2f1420a}{T\+E\+S\+T\+\_\+\+S\+K\+IP}} = 77, 
+\mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daaaa0162d241ae293239a0b4fe914078b}{T\+E\+S\+T\+\_\+\+S\+T\+O\+P\+\_\+\+T\+E\+S\+T\+I\+NG}} = 99
+ \}
+\begin{DoxyCompactList}\small\item\em Exit codes recognized by Automake\textquotesingle{}s parallel (non-\/\+T\+AP) test harness. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Test assertions}
+\label{_amgrpd5d53e1a0b95e7d4508a937274d42fc9}%
+Functions that adjust the test failure count.
+
+Unlike assert(), they do N\+OT terminate execution of the test file. \begin{DoxyNote}{Note}
+In production, I would also provide optional custom messages associated with assertions. 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(cond, ...)
+\begin{DoxyCompactList}\small\item\em Assert that {\ttfamily cond} is true. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a95c3e55b5556257f43c021076c1b24ac}{cmp\+\_\+ok}}(got,  op,  expected, ...)
+\begin{DoxyCompactList}\small\item\em Compare numeric values. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a1b3049575a6324df33981dc3e881287d}{isstr}}(got,  expected)
+\begin{DoxyCompactList}\small\item\em Compare string values for equality. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a8fce96b1a1c0fc59d43c713b9c8b0406}{throws\+\_\+with\+\_\+msg}}(stmt,  expected)
+\begin{DoxyCompactList}\small\item\em Assert that a given statement threw a std\+::exception containing a given substring. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a6a51c4e39ff5d3141cfb3954fd373650}{throws\+\_\+ok}}(stmt)
+\begin{DoxyCompactList}\small\item\em Assert that a given statement threw some exception. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_aedffd495f009f706b9a3a73df8324d09}{does\+\_\+not\+\_\+throw}}(stmt)
+\begin{DoxyCompactList}\small\item\em Assert that a given statement did not throw. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a200190e7c15da2fb0736c9f973818611}{reached}}()~\mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(reached\+\_\+this\+\_\+line\+\_\+as\+\_\+expected)
+\begin{DoxyCompactList}\small\item\em Assert that we got here and wanted to. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{test_8hpp_a0d022361b94ce56695ef82c57ebb9499}{unreached}}()~\mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(reached\+\_\+this\+\_\+line\+\_\+unexpectedly)
+\begin{DoxyCompactList}\small\item\em Assert false because we got here but didn\textquotesingle{}t want to! \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8hpp_a352825605d1edb54517ec6da224bf127}{test\+\_\+assert}} (unsigned int \&failures, unsigned int \&successes, const char $\ast$file, int line, const char $\ast$function, bool cond, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Master assertion routine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A testing framework -\/ declarations. 
+
+\begin{DoxyAuthor}{Author}
+Christopher White \href{mailto:cxwembedded@gmail.com}{\texttt{ cxwembedded@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 Christopher White
+\end{DoxyCopyright}
+Example test file\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{test_8hpp}{test.hpp}}"}}
+\DoxyCodeLine{\mbox{\hyperlink{test_8hpp_a67e802d43408bfc73c063c8a4233576d}{TEST\_FILE}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void} test\_something()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_a95c3e55b5556257f43c021076c1b24ac}{cmp\_ok}}(1, ==, 1);}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_a1b3049575a6324df33981dc3e881287d}{isstr}}(\textcolor{stringliteral}{"foo"}, \textcolor{stringliteral}{"foo"});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_ae302eb87d568caa943aab29188d5b163}{TEST\_CASE}}(test\_something);}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_a8617b5064b571b22f7469846aea54b3b}{TEST\_RETURN}};}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+
+
+This file is inspired by (but not copied from)\+:
+\begin{DoxyItemize}
+\item Perl\textquotesingle{}s \href{https://metacpan.org/pod/Test::More}{\texttt{ Test\+::\+More}}
+\item Perl\textquotesingle{}s \href{https://metacpan.org/pod/Test::Exception}{\texttt{ Test\+::\+Exception}}
+\item \href{https://developer.gnome.org/glib/stable/glib-Testing.html}{\texttt{ G\+Lib Testing}} 
+\end{DoxyItemize}
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{test_8hpp_a95c3e55b5556257f43c021076c1b24ac}\label{test_8hpp_a95c3e55b5556257f43c021076c1b24ac}} 
+\index{test.hpp@{test.hpp}!cmp\_ok@{cmp\_ok}}
+\index{cmp\_ok@{cmp\_ok}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{cmp\_ok}{cmp\_ok}}
+{\footnotesize\ttfamily \#define cmp\+\_\+ok(\begin{DoxyParamCaption}\item[{}]{got,  }\item[{}]{op,  }\item[{}]{expected,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keyword}{auto} \_got = (got); \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keyword}{auto} \_expected = (expected); \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keywordtype}{bool} \_result = (\_got op \_expected); \(\backslash\)}
+\DoxyCodeLine{        test\_assert(TEST\_failures, TEST\_successes, \_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_, \_result, \(\backslash\)}
+\DoxyCodeLine{                \textcolor{stringliteral}{"(\%s \%s \%s) was false: got \%"} PRIdMAX \textcolor{stringliteral}{", reference \%"} PRIdMAX, \(\backslash\)}
+\DoxyCodeLine{                (\#got), (\#op), (\#expected), (intmax\_t)\_got, (intmax\_t)\_expected); \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Compare numeric values. 
+
+\begin{DoxyWarning}{Warning}
+This only works for values convertible to intmax\+\_\+t. 
+\end{DoxyWarning}
+
+
+Definition at line 225 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_aedffd495f009f706b9a3a73df8324d09}\label{test_8hpp_aedffd495f009f706b9a3a73df8324d09}} 
+\index{test.hpp@{test.hpp}!does\_not\_throw@{does\_not\_throw}}
+\index{does\_not\_throw@{does\_not\_throw}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{does\_not\_throw}{does\_not\_throw}}
+{\footnotesize\ttfamily \#define does\+\_\+not\+\_\+throw(\begin{DoxyParamCaption}\item[{}]{stmt }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        try \{ \(\backslash\)}
+\DoxyCodeLine{            stmt; \(\backslash\)}
+\DoxyCodeLine{            reached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"Did not throw, as expected"}); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch} (std::exception\& e) \{ \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Got exception `\%s'"}, e.what()); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch}(...) \{ \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Got unknown exception"}); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Assert that a given statement did not throw. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em stmt} & A statement, W\+I\+T\+H\+O\+UT the trailing semicolon \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 308 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a1b3049575a6324df33981dc3e881287d}\label{test_8hpp_a1b3049575a6324df33981dc3e881287d}} 
+\index{test.hpp@{test.hpp}!isstr@{isstr}}
+\index{isstr@{isstr}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{isstr}{isstr}}
+{\footnotesize\ttfamily \#define isstr(\begin{DoxyParamCaption}\item[{}]{got,  }\item[{}]{expected }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        const std::string \_got(got); \(\backslash\)}
+\DoxyCodeLine{        const std::string \_expected(expected); \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keywordtype}{bool} \_result = (strcmp(\_got.c\_str(), \_expected.c\_str()) == 0); \(\backslash\)}
+\DoxyCodeLine{        test\_assert(TEST\_failures, TEST\_successes, \_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_, \_result, \(\backslash\)}
+\DoxyCodeLine{                \textcolor{stringliteral}{"\%s != \%s: got `\%s', expected `\%s'"}, \(\backslash\)}
+\DoxyCodeLine{                (\#got), (\#expected), (\_got.c\_str()), (\_expected.c\_str())); \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Compare string values for equality. 
+
+\begin{DoxyPrecond}{Precondition}
+A std\+::string can be initialized from each of {\ttfamily got} and {\ttfamily expected}. This macro copies its arguments into std\+::string so that it\textquotesingle{}s OK to pass temporary std\+::string instances. E.\+g., 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{test_8hpp_a1b3049575a6324df33981dc3e881287d}{isstr}}(\textcolor{stringliteral}{"foo"}, (\mbox{\hyperlink{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}{STR\_OF}} << \textcolor{stringliteral}{"foo"}))}
+\end{DoxyCode}
+
+
+works fine. Note, however, that 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{test_8hpp_a1b3049575a6324df33981dc3e881287d}{isstr}}(\textcolor{stringliteral}{"foo"}, (\mbox{\hyperlink{string_8hpp_a8d6319707a882a5164aee34d23dd3c97}{STR\_OF}} << \textcolor{stringliteral}{"foo"}).c\_str())}
+\end{DoxyCode}
+
+
+does not work in my tests, because the \mbox{\hyperlink{classStringFormatter}{String\+Formatter()}} instance gets destroyed before the strcmp(). 
+\end{DoxyPrecond}
+
+
+Definition at line 251 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}\label{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}} 
+\index{test.hpp@{test.hpp}!ok@{ok}}
+\index{ok@{ok}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{ok}{ok}}
+{\footnotesize\ttfamily \#define ok(\begin{DoxyParamCaption}\item[{}]{cond,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keywordtype}{bool} \_result = (cond); \(\backslash\)}
+\DoxyCodeLine{        test\_assert(TEST\_failures, TEST\_successes, \_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_, \(\backslash\)}
+\DoxyCodeLine{            \_result, \textcolor{stringliteral}{"\%s was false (expected true)"}, \#cond); \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Assert that {\ttfamily cond} is true. 
+
+
+
+Definition at line 216 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a200190e7c15da2fb0736c9f973818611}\label{test_8hpp_a200190e7c15da2fb0736c9f973818611}} 
+\index{test.hpp@{test.hpp}!reached@{reached}}
+\index{reached@{reached}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{reached}{reached}}
+{\footnotesize\ttfamily \#define reached(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(reached\+\_\+this\+\_\+line\+\_\+as\+\_\+expected)}
+
+
+
+Assert that we got here and wanted to. 
+
+
+
+Definition at line 324 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a741a78d8a8fd46aa37a15b8050d13e5f}\label{test_8hpp_a741a78d8a8fd46aa37a15b8050d13e5f}} 
+\index{test.hpp@{test.hpp}!TEST\_ABORT@{TEST\_ABORT}}
+\index{TEST\_ABORT@{TEST\_ABORT}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_ABORT}{TEST\_ABORT}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+A\+B\+O\+RT(\begin{DoxyParamCaption}\item[{}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"ABORT: "} format, \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{        return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}{TEST\_FAIL}}; \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0);}
+
+\end{DoxyCode}
+
+
+Abort and fail this test. Logs an Error message. 
+
+
+
+Definition at line 139 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_aababc003d54e0c2b44e76d08bbeddac7}\label{test_8hpp_aababc003d54e0c2b44e76d08bbeddac7}} 
+\index{test.hpp@{test.hpp}!TEST\_BAIL\_OUT@{TEST\_BAIL\_OUT}}
+\index{TEST\_BAIL\_OUT@{TEST\_BAIL\_OUT}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_BAIL\_OUT}{TEST\_BAIL\_OUT}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+B\+A\+I\+L\+\_\+\+O\+UT(\begin{DoxyParamCaption}\item[{}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Bail out!  "} format, \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{        return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daaaa0162d241ae293239a0b4fe914078b}{TEST\_STOP\_TESTING}}; \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0);}
+
+\end{DoxyCode}
+
+
+Abort this test and return T\+E\+S\+T\+\_\+\+S\+T\+O\+P\+\_\+\+T\+E\+S\+T\+I\+NG. Logs an Error message. 
+
+
+
+Definition at line 146 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_ae302eb87d568caa943aab29188d5b163}\label{test_8hpp_ae302eb87d568caa943aab29188d5b163}} 
+\index{test.hpp@{test.hpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE}{TEST\_CASE}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+C\+A\+SE(\begin{DoxyParamCaption}\item[{}]{fn }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        try \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"=> Starting test \%s"}, \#fn); \(\backslash\)}
+\DoxyCodeLine{            fn(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"<= Finished test \%s"}, \#fn); \(\backslash\)}
+\DoxyCodeLine{            reached(); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch}(std::exception\& e) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Caught exception: \%s"}, e.what()); \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch}(...) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Caught unexpected exception"}); \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Run the given void function, with logging around it, inside a {\ttfamily try} block. 
+
+Exceptions are logged and count as test failures, and exiting {\ttfamily fn} with no exceptions counts as a successful test. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fn} & -\/ The name of the function to run (or anything else for which {\ttfamily fn();} is valid). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 170 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_adbe0a09b0450db4aeb8c883da7d4d333}\label{test_8hpp_adbe0a09b0450db4aeb8c883da7d4d333}} 
+\index{test.hpp@{test.hpp}!TEST\_CASE\_NOTRY@{TEST\_CASE\_NOTRY}}
+\index{TEST\_CASE\_NOTRY@{TEST\_CASE\_NOTRY}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_NOTRY}{TEST\_CASE\_NOTRY}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+C\+A\+S\+E\+\_\+\+N\+O\+T\+RY(\begin{DoxyParamCaption}\item[{}]{fn }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"=> Starting test \%s"}, \#fn); \(\backslash\)}
+\DoxyCodeLine{        fn(); \(\backslash\)}
+\DoxyCodeLine{        LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"<= Finished test \%s"}, \#fn); \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Run the given void function, with logging around it. 
+
+\char`\"{}\+N\+O\+T\+R\+Y\char`\"{} because exceptions propagate out. Does not include any test assertions. 
+
+Definition at line 158 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_acd5494333c24b4bbdf06df3cc95c78d4}\label{test_8hpp_acd5494333c24b4bbdf06df3cc95c78d4}} 
+\index{test.hpp@{test.hpp}!TEST\_DETAIL\_ENV\_VAR\_NAME@{TEST\_DETAIL\_ENV\_VAR\_NAME}}
+\index{TEST\_DETAIL\_ENV\_VAR\_NAME@{TEST\_DETAIL\_ENV\_VAR\_NAME}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_DETAIL\_ENV\_VAR\_NAME}{TEST\_DETAIL\_ENV\_VAR\_NAME}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+D\+E\+T\+A\+I\+L\+\_\+\+E\+N\+V\+\_\+\+V\+A\+R\+\_\+\+N\+A\+ME}
+
+
+
+The name of an environment variable used for detailed log-\/level control. 
+
+To support detailed control, define this to a string before including this file. {\ttfamily \$V} is always supported. 
+
+Definition at line 50 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a67e802d43408bfc73c063c8a4233576d}\label{test_8hpp_a67e802d43408bfc73c063c8a4233576d}} 
+\index{test.hpp@{test.hpp}!TEST\_FILE@{TEST\_FILE}}
+\index{TEST\_FILE@{TEST\_FILE}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_FILE}{TEST\_FILE}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+F\+I\+LE}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{static} std::string MY\_PATH; \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} TEST\_failures = 0; \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} TEST\_successes = 0; \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keyword}{const} \textcolor{keywordtype}{bool} reached\_this\_line\_as\_expected = \textcolor{keyword}{true}; \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keyword}{const} \textcolor{keywordtype}{bool} reached\_this\_line\_unexpectedly = \textcolor{keyword}{false}; \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keyword}{const} \textcolor{keywordtype}{bool} \_initialized\_log = ([]()\{ \(\backslash\)}
+\DoxyCodeLine{            setVerbosityFromEnvironment(\mbox{\hyperlink{test_8hpp_acd5494333c24b4bbdf06df3cc95c78d4}{TEST\_DETAIL\_ENV\_VAR\_NAME}}); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"Initialized logging"}); \(\backslash\)}
+\DoxyCodeLine{            return \textcolor{keyword}{true} || reached\_this\_line\_as\_expected || \(\backslash\)}
+\DoxyCodeLine{                reached\_this\_line\_unexpectedly || MY\_PATH.empty(); \(\backslash\)}
+\DoxyCodeLine{    \})();}
+
+\end{DoxyCode}
+
+
+Create global state for a test file. 
+
+This macro\+:
+\begin{DoxyItemize}
+\item creates the T\+E\+S\+T\+\_\+failures and T\+E\+S\+T\+\_\+successes variables that will hold the number of failures during this run.
+\item defines constants used by \mbox{\hyperlink{test_8hpp_a200190e7c15da2fb0736c9f973818611}{reached()}} and \mbox{\hyperlink{test_8hpp_a0d022361b94ce56695ef82c57ebb9499}{unreached()}} to provide more readable assertion-\/failure messages.
+\item sets the verbosity level based on {\ttfamily \$V}.
+\item defines {\ttfamily std\+::string M\+Y\+\_\+\+P\+A\+TH}, which is filled in by T\+E\+S\+T\+\_\+\+M\+A\+IN. You do not have to use {\ttfamily M\+Y\+\_\+\+P\+A\+TH}; you can just use a regular {\ttfamily int \mbox{\hyperlink{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main()}}} if you want to.
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+This macro does not create or use any namespaces. 
+\end{DoxyNote}
+
+
+Definition at line 79 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a6ae82246e415b0258c23068cc7a4d5be}\label{test_8hpp_a6ae82246e415b0258c23068cc7a4d5be}} 
+\index{test.hpp@{test.hpp}!TEST\_MAIN@{TEST\_MAIN}}
+\index{TEST\_MAIN@{TEST\_MAIN}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_MAIN}{TEST\_MAIN}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+M\+A\+IN}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{void} test\_main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv); \(\backslash\)}
+\DoxyCodeLine{    int \mbox{\hyperlink{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv) \{ \(\backslash\)}
+\DoxyCodeLine{        MY\_PATH = dirname(argv[0]); \(\backslash\)}
+\DoxyCodeLine{        test\_main(argc, argv); \(\backslash\)}
+\DoxyCodeLine{        TEST\_RETURN; \(\backslash\)}
+\DoxyCodeLine{    \} \(\backslash\)}
+\DoxyCodeLine{    void test\_main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv)}
+
+\end{DoxyCode}
+
+
+Define {\ttfamily main} and fill in {\ttfamily M\+Y\+\_\+\+P\+A\+TH}. 
+
+Optional; if you don\textquotesingle{}t need M\+Y\+\_\+\+P\+A\+TH, you can use your own {\ttfamily \mbox{\hyperlink{cover-misc-t_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main()}}} as usual.
+
+Usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{globstari-basic-t_8cpp_a0d567a62bae46706ae575b0a8a41def4}{TEST\_MAIN}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \textcolor{comment}{// now in void test\_main(int argc, char **argv)}}
+\DoxyCodeLine{    \mbox{\hyperlink{test_8hpp_ae302eb87d568caa943aab29188d5b163}{TEST\_CASE}}(...);}
+\DoxyCodeLine{    \textcolor{comment}{// You do not need to call TEST\_RETURN!}}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ 
+
+Definition at line 106 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a8617b5064b571b22f7469846aea54b3b}\label{test_8hpp_a8617b5064b571b22f7469846aea54b3b}} 
+\index{test.hpp@{test.hpp}!TEST\_RETURN@{TEST\_RETURN}}
+\index{TEST\_RETURN@{TEST\_RETURN}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_RETURN}{TEST\_RETURN}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+R\+E\+T\+U\+RN}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        if(TEST\_failures) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"\%u test\%s failed"}, TEST\_failures, \(\backslash\)}
+\DoxyCodeLine{                    TEST\_failures > 1 ? \textcolor{stringliteral}{"s"} : \textcolor{stringliteral}{""}); \(\backslash\)}
+\DoxyCodeLine{            return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}{TEST\_FAIL}}; \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(TEST\_successes == 0) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"No tests ran"}); \(\backslash\)}
+\DoxyCodeLine{            return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}{TEST\_FAIL}}; \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, INFO, \textcolor{stringliteral}{"All tests passed"}); \(\backslash\)}
+\DoxyCodeLine{            return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1dacff5fe9593274d56dce9f3636d9bf834}{TEST\_PASS}}; \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Normal test return, pass/fail. 
+
+
+
+Definition at line 116 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a790b9f78e76703a7a866a9a459c24b43}\label{test_8hpp_a790b9f78e76703a7a866a9a459c24b43}} 
+\index{test.hpp@{test.hpp}!TEST\_SKIP\_ALL@{TEST\_SKIP\_ALL}}
+\index{TEST\_SKIP\_ALL@{TEST\_SKIP\_ALL}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_SKIP\_ALL}{TEST\_SKIP\_ALL}}
+{\footnotesize\ttfamily \#define T\+E\+S\+T\+\_\+\+S\+K\+I\+P\+\_\+\+A\+LL(\begin{DoxyParamCaption}\item[{}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, INFO, \textcolor{stringliteral}{"SKIP all: "} format, \#\# \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{        return \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daa076f57979ac42b0b9e35ab8b2f1420a}{TEST\_SKIP}}; \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0);}
+
+\end{DoxyCode}
+
+
+Abort this test and return T\+E\+S\+T\+\_\+\+S\+K\+IP. Logs an Info message. 
+
+
+
+Definition at line 132 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a6a51c4e39ff5d3141cfb3954fd373650}\label{test_8hpp_a6a51c4e39ff5d3141cfb3954fd373650}} 
+\index{test.hpp@{test.hpp}!throws\_ok@{throws\_ok}}
+\index{throws\_ok@{throws\_ok}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{throws\_ok}{throws\_ok}}
+{\footnotesize\ttfamily \#define throws\+\_\+ok(\begin{DoxyParamCaption}\item[{}]{stmt }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        try \{ \(\backslash\)}
+\DoxyCodeLine{            stmt; \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Did not throw, but expected to"}); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch} (std::exception\& e) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"Got exception as expected (`\%s')"}, e.what()); \(\backslash\)}
+\DoxyCodeLine{            reached(); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch}(...) \{ \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"Got exception as expected"}); \(\backslash\)}
+\DoxyCodeLine{            reached(); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Assert that a given statement threw some exception. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em stmt} & A statement, W\+I\+T\+H\+O\+UT the trailing semicolon \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 291 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a8fce96b1a1c0fc59d43c713b9c8b0406}\label{test_8hpp_a8fce96b1a1c0fc59d43c713b9c8b0406}} 
+\index{test.hpp@{test.hpp}!throws\_with\_msg@{throws\_with\_msg}}
+\index{throws\_with\_msg@{throws\_with\_msg}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{throws\_with\_msg}{throws\_with\_msg}}
+{\footnotesize\ttfamily \#define throws\+\_\+with\+\_\+msg(\begin{DoxyParamCaption}\item[{}]{stmt,  }\item[{}]{expected }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        const \textcolor{keywordtype}{string} \_expected(expected); \(\backslash\)}
+\DoxyCodeLine{        try \{ \(\backslash\)}
+\DoxyCodeLine{            stmt; \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \textcolor{stringliteral}{"Did not throw, but expected to"}); \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch} (std::exception\& e) \{ \(\backslash\)}
+\DoxyCodeLine{            reached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, LOG, \textcolor{stringliteral}{"Got exception `\%s'"}, e.what()); \(\backslash\)}
+\DoxyCodeLine{            bool didmatch = (strstr(e.what(), \_expected.c\_str()) != \textcolor{keyword}{nullptr}); \(\backslash\)}
+\DoxyCodeLine{            ok(didmatch); \(\backslash\)}
+\DoxyCodeLine{            if(!didmatch) \{ \(\backslash\)}
+\DoxyCodeLine{                LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, ERROR, \(\backslash\)}
+\DoxyCodeLine{                        \textcolor{stringliteral}{"Exception `\%s` did not include expected text `\%s`"}, \(\backslash\)}
+\DoxyCodeLine{                        e.what(), \_expected.c\_str()); \(\backslash\)}
+\DoxyCodeLine{            \} \(\backslash\)}
+\DoxyCodeLine{        \} \textcolor{keywordflow}{catch}(...) \{ \(\backslash\)}
+\DoxyCodeLine{            unreached(); \(\backslash\)}
+\DoxyCodeLine{            LOG\_F\_DOMAIN(\textcolor{stringliteral}{" test"}, WARNING, \textcolor{stringliteral}{"Got exception, but not one I expected"}); \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Assert that a given statement threw a std\+::exception containing a given substring. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em stmt} & A statement, W\+I\+T\+H\+O\+UT the trailing semicolon \\
+\hline
+\mbox{\texttt{ in}}  & {\em expected} & A string expected as a substring of the std\+::exception\+::what() of the thrown exception. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 266 of file test.\+hpp.
+
+\mbox{\Hypertarget{test_8hpp_a0d022361b94ce56695ef82c57ebb9499}\label{test_8hpp_a0d022361b94ce56695ef82c57ebb9499}} 
+\index{test.hpp@{test.hpp}!unreached@{unreached}}
+\index{unreached@{unreached}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{unreached}{unreached}}
+{\footnotesize\ttfamily \#define unreached(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{test_8hpp_a1eb6cb8997bc0bbff7c765afb5c67d79}{ok}}(reached\+\_\+this\+\_\+line\+\_\+unexpectedly)}
+
+
+
+Assert false because we got here but didn\textquotesingle{}t want to! 
+
+
+
+Definition at line 328 of file test.\+hpp.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1d}\label{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1d}} 
+\index{test.hpp@{test.hpp}!TestExitCode@{TestExitCode}}
+\index{TestExitCode@{TestExitCode}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{TestExitCode}{TestExitCode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1d}{Test\+Exit\+Code}}}
+
+
+
+Exit codes recognized by Automake\textquotesingle{}s parallel (non-\/\+T\+AP) test harness. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEST\_PASS@{TEST\_PASS}!test.hpp@{test.hpp}}\index{test.hpp@{test.hpp}!TEST\_PASS@{TEST\_PASS}}}\mbox{\Hypertarget{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1dacff5fe9593274d56dce9f3636d9bf834}\label{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1dacff5fe9593274d56dce9f3636d9bf834}} 
+T\+E\+S\+T\+\_\+\+P\+A\+SS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEST\_FAIL@{TEST\_FAIL}!test.hpp@{test.hpp}}\index{test.hpp@{test.hpp}!TEST\_FAIL@{TEST\_FAIL}}}\mbox{\Hypertarget{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}\label{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1da95ff945c2f47eb10462e687007716732}} 
+T\+E\+S\+T\+\_\+\+F\+A\+IL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEST\_SKIP@{TEST\_SKIP}!test.hpp@{test.hpp}}\index{test.hpp@{test.hpp}!TEST\_SKIP@{TEST\_SKIP}}}\mbox{\Hypertarget{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daa076f57979ac42b0b9e35ab8b2f1420a}\label{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daa076f57979ac42b0b9e35ab8b2f1420a}} 
+T\+E\+S\+T\+\_\+\+S\+K\+IP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEST\_STOP\_TESTING@{TEST\_STOP\_TESTING}!test.hpp@{test.hpp}}\index{test.hpp@{test.hpp}!TEST\_STOP\_TESTING@{TEST\_STOP\_TESTING}}}\mbox{\Hypertarget{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daaaa0162d241ae293239a0b4fe914078b}\label{test_8hpp_a1b98bec8ac7805b5714bf4fc73c0bb1daaaa0162d241ae293239a0b4fe914078b}} 
+T\+E\+S\+T\+\_\+\+S\+T\+O\+P\+\_\+\+T\+E\+S\+T\+I\+NG&bail out --- testing can\textquotesingle{}t continue \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 57 of file test.\+hpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test_8hpp_a352825605d1edb54517ec6da224bf127}\label{test_8hpp_a352825605d1edb54517ec6da224bf127}} 
+\index{test.hpp@{test.hpp}!test\_assert@{test\_assert}}
+\index{test\_assert@{test\_assert}!test.hpp@{test.hpp}}
+\doxysubsubsection{\texorpdfstring{test\_assert()}{test\_assert()}}
+{\footnotesize\ttfamily void test\+\_\+assert (\begin{DoxyParamCaption}\item[{unsigned int \&}]{failures,  }\item[{unsigned int \&}]{successes,  }\item[{const char $\ast$}]{file,  }\item[{int}]{line,  }\item[{const char $\ast$}]{function,  }\item[{bool}]{cond,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Master assertion routine. 
+
+If {\ttfamily cond} is true, increment {\ttfamily successes}. Otherwise, increment {\ttfamily failures} and log a test-\/failure message.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em failures} & Incremented if {\ttfamily cond} is false \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em successes} & Incremented if {\ttfamily cond} is true \\
+\hline
+\mbox{\texttt{ in}}  & {\em file} & {\bfseries{F\+I\+LE}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em line} & {\bfseries{L\+I\+NE}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em function} & {\bfseries{func}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em cond} & True if the test passed, false otherwise \\
+\hline
+\mbox{\texttt{ in}}  & {\em format} & Failure message format string \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 18 of file test.\+cpp.
+

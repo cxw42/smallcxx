@@ -1,0 +1,246 @@
+\hypertarget{namespacesmallcxx_1_1glob}{}\doxysection{smallcxx\+::glob Namespace Reference}
+\label{namespacesmallcxx_1_1glob}\index{smallcxx::glob@{smallcxx::glob}}
+
+
+Glob-\/testing routines.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Criteria}{Criteria}}
+\begin{DoxyCompactList}\small\item\em Regex and ranges for $>$=1 globs. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSet}{Glob\+Set}}
+\begin{DoxyCompactList}\small\item\em A set of globs. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1GlobSetImpl}{Glob\+Set\+Impl}}
+\item 
+class \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}
+\begin{DoxyCompactList}\small\item\em A matcher holding any number of glob patterns, include or exclude. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{Path}} = std\+::string
+\begin{DoxyCompactList}\small\item\em A path or filename. A convenience typedef, to permit future changes. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{Path\+Set}} = std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} $>$
+\begin{DoxyCompactList}\small\item\em Set of globs or paths. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a723db8976e7c9e225a031157e313686c}{Match\+Data\+Ptr}} = std\+::unique\+\_\+ptr$<$ pcre2\+\_\+match\+\_\+data, void($\ast$)(pcre2\+\_\+match\+\_\+data $\ast$)$>$
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}{Re\+Ptr}} = std\+::unique\+\_\+ptr$<$ pcre2\+\_\+code, void($\ast$)(pcre2\+\_\+code $\ast$)$>$
+\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{Int}} = intmax\+\_\+t
+\begin{DoxyCompactList}\small\item\em Element of a numerical range. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}{Int\+Pair}} = std\+::pair$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{Int}}, \mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{Int}} $>$
+\begin{DoxyCompactList}\small\item\em Numerical range. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} = std\+::vector$<$ \mbox{\hyperlink{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}{Int\+Pair}} $>$
+\begin{DoxyCompactList}\small\item\em List of numerical ranges. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3}{Polarity}} \{ \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}{Polarity\+::\+Include}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}{Polarity\+::\+Exclude}}
+ \}
+\begin{DoxyCompactList}\small\item\em Polarity of globs\+: include or exclude. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}{Path\+Check\+Result}} \{ \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a984ceac16fab685fc50b8d8a5eabf7de}{Path\+Check\+Result\+::\+Included}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a122180683375b33fd7171ebba4660f80}{Path\+Check\+Result\+::\+Excluded}}, 
+\mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a88183b946cc5f0e8c96b2e66e1c74a7e}{Path\+Check\+Result\+::\+Unknown}}
+ \}
+\begin{DoxyCompactList}\small\item\em The state of a path w.\+r.\+t. a Matcher. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{namespacesmallcxx_1_1glob_a654da74f49540bace3a7f6a2794cca2e}{glob\+To\+Regex\+Src}} (const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&glob, string \&src, \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} \&ranges)
+\begin{DoxyCompactList}\small\item\em Append regex source for glob {\ttfamily glob} to {\ttfamily src}, and append to {\ttfamily ranges} if {\ttfamily glob} includes numerical range(s). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const string \mbox{\hyperlink{namespacesmallcxx_1_1glob_aa9d08d57396bbba9f5babe7bf3a6efc2}{ec\+\_\+special\+\_\+chars}} = \char`\"{}?\mbox{[}$\,$\mbox{]}\textbackslash{}\textbackslash{}$\ast$-\/\{\},\char`\"{}
+\begin{DoxyCompactList}\small\item\em Characters that are special in globs so should be escaped. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Glob-\/testing routines. 
+
+Used internally by \mbox{\hyperlink{classsmallcxx_1_1GlobstariBase}{Globstari\+Base}}, but exposed here for testability and because they might be useful in other contexts. 
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}\label{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}} 
+\index{smallcxx::glob@{smallcxx::glob}!Int@{Int}}
+\index{Int@{Int}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{Int}{Int}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{smallcxx\+::glob\+::\+Int}} = typedef intmax\+\_\+t}
+
+
+
+Element of a numerical range. 
+
+
+
+Definition at line 50 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}\label{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}} 
+\index{smallcxx::glob@{smallcxx::glob}!IntPair@{IntPair}}
+\index{IntPair@{IntPair}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{IntPair}{IntPair}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}{smallcxx\+::glob\+::\+Int\+Pair}} = typedef std\+::pair$<$\mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{Int}}, \mbox{\hyperlink{namespacesmallcxx_1_1glob_a0337fb1861c7eb698967ddcb577318f9}{Int}}$>$}
+
+
+
+Numerical range. 
+
+
+
+Definition at line 53 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a723db8976e7c9e225a031157e313686c}\label{namespacesmallcxx_1_1glob_a723db8976e7c9e225a031157e313686c}} 
+\index{smallcxx::glob@{smallcxx::glob}!MatchDataPtr@{MatchDataPtr}}
+\index{MatchDataPtr@{MatchDataPtr}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{MatchDataPtr}{MatchDataPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a723db8976e7c9e225a031157e313686c}{smallcxx\+::glob\+::\+Match\+Data\+Ptr}} = typedef std\+::unique\+\_\+ptr$<$pcre2\+\_\+match\+\_\+data, void($\ast$)(pcre2\+\_\+match\+\_\+data $\ast$)$>$}
+
+
+
+Definition at line 42 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}\label{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}} 
+\index{smallcxx::glob@{smallcxx::glob}!Path@{Path}}
+\index{Path@{Path}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{Path}{Path}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} = typedef std\+::string}
+
+
+
+A path or filename. A convenience typedef, to permit future changes. 
+
+
+
+Definition at line 32 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}\label{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}} 
+\index{smallcxx::glob@{smallcxx::glob}!PathSet@{PathSet}}
+\index{PathSet@{PathSet}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{PathSet}{PathSet}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a7011d5d203bae40e77f5406434a91df5}{smallcxx\+::glob\+::\+Path\+Set}} = typedef std\+::unordered\+\_\+set$<$\mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}}$>$}
+
+
+
+Set of globs or paths. 
+
+
+
+Definition at line 35 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}\label{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}} 
+\index{smallcxx::glob@{smallcxx::glob}!RangePairs@{RangePairs}}
+\index{RangePairs@{RangePairs}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{RangePairs}{RangePairs}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{smallcxx\+::glob\+::\+Range\+Pairs}} = typedef std\+::vector$<$\mbox{\hyperlink{namespacesmallcxx_1_1glob_ad7f964aab4cb346b5e87127529e1ddd6}{Int\+Pair}}$>$}
+
+
+
+List of numerical ranges. 
+
+
+
+Definition at line 56 of file globstari.\+cpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}\label{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}} 
+\index{smallcxx::glob@{smallcxx::glob}!RePtr@{RePtr}}
+\index{RePtr@{RePtr}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{RePtr}{RePtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacesmallcxx_1_1glob_a40adbc088d0c357053a5b205cb07a17e}{smallcxx\+::glob\+::\+Re\+Ptr}} = typedef std\+::unique\+\_\+ptr$<$pcre2\+\_\+code, void($\ast$)(pcre2\+\_\+code $\ast$)$>$}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000014}{Todo}}]Make this a std\+::shared\+\_\+ptr? \end{DoxyRefDesc}
+
+
+Definition at line 45 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}\label{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}} 
+\index{smallcxx::glob@{smallcxx::glob}!PathCheckResult@{PathCheckResult}}
+\index{PathCheckResult@{PathCheckResult}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{PathCheckResult}{PathCheckResult}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041}{smallcxx\+::glob\+::\+Path\+Check\+Result}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+The state of a path w.\+r.\+t. a \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Included@{Included}!smallcxx::glob@{smallcxx::glob}}\index{smallcxx::glob@{smallcxx::glob}!Included@{Included}}}\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a984ceac16fab685fc50b8d8a5eabf7de}\label{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a984ceac16fab685fc50b8d8a5eabf7de}} 
+Included&Listed in a \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}{Polarity\+::\+Include}} set. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Excluded@{Excluded}!smallcxx::glob@{smallcxx::glob}}\index{smallcxx::glob@{smallcxx::glob}!Excluded@{Excluded}}}\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a122180683375b33fd7171ebba4660f80}\label{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a122180683375b33fd7171ebba4660f80}} 
+Excluded&Listed in a \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}{Polarity\+::\+Exclude}} set. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Unknown@{Unknown}!smallcxx::glob@{smallcxx::glob}}\index{smallcxx::glob@{smallcxx::glob}!Unknown@{Unknown}}}\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a88183b946cc5f0e8c96b2e66e1c74a7e}\label{namespacesmallcxx_1_1glob_a62ce1c60ba48c6f1f70d2c548e5a4041a88183b946cc5f0e8c96b2e66e1c74a7e}} 
+Unknown&Not listed in any set in the \mbox{\hyperlink{classsmallcxx_1_1glob_1_1Matcher}{Matcher}}. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 103 of file globstari.\+hpp.
+
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3}\label{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3}} 
+\index{smallcxx::glob@{smallcxx::glob}!Polarity@{Polarity}}
+\index{Polarity@{Polarity}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{Polarity}{Polarity}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3}{smallcxx\+::glob\+::\+Polarity}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Polarity of globs\+: include or exclude. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Include@{Include}!smallcxx::glob@{smallcxx::glob}}\index{smallcxx::glob@{smallcxx::glob}!Include@{Include}}}\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}\label{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3af4d72a64acd8929c0cc9ed96a7a336cc}} 
+Include&includes (don\textquotesingle{}t start with {\ttfamily !} in an ignore file) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Exclude@{Exclude}!smallcxx::glob@{smallcxx::glob}}\index{smallcxx::glob@{smallcxx::glob}!Exclude@{Exclude}}}\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}\label{namespacesmallcxx_1_1glob_a1caf8d7a1114eb187ef69330520bb5a3a843f2812f595e7ec7c5036e89fde02d6}} 
+Exclude&excludes (start with {\ttfamily !} in an ignore file) \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 38 of file globstari.\+hpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_a654da74f49540bace3a7f6a2794cca2e}\label{namespacesmallcxx_1_1glob_a654da74f49540bace3a7f6a2794cca2e}} 
+\index{smallcxx::glob@{smallcxx::glob}!globToRegexSrc@{globToRegexSrc}}
+\index{globToRegexSrc@{globToRegexSrc}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{globToRegexSrc()}{globToRegexSrc()}}
+{\footnotesize\ttfamily static void smallcxx\+::glob\+::glob\+To\+Regex\+Src (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacesmallcxx_1_1glob_ab5bbdf6a29a29b34e4d70d02c5097d9d}{smallcxx\+::glob\+::\+Path}} \&}]{glob,  }\item[{string \&}]{src,  }\item[{\mbox{\hyperlink{namespacesmallcxx_1_1glob_a382d541b731588308b512cca2e45c3d3}{Range\+Pairs}} \&}]{ranges }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Append regex source for glob {\ttfamily glob} to {\ttfamily src}, and append to {\ttfamily ranges} if {\ttfamily glob} includes numerical range(s). 
+
+Adapted from editorconfig-\/core-\/c/src/lib/ec\+\_\+glob.\+c\+:ec\+\_\+glob(), the first half of the function. 
+
+Definition at line 187 of file globstari.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacesmallcxx_1_1glob_aa9d08d57396bbba9f5babe7bf3a6efc2}\label{namespacesmallcxx_1_1glob_aa9d08d57396bbba9f5babe7bf3a6efc2}} 
+\index{smallcxx::glob@{smallcxx::glob}!ec\_special\_chars@{ec\_special\_chars}}
+\index{ec\_special\_chars@{ec\_special\_chars}!smallcxx::glob@{smallcxx::glob}}
+\doxysubsubsection{\texorpdfstring{ec\_special\_chars}{ec\_special\_chars}}
+{\footnotesize\ttfamily const string smallcxx\+::glob\+::ec\+\_\+special\+\_\+chars = \char`\"{}?\mbox{[}$\,$\mbox{]}\textbackslash{}\textbackslash{}$\ast$-\/\{\},\char`\"{}}
+
+
+
+Characters that are special in globs so should be escaped. 
+
+from editorconfig-\/core-\/c/src/lib/ec\+\_\+glob.\+c 
+
+Definition at line 37 of file globstari.\+cpp.
+
