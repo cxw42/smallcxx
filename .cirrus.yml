@@ -1,0 +1,7 @@
+container:
+  image: gcc:latest
+task:
+  build_script:
+    - ./autogen.sh
+    - make -j
+  tests_script: make -j check
