@@ -1,0 +1,12 @@
+# Temp and backup files
+*.swp
+*.tmp
+*~
+~*
+*.e
+*.bak
+*.tdy
+*.orig
+
+# Other
+tags
