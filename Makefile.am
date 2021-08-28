@@ -1,10 +1,11 @@
+# Makefile.am - part of smallcxx
 # Copyright (c) 2021 Christopher White <cxwembedded@gmail.com>
 # SPDX-License-Identifier: BSD-3-Clause
 include $(top_srcdir)/rules.mk
 
 # === Basics ==============================================================
 
-SUBDIRS = include src t doc
+SUBDIRS = include src bin t doc
 
 dist_noinst_SCRIPTS = \
 	asan.sh \

@@ -80,6 +80,7 @@ dnl === Output ============================================================
 
 AC_CONFIG_FILES([
     Makefile
+    bin/Makefile
     doc/Doxyfile
     doc/Makefile
     include/Makefile
