@@ -1,4 +1,4 @@
-/// @file t/string.cpp
+/// @file t/string-t.cpp
 /// @brief Tests of smallcxx/string.hpp
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White

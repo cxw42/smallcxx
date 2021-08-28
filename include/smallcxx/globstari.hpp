@@ -161,6 +161,8 @@ public:
     /// @param[in]  globs - the globs to add
     /// @param[in]  path - where each of the globs should be anchored.  Must be
     ///     nonempty and end with a `/`.
+    /// @param[in]  delegate - The Matcher to delegate to for unknown results.
+    ///     E.g., a parent ignore set.  Optional; default nullptr.
     Matcher(const std::initializer_list<smallcxx::glob::Path>& globs,
             const smallcxx::glob::Path path,
             const std::shared_ptr<Matcher>& delegate = nullptr
@@ -354,7 +356,7 @@ public:
 
     /// Returns the full content of a file, if the file exists.
     /// @param[in]  path - the path to the file
-    /// @param[out] contents - the contents
+    /// @return The contents
     /// @throws if an error occurs
     virtual Bytes readFile(const smallcxx::glob::Path& path) = 0;
 
