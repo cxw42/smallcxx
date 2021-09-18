@@ -499,6 +499,10 @@ GlobSetImpl::addGlob(const smallcxx::glob::Path& glob)
     if(glob.empty()) {
         throw runtime_error("Cannot add an empty glob");
     }
+    if(finalized()) {
+        throw runtime_error("Already finalized --- cannot add more globs");
+    }
+
     globs_.insert(glob);
 } // GlobSetImpl::addGlob()
 

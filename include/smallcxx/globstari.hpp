@@ -64,12 +64,14 @@ public:
     ~GlobSet();
 
     /// Add a single glob to the set.
-    /// @note Cannot be used until you have called finalize().
+    /// @note contains() cannot be used until you have called finalize().
+    /// @throws std::runtime_error if finalized()
     void addGlob(const smallcxx::glob::Path& glob);
 
     /// Add multiple globs.
     /// Templated so you can use vectors or initializer_lists.
-    /// @note Cannot be used until you have called finalize().
+    /// @note contains() cannot be used until you have called finalize().
+    /// @throws std::runtime_error if finalized()
     template<class T>
     void
     addGlobs(const T& globs)

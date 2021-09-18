@@ -28,6 +28,9 @@ test_invalid()
 {
     GlobSet gs;
     throws_with_msg(gs.addGlob(""), "empty glob");
+
+    gs.finalize();
+    throws_with_msg(gs.addGlob("*"), "finalized");
 }
 
 void
