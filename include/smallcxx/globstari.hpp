@@ -258,6 +258,9 @@ public:
 /// @todo
 /// - Symlinks?
 /// - If so, symlink-loop checking?
+///
+/// @todo Make sure the class is consistent w.r.t. what paths are provided
+///     in canonical form, and make sure that's documented.
 class GlobstariBase
 {
 public:
@@ -336,7 +339,8 @@ public:
     /// @note You *do* have to handle `.` and `..`!  Do not return those,
     ///     or any other entries you do not want considered during traversal.
     ///
-    /// @param[in]  dirName - the path to the directory itself
+    /// @param[in]  dirName - the path to the directory itself.
+    ///     TODO make sure this is in canonical form.
     /// @return The entries, if any.  You do not have to fill in Entry::depth.
     /// @throws std::system_error if @p dirName is unreadable.
     ///
