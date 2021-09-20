@@ -43,7 +43,8 @@ tags:
 
 phony += prettyprint
 prettyprint:
-	-astyle --project=".astylerc" `git ls-files '*.c*' '*.h*'`
+	@: # List *.c and *.cpp separately to avoid .cirrus.yml
+	-astyle --project=".astylerc" `git ls-files '*.c' '*.cpp' '*.h*'`
 
 phony += p
 p:
