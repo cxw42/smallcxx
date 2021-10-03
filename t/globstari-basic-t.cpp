@@ -135,6 +135,20 @@ test_disk()
         compare_sequence(d.found, {"/text2.txt"}, __func__, __LINE__);
     }
 
+    {
+        // matches one in a subdir
+        DiskTraverser d;
+        d.traverse(basepath, {"somef*"});
+        compare_sequence(d.found, {"globstari-basic-disk/subdir/somefile"}, __func__, __LINE__);
+    }
+
+    {
+        // matches all
+        DiskTraverser d;
+        d.traverse(basepath, {"*"});
+        compare_sequence(d.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"}, __func__, __LINE__);
+    }
+
 } // test_disk()
 
 /// Tests using the contents of `t/globstari-basic-disk-ignores`.
