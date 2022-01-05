@@ -139,14 +139,16 @@ test_disk()
         // matches one in a subdir
         DiskTraverser d;
         d.traverse(basepath, {"somef*"});
-        compare_sequence(d.found, {"globstari-basic-disk/subdir/somefile"}, __func__, __LINE__);
+        compare_sequence(d.found, {"globstari-basic-disk/subdir/somefile"}, __func__,
+                         __LINE__);
     }
 
     {
         // matches all
         DiskTraverser d;
         d.traverse(basepath, {"*"});
-        compare_sequence(d.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"}, __func__, __LINE__);
+        compare_sequence(d.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"},
+                         __func__, __LINE__);
     }
 
 } // test_disk()

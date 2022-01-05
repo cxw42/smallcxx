@@ -110,7 +110,8 @@ public:
         : client_(client), maxDepth_(maxDepth), traversed_(false)
     {
         smallcxx::glob::Path rootPath = client_->canonicalize(basePath);
-        needleMatcher_.addGlobs(needle, rootPath.back() == '/' ? rootPath : rootPath + "/");
+        needleMatcher_.addGlobs(needle,
+                                rootPath.back() == '/' ? rootPath : rootPath + "/");
         needleMatcher_.finalize();
 
         // Prime the pump.  Note: the ignores start out empty, so this
