@@ -391,4 +391,12 @@ setVerbosityFromEnvironment(const char *detailEnvVarName)
     }
 }
 
+void
+silenceLog()
+{
+    LogLevelWithDefault::defaultLevel = LOG_SILENT;
+    g_currSystemLevels.levels().clear();
+    setLogLevel(LOG_SILENT);
+}
+
 /// @}

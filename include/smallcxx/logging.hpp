@@ -146,4 +146,8 @@ LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 ///     the given variable exists.
 void setVerbosityFromEnvironment(const char *detailEnvVarName = nullptr);
 
+/// Set all levels to silent.  Does not lock them there; they can be changed
+/// afterwards by calling setLogLevel() or setVerbosityFromEnvironment().
+void silenceLog();
+
 #endif // LOGGING_HPP_
