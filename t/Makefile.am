@@ -21,6 +21,7 @@ XFAIL_TESTS = \
 # Test scripts that don't need to be compiled (TESTS but not check_PROGRAMS)
 testscripts = \
 	cover-colorlog-t.sh \
+	silent-t.sh \
 	$(EOL)
 
 # Test programs to compile (both TESTS and check_PROGRAMS)
@@ -35,6 +36,7 @@ testprograms = \
 # Programs to compile in support of tests (check_PROGRAMS but not TESTS)
 alsocompile = \
 	log-debug-message-s \
+	silent-s \
 	$(EOL)
 
 # Data files needed by the tests.
