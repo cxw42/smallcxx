@@ -21,6 +21,7 @@ XFAIL_TESTS = \
 # Test scripts that don't need to be compiled (TESTS but not check_PROGRAMS)
 testscripts = \
 	cover-colorlog-t.sh \
+	logging-t.sh \
 	silent-t.sh \
 	$(EOL)
 
