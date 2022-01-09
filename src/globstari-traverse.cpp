@@ -192,7 +192,7 @@ Traverser::worker()
         // Is it a hit?
         const auto match = needleMatcher_.check(item.entry.canonPath);
 
-        LOG_F(TRACE, "%s %s", PathCheckResultNames[(int)match],
+        LOG_F(TRACE, "pathcheck:%s for [%s]", PathCheckResultNames[(int)match],
               item.entry.canonPath.c_str());
 
         // Decide what to do
