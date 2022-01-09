@@ -220,6 +220,25 @@ vlogMessage(const std::string& domain,
 
 /// @name Getting and setting the log level from code
 /// @{
+
+LogLevel
+clipLogLevel(LogLevel level)
+{
+    if(level == LOG_SILENT) {
+        return LOG_SILENT;
+    }
+
+    if(level < LOG_MIN) {
+        return LOG_MIN;
+    }
+
+    if(level > LOG_MAX) {
+        return LOG_MAX;
+    }
+
+    return level;
+}
+
 void
 setLogLevel(LogLevel newLevel, const std::string& domain)
 {
@@ -233,16 +252,12 @@ setLogLevel(LogLevel newLevel, const std::string& domain)
     }
 
     if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
-        throw domain_error(
-            STR_OF << "Ignoring attempt to set invalid log level for " << domain);
+        throw domain_error(STR_OF
+                           << "Ignoring attempt to set invalid log level for "
+                           << (domain.empty() ? "default domain" : domain));
     }
 
-    if(newLevel < LOG_MIN) {
-        newLevel = (LogLevel)LOG_MIN;
-    }
-    if(newLevel > LOG_MAX) {
-        newLevel = (LogLevel)LOG_MAX;
-    }
+    newLevel = clipLogLevel(newLevel);
 
     g_currSystemLevels[domain].l = newLevel;
 }
@@ -291,7 +306,7 @@ parseLevel(const std::string& str)
 static void
 setLevelFromStrings(const std::string& domain, const std::string& value)
 {
-    LogLevel level = parseLevel(value);
+    LogLevel level = clipLogLevel(parseLevel(value));
 
     if(domain == "*") {
         LogLevelWithDefault::defaultLevel = level;
@@ -371,7 +386,7 @@ parseV()
 
     int delta = parsePosInt(c_str);
 
-    LogLevelWithDefault::defaultLevel = (LogLevel)(LOG_INFO + delta);
+    LogLevelWithDefault::defaultLevel = clipLogLevel((LogLevel)(LOG_INFO + delta));
     setLogLevel(LogLevelWithDefault::defaultLevel);
 }
 

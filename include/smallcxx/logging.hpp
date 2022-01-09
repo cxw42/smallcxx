@@ -130,6 +130,9 @@ void vlogMessage(const std::string& domain,
 void setLogLevel(LogLevel newLevel,
                  const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
+/// Clip @p level to [LOG_SILENT]+[LOG_MIN, LOG_MAX].  A convenience function.
+LogLevel clipLogLevel(LogLevel level);
+
 /// Get the current log level
 LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
