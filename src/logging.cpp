@@ -26,6 +26,9 @@ using namespace std;
 
 // === Constants and data ================================================
 
+/// Domains starting with a space are reserved.
+static const char DOMAIN_SIGIL_RESERVED = ' ';
+
 /// Human-readable names of the log levels.
 /// Each is <= 5 chars for the `%-5s` in logMessage().
 /// @warning Keep this in sync with enum LogLevel!
@@ -42,28 +45,17 @@ static const char *g_levelnames[] = {
     "snoop",
 };
 
-/// Log level with a default
-struct LogLevelWithDefault {
-    static LogLevel defaultLevel;
-    LogLevel l; ///< the actual level
-    LogLevelWithDefault(): l(defaultLevel) {}
-    LogLevelWithDefault(LogLevel newl): l(newl) {}
-
-    /// @name Other
-    /// @{
-    LogLevelWithDefault(const LogLevelWithDefault&) = default;
-    LogLevelWithDefault& operator=(const LogLevelWithDefault&) = default;
-    LogLevelWithDefault(LogLevelWithDefault&& other) = default;
-    LogLevelWithDefault& operator=(LogLevelWithDefault&& other) = default;
-    /// @}
-};
-LogLevel LogLevelWithDefault::defaultLevel = LOG_INFO;
+static LogLevel g_DefaultLevel = LOG_INFO;
 
 
 /// Type to hold current domain levels.
 /// Myers singleton since we need it during startup.
-struct LogLevelHolder {
-    using MapType = unordered_map<string, LogLevelWithDefault>;
+class LogLevelHolder
+{
+public:
+    using MapType = unordered_map<string, LogLevel>;
+
+private:
     static MapType&
     levels()
     {
@@ -71,12 +63,48 @@ struct LogLevelHolder {
         return singleton;
     }
 
-    /// Accessor so you don't have to say "::levels()" all the time
-    MapType::mapped_type&
-    operator[](const MapType::key_type& k)
+    friend void
+    setLogLevel(LogLevel newLevel, const std::string& domain);
+
+    /// Record the log level for a domain
+    /// @note Does not validate its input --- that is handled in
+    /// setLogLevel().
+    void
+    operator()(const MapType::key_type& domain, const LogLevel& level)
     {
-        return levels()[k];
+        levels()[domain] = level;
     }
+
+public:
+    /// Get the log level for a domain.
+    /// The first time a message is logged for a domain that has not been
+    ///     assigned a level, the domain gets the default level in effect at
+    ///     that time.
+    /// @param[in]  domain - logging domain.
+    LogLevel
+    operator()(const MapType::key_type& domain)
+    {
+        auto it = levels().find(domain);
+
+        if(it != levels().end()) {
+            // Already assigned --- return it
+            return it->second;
+        }
+
+        // Assign the level
+        LogLevel newLevel;
+        newLevel = g_DefaultLevel;
+        levels()[domain] = newLevel;
+        return newLevel;
+    }
+
+    // Clear all recorded log levels
+    void
+    clear()
+    {
+        levels().clear();
+    }
+
 }; // class LogLevelHolder
 
 /// Current log levels
@@ -139,7 +167,7 @@ vlogMessage(const std::string& domain,
 
     // Accept the possibility of missing a log message around the time
     // the level changes.
-    if(msgLevel > g_currSystemLevels[domain].l) {
+    if(msgLevel > g_currSystemLevels(domain)) {
         return;
     }
 
@@ -246,7 +274,7 @@ setLogLevel(LogLevel newLevel, const std::string& domain)
     }
 
     if(newLevel == LOG_SILENT) {
-        g_currSystemLevels[domain].l = newLevel;
+        g_currSystemLevels(domain, newLevel);
         return; // *** EXIT POINT ***
     }
 
@@ -258,14 +286,14 @@ setLogLevel(LogLevel newLevel, const std::string& domain)
 
     newLevel = clipLogLevel(newLevel);
 
-    g_currSystemLevels[domain].l = newLevel;
+    g_currSystemLevels(domain, newLevel);
 }
 
 LogLevel
 getLogLevel(const std::string& domain)
 {
     throw_assert(!domain.empty());
-    return g_currSystemLevels[domain].l;
+    return g_currSystemLevels(domain);
 }
 
 /// @}
@@ -302,14 +330,14 @@ parseLevel(const std::string& str)
     return (LogLevel)posint;
 }
 
-/// Try to parse a "<domain>:<value>" pair extracted from an env var
+/// Apply a "<domain>:<value>" pair, e.g., extracted from an env var
 static void
 setLevelFromStrings(const std::string& domain, const std::string& value)
 {
     LogLevel level = clipLogLevel(parseLevel(value));
 
     if(domain == "*") {
-        LogLevelWithDefault::defaultLevel = level;
+        g_DefaultLevel = level;
     } else if(!domain.empty()) {
         setLogLevel(level, domain);
     } else {
@@ -389,8 +417,8 @@ parseV()
 
     int delta = parsePosInt(c_str);
 
-    LogLevelWithDefault::defaultLevel = clipLogLevel((LogLevel)(LOG_INFO + delta));
-    setLogLevel(LogLevelWithDefault::defaultLevel);
+    g_DefaultLevel = clipLogLevel((LogLevel)(LOG_INFO + delta));
+    setLogLevel(g_DefaultLevel);
 }
 
 void
@@ -412,8 +440,8 @@ setVerbosityFromEnvironment(const char *detailEnvVarName)
 void
 silenceLog()
 {
-    LogLevelWithDefault::defaultLevel = LOG_SILENT;
-    g_currSystemLevels.levels().clear();
+    g_DefaultLevel = LOG_SILENT;
+    g_currSystemLevels.clear();
     setLogLevel(LOG_SILENT);
 }
 

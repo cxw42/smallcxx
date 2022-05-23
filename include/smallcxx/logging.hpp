@@ -1,7 +1,7 @@
 /// @file logging.hpp
 /// @brief Header for logging library
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 ///
 /// Terminology: messages are logged if the "message level" is less than
 /// or equal to the "domain level".
