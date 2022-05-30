@@ -109,11 +109,11 @@ void vlogMessage(const std::string& domain,
 #define LOG_F_DOMAIN(domain, level, format, ...) \
     do { \
         /* forbid LOG_SILENT */ \
-        static_assert( \
+        static_assert( ( \
                 ( (LOG_##level >= LOG_MIN) && (LOG_##level <= LOG_MAX) ) || \
                 ( LOG_##level == LOG_PRINT ) || \
                 ( LOG_##level == LOG_PRINTERR ) \
-        ); \
+                ), "Invalid log level for LOG_F"); \
         /* print it */ \
         if(LOG_##level == LOG_PRINT) { \
             if(getLogLevel(domain) != LOG_SILENT) { \

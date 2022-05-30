@@ -174,7 +174,11 @@ vlogMessage(const std::string& domain,
     }
 
     struct timespec ts;
+#if defined(__linux__) || defined(__gnu_linux)
     clock_gettime(CLOCK_BOOTTIME, &ts);
+#else
+    clock_gettime(CLOCK_REALTIME, &ts);
+#endif
     const double boottime = ts.tv_sec + (double)ts.tv_nsec / 1e9;
 
     charsWritten = snprintf(preamble, sizeof(preamble), "%.9f", boottime);

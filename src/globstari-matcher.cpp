@@ -22,7 +22,9 @@
 using namespace std;
 using smallcxx::glob::PathCheckResult;
 
-namespace smallcxx::glob
+namespace smallcxx
+{
+namespace glob
 {
 
 // from globstari.cpp
@@ -185,7 +187,8 @@ Matcher::check(const smallcxx::glob::Path& path) const
     return delegate_ ? delegate_->check(path) : PathCheckResult::Unknown;
 } // Matcher::check()
 
-} // namespace smallcxx::glob
+} // namespace glob
+} // namespace smallcxx
 
 /**
  * @file src/globstari.cpp
