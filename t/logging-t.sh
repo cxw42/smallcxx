@@ -18,7 +18,21 @@ main() {
     V=10 "$tpgmdir/log-debug-message-s" &> "$tmpfile"
     has-line-matching 'avocado' "$tmpfile"
 
+    # Varying defaults
+
+    LOG_LEVELS='*:3' "$tpgmdir/varying-log-s" &> "$tmpfile"
+    has-line-matching 'error1' "$tmpfile"
+    has-line-matching 'warning1' "$tmpfile"
+    has-line-matching 'fixme1' "$tmpfile"
+    has-line-matching 'info1' "$tmpfile"
+
+    has-line-matching 'error1' "$tmpfile"
+    has-line-matching 'warning1' "$tmpfile"
+    has-line-matching 'fixme1' "$tmpfile"
+    does-not-contain 'info1' "$tmpfile"     # Suppressed by change in default
+
     # Explicit log levels.  log-explicit-domain logs "avocado" @ DEBUG to +fruit
+
     LOG_LEVELS='*:10' "$tpgmdir"/log-explicit-domain-s &> "$tmpfile"
     does-not-contain 'avocado' "$tmpfile"
 
