@@ -4,7 +4,7 @@
 /// @copyright Copyright (c) 2021 Christopher White
 ///
 /// Terminology: messages are logged if the "message level" is less than
-/// or equal to the "system level".
+/// or equal to the "domain level".
 ///
 /// There can be any number of log-message domains, each identified by an
 /// arbitrary non-empty string.  Strings starting with `" "` (a space) are
@@ -39,9 +39,8 @@
 /// The string we will use as a hash key for this file's messages
 static const std::string SMALLCXX_LOG_DOMAIN_NAME(SMALLCXX_LOG_DOMAIN);
 
-// Log levels.  Errors are always visible; other messages can be suppressed
-// by calling setLogLevel().
-// @warning Keep this in sync with g_levelnames in logging.cpp!
+/// @brief Log levels.
+/// @warning Keep this in sync with g_levelnames in logging.cpp!
 enum LogLevel {
     LOG_SILENT, ///< Nothing prints
     LOG_ERROR,
@@ -133,14 +132,12 @@ void setLogLevel(LogLevel newLevel,
 /// Clip @p level to [LOG_SILENT]+[LOG_MIN, LOG_MAX].  A convenience function.
 LogLevel clipLogLevel(LogLevel level);
 
-/// Get the current log level
+/// Get the current log level for @p domain.
 LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
-/// Set the verbosity for all log domains based on $V.  If $V exists and
-/// is a decimal >=1, the system level is set to INFO + $V (e.g., 1 = LOG_DEBUG,
-/// 2 = LOG_LOG).
-/// @note Does not set verbosities for all log domains.
-/// @todo implement a `GST_DEBUG`-style log-level selector.
+/// Set the verbosity for all log domains based on `$V`.  If `$V` exists and
+/// is a decimal >=1, the domain level is set to `INFO + $V`
+/// (e.g., 1 = LOG_DEBUG, 2 = LOG_LOG).
 /// @warning Must be called before any messages are logged if it is to affect
 ///     all log domains.
 ///

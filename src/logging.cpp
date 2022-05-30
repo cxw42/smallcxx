@@ -60,7 +60,7 @@ struct LogLevelWithDefault {
 LogLevel LogLevelWithDefault::defaultLevel = LOG_INFO;
 
 
-/// Type to hold current system log levels.
+/// Type to hold current domain levels.
 /// Myers singleton since we need it during startup.
 struct LogLevelHolder {
     using MapType = unordered_map<string, LogLevelWithDefault>;
@@ -176,24 +176,22 @@ vlogMessage(const std::string& domain,
                             pidcolor, pid, bodycolor, levelname, file, line, function);
 
     if(charsWritten <= 0 || (size_t)charsWritten >= sizeof(preamble)) {
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered --- I don't know any way to cause this to happen so I can test it
-        const char msg[] = "Dropped log message (preamble error)\n";    // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (preamble error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     // The user's message
     charsWritten = vsnprintf(msg, sizeof(msg), format, args);
 
     if(charsWritten <= 0) { // accept message truncation
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered; same reason as above
-        const char msg[] = "Dropped log message (message error)\n"; // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (message error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     chomp(msg);
@@ -205,12 +203,11 @@ vlogMessage(const std::string& domain,
                             roomForMessage, msg, endcolor);
 
     if(charsWritten <= 0) {
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered; same reason as above
-        const char msg[] = "Dropped log message (assembly error)\n";    // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (assembly error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     ignore_return_value = write(LOG_FD, whole, charsWritten);
