@@ -242,7 +242,9 @@ clipLogLevel(LogLevel level)
 void
 setLogLevel(LogLevel newLevel, const std::string& domain)
 {
-    if(!domain.empty() && domain[0] == ' ') {
+    throw_assert(!domain.empty());
+
+    if(domain[0] == ' ') {
         throw domain_error("Logging domains starting with a space are reserved");
     }
 
@@ -254,7 +256,7 @@ setLogLevel(LogLevel newLevel, const std::string& domain)
     if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
         throw domain_error(STR_OF
                            << "Ignoring attempt to set invalid log level for "
-                           << (domain.empty() ? "default domain" : domain));
+                           << domain);
     }
 
     newLevel = clipLogLevel(newLevel);
@@ -265,6 +267,7 @@ setLogLevel(LogLevel newLevel, const std::string& domain)
 LogLevel
 getLogLevel(const std::string& domain)
 {
+    throw_assert(!domain.empty());
     return g_currSystemLevels[domain].l;
 }
 
@@ -310,9 +313,12 @@ setLevelFromStrings(const std::string& domain, const std::string& value)
 
     if(domain == "*") {
         LogLevelWithDefault::defaultLevel = level;
-    } else {
+    } else if(!domain.empty()) {
         setLogLevel(level, domain);
+    } else {
+        throw domain_error("Invalid logging domain");
     }
+
 }
 
 /// @return True if @p detailEnvVarName was parsed successfully

@@ -7,9 +7,10 @@
 /// or equal to the "system level".
 ///
 /// There can be any number of log-message domains, each identified by an
-/// arbitrary string.  Strings starting with `" "` (a space) are reserved for
-/// use by smallcxx/logging.  To define your own domain for messages in
-/// a source file:
+/// arbitrary non-empty string.  Strings starting with `" "` (a space) are
+/// reserved for use by smallcxx/logging.  To define your own domain for
+/// messages in a source file, `#define` @c SMALLCXX_LOG_DOMAIN to a string
+/// constant before you `#include` this file.  For example:
 ///
 /// ```
 /// #define SMALLCXX_LOG_DOMAIN "myDomain"
@@ -28,9 +29,8 @@
 #include <stdio.h>
 #include <string>
 
-/// Default log domain.  To use your own domain, `#define`
-/// @c SMALLCXX_LOG_DOMAIN to a string constant before `#includ`ing this file
-#define SMALLCXX_DEFAULT_LOG_DOMAIN ""
+/// Default log domain.
+#define SMALLCXX_DEFAULT_LOG_DOMAIN "default"
 
 #ifndef SMALLCXX_LOG_DOMAIN
 #define SMALLCXX_LOG_DOMAIN SMALLCXX_DEFAULT_LOG_DOMAIN
