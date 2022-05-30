@@ -9,10 +9,11 @@ set -euo pipefail
 
 # Permit core dumps
 ulimit -c unlimited
-sysctl kernel.core_pattern
+sysctl kernel.core_pattern || true
 
 # Directories
 export pgmdir="@abs_top_builddir@/src"
+export tpgmdir="@abs_top_builddir@/t"
 export here
 here="$(cd "$(dirname "$0")" ; pwd)"
 
