@@ -1,20 +1,32 @@
 /// @file logging.hpp
 /// @brief Header for logging library
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 ///
 /// Terminology: messages are logged if the "message level" is less than
-/// or equal to the "system level".
+/// or equal to the "domain level".
 ///
 /// There can be any number of log-message domains, each identified by an
-/// arbitrary string.  Strings starting with `" "` (a space) are reserved for
-/// use by smallcxx/logging.  To define your own domain for messages in
-/// a source file:
+/// arbitrary non-empty string.  (However, strings starting with `" "` (a
+/// space) are reserved for use by smallcxx/logging.)
+///
+/// To define your own domain for messages in a source file, `#define` @c
+/// SMALLCXX_LOG_DOMAIN to a string constant before you `#include` this file.
+/// For example:
 ///
 /// ```
 /// #define SMALLCXX_LOG_DOMAIN "myDomain"
 /// #include <smallcxx/logging.hpp>
 /// ```
+///
+/// #### Special domains
+///
+/// - As noted above, domains starting with a space character are reserved.
+///   setLogLevel() will refuse to set the level for such a domain.
+/// - Domains starting with a plus sign (`+`) are "explicit" domains: they
+///   are silent unless you expressly set a value for them.
+///
+/// #### Thanks
 ///
 /// This logging library is inspired by (but not copied from):
 /// - [Loguru](https://github.com/emilk/loguru) by
@@ -28,9 +40,8 @@
 #include <stdio.h>
 #include <string>
 
-/// Default log domain.  To use your own domain, `#define`
-/// @c SMALLCXX_LOG_DOMAIN to a string constant before `#includ`ing this file
-#define SMALLCXX_DEFAULT_LOG_DOMAIN ""
+/// Default log domain.
+#define SMALLCXX_DEFAULT_LOG_DOMAIN "default"
 
 #ifndef SMALLCXX_LOG_DOMAIN
 #define SMALLCXX_LOG_DOMAIN SMALLCXX_DEFAULT_LOG_DOMAIN
@@ -39,9 +50,8 @@
 /// The string we will use as a hash key for this file's messages
 static const std::string SMALLCXX_LOG_DOMAIN_NAME(SMALLCXX_LOG_DOMAIN);
 
-// Log levels.  Errors are always visible; other messages can be suppressed
-// by calling setLogLevel().
-// @warning Keep this in sync with g_levelnames in logging.cpp!
+/// @brief Log levels.
+/// @warning Keep this in sync with g_levelnames in logging.cpp!
 enum LogLevel {
     LOG_SILENT, ///< Nothing prints
     LOG_ERROR,
@@ -133,24 +143,24 @@ void setLogLevel(LogLevel newLevel,
 /// Clip @p level to [LOG_SILENT]+[LOG_MIN, LOG_MAX].  A convenience function.
 LogLevel clipLogLevel(LogLevel level);
 
-/// Get the current log level
+/// Get the current log level for @p domain.
 LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
-/// Set the verbosity for all log domains based on $V.  If $V exists and
-/// is a decimal >=1, the system level is set to INFO + $V (e.g., 1 = LOG_DEBUG,
-/// 2 = LOG_LOG).
-/// @note Does not set verbosities for all log domains.
-/// @todo implement a `GST_DEBUG`-style log-level selector.
-/// @warning Must be called before any messages are logged if it is to affect
-///     all log domains.
+/// Set the verbosity for all log domains based on `$V`.  If `$V` exists and
+/// is a decimal >=1, the domain level is set to `INFO + $V`
+/// (e.g., 1 = LOG_DEBUG, 2 = LOG_LOG).
 ///
 /// @param[in]  detailEnvVarName - if given, non-NULL, and nonempty, the name
 ///     of a GStreamer-style log-level variable to be used instead of `$V` if
 ///     the given variable exists.
 void setVerbosityFromEnvironment(const char *detailEnvVarName = nullptr);
 
-/// Set all levels to silent.  Does not lock them there; they can be changed
-/// afterwards by calling setLogLevel() or setVerbosityFromEnvironment().
+/// Set all domains to silent, **except** for reserved domains (starting with
+/// #DOMAIN_SIGIL_RESERVED).  Reserved domains are reset to LOG_INFO.
+///
+/// Calling this function does not lock the levels.  They can be
+/// changed afterwards by calling setLogLevel() or
+/// setVerbosityFromEnvironment().
 void silenceLog();
 
 #endif // LOGGING_HPP_

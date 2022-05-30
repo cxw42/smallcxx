@@ -26,6 +26,14 @@ using namespace std;
 
 // === Constants and data ================================================
 
+/// Domains starting with a space are reserved.
+/// They have level LOG_INFO by default.
+static const char DOMAIN_SIGIL_RESERVED = ' ';
+
+/// Domains starting with '+' don't take on the default.  They have to be
+/// explicitly requested.  They have level LOG_SILENT by default.
+static const char DOMAIN_SIGIL_EXPLICIT = '+';
+
 /// Human-readable names of the log levels.
 /// Each is <= 5 chars for the `%-5s` in logMessage().
 /// @warning Keep this in sync with enum LogLevel!
@@ -42,28 +50,15 @@ static const char *g_levelnames[] = {
     "snoop",
 };
 
-/// Log level with a default
-struct LogLevelWithDefault {
-    static LogLevel defaultLevel;
-    LogLevel l; ///< the actual level
-    LogLevelWithDefault(): l(defaultLevel) {}
-    LogLevelWithDefault(LogLevel newl): l(newl) {}
-
-    /// @name Other
-    /// @{
-    LogLevelWithDefault(const LogLevelWithDefault&) = default;
-    LogLevelWithDefault& operator=(const LogLevelWithDefault&) = default;
-    LogLevelWithDefault(LogLevelWithDefault&& other) = default;
-    LogLevelWithDefault& operator=(LogLevelWithDefault&& other) = default;
-    /// @}
-};
-LogLevel LogLevelWithDefault::defaultLevel = LOG_INFO;
-
+static LogLevel g_DefaultLevel = LOG_INFO;
 
 /// Type to hold current system log levels.
-/// Myers singleton since we need it during startup.
-struct LogLevelHolder {
-    using MapType = unordered_map<string, LogLevelWithDefault>;
+class LogLevelHolder
+{
+    using MapType = unordered_map<string, LogLevel>;
+
+    /// The underlying store.
+    /// Myers singleton since we need it during startup.
     static MapType&
     levels()
     {
@@ -71,16 +66,51 @@ struct LogLevelHolder {
         return singleton;
     }
 
-    /// Accessor so you don't have to say "::levels()" all the time
-    MapType::mapped_type&
-    operator[](const MapType::key_type& k)
+public:
+    /// Get the log level for a domain.
+    /// @param[in]  domain - logging domain.
+    LogLevel
+    get(const std::string& domain)
     {
-        return levels()[k];
+        throw_assert(!domain.empty());
+        auto it = levels().find(domain);
+
+        if(it != levels().end()) {
+            // Already assigned --- return it
+            return it->second;
+        }
+
+        // Domains not given an express value
+        switch(domain[0]) {
+        case DOMAIN_SIGIL_RESERVED:
+            return LOG_INFO;
+        case DOMAIN_SIGIL_EXPLICIT:
+            return LOG_SILENT;
+        default:
+            return g_DefaultLevel;
+        }
     }
+
+    /// Record log level @p newLevel for @p domain.
+    /// @note The caller must validate the inputs.
+    void
+    set(const std::string& domain, const LogLevel newLevel)
+    {
+        levels()[domain] = newLevel;
+    }
+
+
+    /// Clear all recorded log levels
+    void
+    clear()
+    {
+        levels().clear();
+    }
+
 }; // class LogLevelHolder
 
 /// Current log levels
-LogLevelHolder g_currSystemLevels;
+static LogLevelHolder g_currSystemLevels;
 
 // Terminal colors
 static const char RED[] = "\e[31;1m";       ///< Color for errors
@@ -139,7 +169,7 @@ vlogMessage(const std::string& domain,
 
     // Accept the possibility of missing a log message around the time
     // the level changes.
-    if(msgLevel > g_currSystemLevels[domain].l) {
+    if(msgLevel > g_currSystemLevels.get(domain)) {
         return;
     }
 
@@ -176,24 +206,22 @@ vlogMessage(const std::string& domain,
                             pidcolor, pid, bodycolor, levelname, file, line, function);
 
     if(charsWritten <= 0 || (size_t)charsWritten >= sizeof(preamble)) {
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered --- I don't know any way to cause this to happen so I can test it
-        const char msg[] = "Dropped log message (preamble error)\n";    // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (preamble error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     // The user's message
     charsWritten = vsnprintf(msg, sizeof(msg), format, args);
 
     if(charsWritten <= 0) { // accept message truncation
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered; same reason as above
-        const char msg[] = "Dropped log message (message error)\n"; // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (message error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     chomp(msg);
@@ -205,12 +233,11 @@ vlogMessage(const std::string& domain,
                             roomForMessage, msg, endcolor);
 
     if(charsWritten <= 0) {
-        // *INDENT-OFF*
+        // LCOV_EXCL_START
         // Uncovered; same reason as above
-        const char msg[] = "Dropped log message (assembly error)\n";    // LCOV_EXCL_START
+        const char msg[] = "Dropped log message (assembly error)\n";
         ignore_return_value = write(LOG_FD, msg, sizeof(msg));
         return;
-        // *INDENT-ON*
     } // LCOV_EXCL_STOP
 
     ignore_return_value = write(LOG_FD, whole, charsWritten);
@@ -239,33 +266,32 @@ clipLogLevel(LogLevel level)
     return level;
 }
 
+// user-facing API
 void
 setLogLevel(LogLevel newLevel, const std::string& domain)
 {
-    if(!domain.empty() && domain[0] == ' ') {
-        throw domain_error("Logging domains starting with a space are reserved");
-    }
+    throw_assert(!domain.empty());
 
-    if(newLevel == LOG_SILENT) {
-        g_currSystemLevels[domain].l = newLevel;
-        return; // *** EXIT POINT ***
+    if(domain[0] == DOMAIN_SIGIL_RESERVED) {
+        throw domain_error("Logging domains starting with a space are reserved");
     }
 
     if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
         throw domain_error(STR_OF
-                           << "Ignoring attempt to set invalid log level for "
-                           << (domain.empty() ? "default domain" : domain));
+                           << "Ignoring attempt to set invalid log level for ["
+                           << domain << ']');
     }
 
     newLevel = clipLogLevel(newLevel);
 
-    g_currSystemLevels[domain].l = newLevel;
+    g_currSystemLevels.set(domain, newLevel);
 }
 
 LogLevel
 getLogLevel(const std::string& domain)
 {
-    return g_currSystemLevels[domain].l;
+    throw_assert(!domain.empty());
+    return g_currSystemLevels.get(domain);
 }
 
 /// @}
@@ -302,17 +328,20 @@ parseLevel(const std::string& str)
     return (LogLevel)posint;
 }
 
-/// Try to parse a "<domain>:<value>" pair extracted from an env var
+/// Apply a "<domain>:<value>" pair, e.g., extracted from an env var
 static void
 setLevelFromStrings(const std::string& domain, const std::string& value)
 {
     LogLevel level = clipLogLevel(parseLevel(value));
 
     if(domain == "*") {
-        LogLevelWithDefault::defaultLevel = level;
-    } else {
+        g_DefaultLevel = level;
+    } else if(!domain.empty()) {
         setLogLevel(level, domain);
+    } else {
+        throw domain_error("Invalid logging domain");
     }
+
 }
 
 /// @return True if @p detailEnvVarName was parsed successfully
@@ -386,8 +415,8 @@ parseV()
 
     int delta = parsePosInt(c_str);
 
-    LogLevelWithDefault::defaultLevel = clipLogLevel((LogLevel)(LOG_INFO + delta));
-    setLogLevel(LogLevelWithDefault::defaultLevel);
+    g_DefaultLevel = clipLogLevel((LogLevel)(LOG_INFO + delta));
+    setLogLevel(g_DefaultLevel);
 }
 
 void
@@ -409,9 +438,8 @@ setVerbosityFromEnvironment(const char *detailEnvVarName)
 void
 silenceLog()
 {
-    LogLevelWithDefault::defaultLevel = LOG_SILENT;
-    g_currSystemLevels.levels().clear();
-    setLogLevel(LOG_SILENT);
+    g_DefaultLevel = LOG_SILENT;
+    g_currSystemLevels.clear();
 }
 
 /// @}

@@ -38,6 +38,7 @@ testprograms = \
 alsocompile = \
 	log-debug-message-s \
 	silent-s \
+	varying-log-s \
 	$(EOL)
 
 # Data files needed by the tests.

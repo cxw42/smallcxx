@@ -9,7 +9,7 @@ trap 'rm -f "$tmpfile"' EXIT
 unset V
 unset LOG_LEVELS
 
-"$here/silent-s" &> "$tmpfile"
+"$tpgmdir/silent-s" &> "$tmpfile"
 does-not-contain 'error' "$tmpfile"
 does-not-contain 'warning' "$tmpfile"
 does-not-contain 'fixme' "$tmpfile"
