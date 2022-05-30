@@ -27,7 +27,12 @@ using namespace std;
 // === Constants and data ================================================
 
 /// Domains starting with a space are reserved.
+/// They have level LOG_INFO by default.
 static const char DOMAIN_SIGIL_RESERVED = ' ';
+
+/// Domains starting with '+' don't take on the default.  They have to be
+/// explicitly requested.  They have level LOG_SILENT by default.
+static const char DOMAIN_SIGIL_EXPLICIT = '+';
 
 /// Human-readable names of the log levels.
 /// Each is <= 5 chars for the `%-5s` in logMessage().
@@ -47,15 +52,13 @@ static const char *g_levelnames[] = {
 
 static LogLevel g_DefaultLevel = LOG_INFO;
 
-
-/// Type to hold current domain levels.
-/// Myers singleton since we need it during startup.
+/// Type to hold current system log levels.
 class LogLevelHolder
 {
-public:
     using MapType = unordered_map<string, LogLevel>;
 
-private:
+    /// The underlying store.
+    /// Myers singleton since we need it during startup.
     static MapType&
     levels()
     {
@@ -63,27 +66,13 @@ private:
         return singleton;
     }
 
-    friend void
-    setLogLevel(LogLevel newLevel, const std::string& domain);
-
-    /// Record the log level for a domain
-    /// @note Does not validate its input --- that is handled in
-    /// setLogLevel().
-    void
-    operator()(const MapType::key_type& domain, const LogLevel& level)
-    {
-        levels()[domain] = level;
-    }
-
 public:
     /// Get the log level for a domain.
-    /// The first time a message is logged for a domain that has not been
-    ///     assigned a level, the domain gets the default level in effect at
-    ///     that time.
     /// @param[in]  domain - logging domain.
     LogLevel
-    operator()(const MapType::key_type& domain)
+    get(const std::string& domain)
     {
+        throw_assert(!domain.empty());
         auto it = levels().find(domain);
 
         if(it != levels().end()) {
@@ -91,14 +80,27 @@ public:
             return it->second;
         }
 
-        // Assign the level
-        LogLevel newLevel;
-        newLevel = g_DefaultLevel;
-        levels()[domain] = newLevel;
-        return newLevel;
+        // Domains not given an express value
+        switch(domain[0]) {
+        case DOMAIN_SIGIL_RESERVED:
+            return LOG_INFO;
+        case DOMAIN_SIGIL_EXPLICIT:
+            return LOG_SILENT;
+        default:
+            return g_DefaultLevel;
+        }
     }
 
-    // Clear all recorded log levels
+    /// Record log level @p newLevel for @p domain.
+    /// @note The caller must validate the inputs.
+    void
+    set(const std::string& domain, const LogLevel newLevel)
+    {
+        levels()[domain] = newLevel;
+    }
+
+
+    /// Clear all recorded log levels
     void
     clear()
     {
@@ -108,7 +110,7 @@ public:
 }; // class LogLevelHolder
 
 /// Current log levels
-LogLevelHolder g_currSystemLevels;
+static LogLevelHolder g_currSystemLevels;
 
 // Terminal colors
 static const char RED[] = "\e[31;1m";       ///< Color for errors
@@ -167,7 +169,7 @@ vlogMessage(const std::string& domain,
 
     // Accept the possibility of missing a log message around the time
     // the level changes.
-    if(msgLevel > g_currSystemLevels(domain)) {
+    if(msgLevel > g_currSystemLevels.get(domain)) {
         return;
     }
 
@@ -264,36 +266,32 @@ clipLogLevel(LogLevel level)
     return level;
 }
 
+// user-facing API
 void
 setLogLevel(LogLevel newLevel, const std::string& domain)
 {
     throw_assert(!domain.empty());
 
-    if(domain[0] == ' ') {
+    if(domain[0] == DOMAIN_SIGIL_RESERVED) {
         throw domain_error("Logging domains starting with a space are reserved");
-    }
-
-    if(newLevel == LOG_SILENT) {
-        g_currSystemLevels(domain, newLevel);
-        return; // *** EXIT POINT ***
     }
 
     if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
         throw domain_error(STR_OF
-                           << "Ignoring attempt to set invalid log level for "
-                           << domain);
+                           << "Ignoring attempt to set invalid log level for ["
+                           << domain << ']');
     }
 
     newLevel = clipLogLevel(newLevel);
 
-    g_currSystemLevels(domain, newLevel);
+    g_currSystemLevels.set(domain, newLevel);
 }
 
 LogLevel
 getLogLevel(const std::string& domain)
 {
     throw_assert(!domain.empty());
-    return g_currSystemLevels(domain);
+    return g_currSystemLevels.get(domain);
 }
 
 /// @}
@@ -442,7 +440,6 @@ silenceLog()
 {
     g_DefaultLevel = LOG_SILENT;
     g_currSystemLevels.clear();
-    setLogLevel(LOG_SILENT);
 }
 
 /// @}

@@ -7,15 +7,26 @@
 /// or equal to the "domain level".
 ///
 /// There can be any number of log-message domains, each identified by an
-/// arbitrary non-empty string.  Strings starting with `" "` (a space) are
-/// reserved for use by smallcxx/logging.  To define your own domain for
-/// messages in a source file, `#define` @c SMALLCXX_LOG_DOMAIN to a string
-/// constant before you `#include` this file.  For example:
+/// arbitrary non-empty string.  (However, strings starting with `" "` (a
+/// space) are reserved for use by smallcxx/logging.)
+///
+/// To define your own domain for messages in a source file, `#define` @c
+/// SMALLCXX_LOG_DOMAIN to a string constant before you `#include` this file.
+/// For example:
 ///
 /// ```
 /// #define SMALLCXX_LOG_DOMAIN "myDomain"
 /// #include <smallcxx/logging.hpp>
 /// ```
+///
+/// #### Special domains
+///
+/// - As noted above, domains starting with a space character are reserved.
+///   setLogLevel() will refuse to set the level for such a domain.
+/// - Domains starting with a plus sign (`+`) are "explicit" domains: they
+///   are silent unless you expressly set a value for them.
+///
+/// #### Thanks
 ///
 /// This logging library is inspired by (but not copied from):
 /// - [Loguru](https://github.com/emilk/loguru) by
@@ -138,16 +149,18 @@ LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 /// Set the verbosity for all log domains based on `$V`.  If `$V` exists and
 /// is a decimal >=1, the domain level is set to `INFO + $V`
 /// (e.g., 1 = LOG_DEBUG, 2 = LOG_LOG).
-/// @warning Must be called before any messages are logged if it is to affect
-///     all log domains.
 ///
 /// @param[in]  detailEnvVarName - if given, non-NULL, and nonempty, the name
 ///     of a GStreamer-style log-level variable to be used instead of `$V` if
 ///     the given variable exists.
 void setVerbosityFromEnvironment(const char *detailEnvVarName = nullptr);
 
-/// Set all levels to silent.  Does not lock them there; they can be changed
-/// afterwards by calling setLogLevel() or setVerbosityFromEnvironment().
+/// Set all domains to silent, **except** for reserved domains (starting with
+/// #DOMAIN_SIGIL_RESERVED).  Reserved domains are reset to LOG_INFO.
+///
+/// Calling this function does not lock the levels.  They can be
+/// changed afterwards by calling setLogLevel() or
+/// setVerbosityFromEnvironment().
 void silenceLog();
 
 #endif // LOGGING_HPP_
