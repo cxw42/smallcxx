@@ -7,6 +7,8 @@
 ///     See below for the editorconfig-core-c copyright statement.
 /// @todo permit matching only directories (trailing slash on globs)
 
+#define SMALLCXX_LOG_DOMAIN "glob"
+
 #include <ctype.h>
 #include <istream>
 #include <list>

@@ -5,6 +5,8 @@
 /// @copyright Copyright (c) 2021 Christopher White
 /// @todo permit matching only directories (trailing slash on globs)
 
+#define SMALLCXX_LOG_DOMAIN "glob"
+
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
