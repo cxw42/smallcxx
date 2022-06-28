@@ -248,6 +248,48 @@ public:
 
 // === Searching through directories =====================================
 
+/// A chunk of data.  A convenience typedef, to permit future changes.
+using Bytes = std::string;
+
+/// Abstract type of an entry.
+/// @todo symlinks?  Special files?
+enum class EntryType {
+    File,       ///< Don't recurse into this
+    Dir,        ///< Something we might recurse into
+};
+
+/// A single entry in a directory
+struct Entry {
+    EntryType ty;   ///< what type this represents
+
+#if 0
+    /// Path of the directory this Entry is in
+    smallcxx::glob::Path dirPath;
+
+    /// Name of this Entry within @c dirPath
+    smallcxx::glob::Path name;
+#endif
+
+    /// Canonical path of this Entry
+    smallcxx::glob::Path canonPath;
+
+    /// Userdata, unused by smallcxx itself.
+    uintptr_t userdata;
+
+    /// Depth of an entry with respect to a search.  Level 0 is the
+    /// dir where the search started.  Negative values have undefined
+    /// meaning.
+    int depth;
+
+    Entry(EntryType newTy, const smallcxx::glob::Path& newCanonPath,
+          int newDepth = -1)
+        : ty(newTy), canonPath(newCanonPath), depth(newDepth) {}
+
+    Entry(const Entry& other) = default;
+    Entry(Entry&& other) = default;
+
+}; // struct Entry
+
 /// SAX-style directory searcher: base class.
 /// Subclass this and implement the virtual functions to do your own traversing.
 /// All globs follow the [EditorConfig](https://editorconfig.org) format.
@@ -263,45 +305,6 @@ class GlobstariBase
 public:
 
     // --- Types ---
-
-    /// A chunk of data.  A convenience typedef, to permit future changes.
-    using Bytes = std::string;
-
-    /// Abstract type of an entry.
-    /// @todo symlinks?  Special files?
-    enum class EntryType {
-        File,       ///< Don't recurse into this
-        Dir,        ///< Something we might recurse into
-    };
-
-    /// A single entry in a directory
-    struct Entry {
-        EntryType ty;   ///< what type this represents
-
-#if 0
-        /// Path of the directory this Entry is in
-        smallcxx::glob::Path dirPath;
-
-        /// Name of this Entry within @c dirPath
-        smallcxx::glob::Path name;
-#endif
-
-        /// Canonical path of this Entry
-        smallcxx::glob::Path canonPath;
-
-        /// Depth of an entry with respect to a search.  Level 0 is the
-        /// dir where the search started.  Negative values have undefined
-        /// meaning.
-        int depth;
-
-        Entry(EntryType newTy, const smallcxx::glob::Path& newCanonPath,
-              int newDepth = -1)
-            : ty(newTy), canonPath(newCanonPath), depth(newDepth) {}
-
-        Entry(const Entry& other) = default;
-        Entry(Entry&& other) = default;
-
-    }; // struct Entry
 
     /// Status values processEntry() can return.
     enum class ProcessStatus {

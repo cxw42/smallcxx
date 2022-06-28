@@ -62,13 +62,13 @@ using MatcherPtr = std::shared_ptr<Matcher>;
 /// An entry and corresponding ignores
 /// @invariant WorkItem::ignores is not NULL (but may be empty).
 struct WorkItem {
-    GlobstariBase::Entry entry;
+    Entry entry;
     MatcherPtr ignores;
 
-    WorkItem(const GlobstariBase::Entry& newEntry)
+    WorkItem(const Entry& newEntry)
         : WorkItem(newEntry, make_shared<Matcher>())
     {}
-    WorkItem(const GlobstariBase::Entry& newEntry, MatcherPtr newIgnores)
+    WorkItem(const Entry& newEntry, MatcherPtr newIgnores)
         : entry(newEntry), ignores(newIgnores)
     {
         if(!ignores) {
@@ -116,7 +116,7 @@ public:
 
         // Prime the pump.  Note: the ignores start out empty, so this
         // first entry will not be ignored.
-        items_.emplace_back(GlobstariBase::Entry{GlobstariBase::EntryType::Dir, rootPath, 0});
+        items_.emplace_back(Entry{EntryType::Dir, rootPath, 0});
     }
 
     /// Run the traversal.
@@ -128,7 +128,7 @@ private:
     void worker();
 
     /// Prepare to descend into a directory
-    void loadDir(const GlobstariBase::Entry& entry, MatcherPtr parentIgnores);
+    void loadDir(const Entry& entry, MatcherPtr parentIgnores);
 
     /// Load the contents of ignore files
     MatcherPtr loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
@@ -138,7 +138,7 @@ private:
     /// Read ignore file @p contents, which lives in @p relativeTo, and add its
     /// contents to @p retval.
     void
-    parseContentsInto(const GlobstariBase::Bytes& contents, Matcher& retval,
+    parseContentsInto(const Bytes& contents, Matcher& retval,
                       const smallcxx::glob::Path& relativeTo);
 }; // class Traverser
 
@@ -206,7 +206,7 @@ Traverser::worker()
             // Included => give it to the client.  Also simple!
             clientInstruction = client_->processEntry(item.entry);
 
-        } else if(item.entry.ty == GlobstariBase::EntryType::Dir) {
+        } else if(item.entry.ty == EntryType::Dir) {
             // But directories not specifically included may contain
             // files that are themselves included.  Therefore,
             // descend into directories if match == Unknown.
@@ -217,7 +217,7 @@ Traverser::worker()
         // Do what the client asked us to
         switch(clientInstruction) {
         case GlobstariBase::ProcessStatus::Continue:
-            if(item.entry.ty == GlobstariBase::EntryType::Dir) {
+            if(item.entry.ty == EntryType::Dir) {
                 loadDir(item.entry, item.ignores);
             }
             break;
@@ -247,7 +247,7 @@ Traverser::worker()
 } // Traverser::worker()
 
 void
-Traverser::loadDir(const GlobstariBase::Entry& entry, MatcherPtr parentIgnores)
+Traverser::loadDir(const Entry& entry, MatcherPtr parentIgnores)
 {
     // Load the new ignores
     auto ignoresToLoad = client_->ignoresForDir(entry.canonPath);
@@ -273,7 +273,7 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
     for(const auto& toLoad : loadFrom) {
         bool ok = false;
         glob::Path pathToTry, canonPath;
-        GlobstariBase::Bytes contents;
+        Bytes contents;
 
         if(!toLoad.empty() && toLoad.front() == '/') {  // absolute
             pathToTry = canonPath = toLoad;
@@ -308,7 +308,7 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
 
 /// @todo make this part of the public API
 void
-Traverser::parseContentsInto(const GlobstariBase::Bytes& contents,
+Traverser::parseContentsInto(const Bytes& contents,
                              Matcher& retval,
                              const smallcxx::glob::Path& relativeTo)
 {
@@ -352,7 +352,7 @@ GlobstariBase::traverse(const smallcxx::glob::Path& basePath,
 // === GlobstariDisk =====================================================
 
 /// @todo PORTABILITY: handle readdir() that doesn't set d_type
-std::vector<GlobstariBase::Entry>
+std::vector<Entry>
 GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
 {
     std::unique_ptr<DIR, void(*)(DIR *)> dirp(
@@ -367,18 +367,18 @@ GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
                            STR_OF << "Could not open dir" << dirName);
     }
 
-    std::vector<GlobstariBase::Entry> retval;
+    std::vector<Entry> retval;
 
     struct dirent *ent;
     while((ent = readdir(dirp.get())) != NULL) {
         const auto canonPath = dirName + "/" + ent->d_name;
 
-        GlobstariBase::EntryType ty;
+        EntryType ty;
         if(ent->d_type == DT_REG) {
-            ty = GlobstariBase::EntryType::File;
+            ty = EntryType::File;
 
         } else if(ent->d_type == DT_DIR) {
-            ty = GlobstariBase::EntryType::Dir;
+            ty = EntryType::Dir;
             if((strcmp(ent->d_name, ".") == 0) ||
                     (strcmp(ent->d_name, "..") == 0)) {
                 continue;
@@ -391,7 +391,7 @@ GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
         }
 
         LOG_F(TRACE, "Found %s [%s]",
-              (ty == GlobstariBase::EntryType::File ? "file" : "dir"),
+              (ty == EntryType::File ? "file" : "dir"),
               canonPath.c_str());
         retval.emplace_back(ty, canonPath);
     } // foreach dir entry
@@ -400,7 +400,7 @@ GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
 }
 
 /// @todo make this more efficient (fewer copies)
-GlobstariBase::Bytes
+Bytes
 GlobstariDisk::readFile(const smallcxx::glob::Path& path)
 {
     ifstream in(path);
