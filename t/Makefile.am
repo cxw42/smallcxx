@@ -39,6 +39,7 @@ testprograms = \
 # Programs to compile in support of tests (check_PROGRAMS but not TESTS)
 alsocompile = \
 	log-debug-message-s \
+	log-explicit-domain-s \
 	silent-s \
 	varying-log-s \
 	$(EOL)

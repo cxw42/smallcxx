@@ -26,10 +26,10 @@ main() {
     has-line-matching 'fixme1' "$tmpfile"
     has-line-matching 'info1' "$tmpfile"
 
-    has-line-matching 'error1' "$tmpfile"
-    has-line-matching 'warning1' "$tmpfile"
-    has-line-matching 'fixme1' "$tmpfile"
-    does-not-contain 'info1' "$tmpfile"     # Suppressed by change in default
+    has-line-matching 'error2' "$tmpfile"
+    has-line-matching 'warning2' "$tmpfile"
+    has-line-matching 'fixme2' "$tmpfile"
+    does-not-contain 'info2' "$tmpfile"     # Suppressed by change in default
 
     # Explicit log levels.  log-explicit-domain logs "avocado" @ DEBUG to +fruit
 
