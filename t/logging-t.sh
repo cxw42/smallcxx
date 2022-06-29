@@ -48,5 +48,8 @@ main() {
     LOG_LEVELS='*:0,+fruit:4' "$tpgmdir"/log-explicit-domain-s &> "$tmpfile"
     does-not-contain 'avocado' "$tmpfile"
 
-    report-and-exit 0
+    return 0
 }
+
+main "$@"
+report-and-exit "$?"
