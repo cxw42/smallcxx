@@ -16,12 +16,14 @@ EXTRA_DIST =
 XFAIL_TESTS = \
 	cover-no-tests-run-t \
 	cover-test-failures-t \
+	no-assertions-t.sh \
 	$(EOL)
 
 # Test scripts that don't need to be compiled (TESTS but not check_PROGRAMS)
 testscripts = \
 	cover-colorlog-t.sh \
 	logging-t.sh \
+	no-assertions-t.sh \
 	silent-t.sh \
 	$(EOL)
 
