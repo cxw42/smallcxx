@@ -24,12 +24,23 @@ main() {
     has-line-matching 'error1' "$tmpfile"
     has-line-matching 'warning1' "$tmpfile"
     has-line-matching 'fixme1' "$tmpfile"
-    has-line-matching 'info1' "$tmpfile"
+    has-line-matching 'info1' "$tmpfile"    # LOG_INFO is enabled by default
+    has-line-matching 'print1$' "$tmpfile"  # `$` to make sure there's a newline
+    has-line-matching 'printerr1$' "$tmpfile"
 
     has-line-matching 'error2' "$tmpfile"
     has-line-matching 'warning2' "$tmpfile"
     has-line-matching 'fixme2' "$tmpfile"
     does-not-contain 'info2' "$tmpfile"     # Suppressed by change in default
+    has-line-matching 'print2' "$tmpfile"   # Not affected by change in level
+    has-line-matching 'printerr2' "$tmpfile"
+
+    # How SILENT affects PRINT and PRINTERR
+    LOG_LEVELS='*:0' "$tpgmdir/varying-log-s" &> "$tmpfile"
+    has-line-matching 'print1$' "$tmpfile"
+    has-line-matching 'printerr1$' "$tmpfile"
+    does-not-contain 'print2' "$tmpfile"
+    does-not-contain 'printerr2' "$tmpfile"
 
     # Explicit log levels.  log-explicit-domain logs "avocado" @ DEBUG to +fruit
 
@@ -52,4 +63,4 @@ main() {
 }
 
 main "$@"
-report-and-exit "$?"
+report-and-exit
