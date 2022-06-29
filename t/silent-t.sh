@@ -22,4 +22,4 @@ does-not-contain 'snoop' "$tmpfile"
 
 # TODO add tests in which I set $V or $LOG_LEVELS first
 
-report-and-exit 0
+report-and-exit

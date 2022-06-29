@@ -5,10 +5,12 @@
 # the cwd when the test programs run.  Therefore, test scripts can say
 # `. common.sh` to pick up the generated file.
 
+# Abort on exit.  In this framework, tests that run to completion have
+# succeeded.  TODO be more sophisticated.
 set -euo pipefail
 
 # Permit core dumps
-ulimit -c unlimited
+ulimit -c unlimited || true
 sysctl kernel.core_pattern || true
 
 # Directories
@@ -19,9 +21,11 @@ here="$(cd "$(dirname "$0")" ; pwd)"
 
 # Other vars
 export unbuffer_pgm="@UNBUFFER@"
+assertions_run=0
 
 # Find out if a PID represents a running process
 process-exists() {
+    (( ++assertions_run ))
     if [[ "$1" ]]; then
         kill -n 0 "$@" &>/dev/null
     else
@@ -33,10 +37,12 @@ process-exists() {
 # line in the input matches the pattern; fails otherwise.  Usage:
 #   cat foo | has-line-matching '/quux\e/'
 has-line-matching() {
+    (( ++assertions_run ))
     local -r pat="$1"
     shift
-    perl -ne '  BEGIN { $exitcode=1 }
-                $exitcode=0,last if '"$pat"';
+    perl -Mstrict -Mwarnings -Mvars='$exitcode' -ne '
+                BEGIN { $exitcode=1 }
+                $exitcode=0,last if m{'"$pat"'};
                 END { exit $exitcode }' "$@"
 }
 
@@ -48,17 +54,15 @@ kill-if-exists() {
     fi
 }
 
-# print a message and exit with a given exit code.  Usage:
-# report-and-exit "$exitcode"
+# print a message and exit with an appropriate exit code.  No parameters.
 report-and-exit() {
-    local -r exitcode="$1"
-    if (( ${V:-0} > 0 && exitcode )); then
-        echo "At least one test failed"
+    if (( assertions_run == 0 )); then
+        echo "No tests ran!"
+        exit 1
     else
         echo "All tests passed"
+        exit 0
     fi
-
-    exit "$exitcode"
 }
 
 # Check whether a file (default stdin) does NOT match a particular Perl regex.
@@ -67,7 +71,8 @@ report-and-exit() {
 # or
 #   does-not-contain RE INPUT-FILE
 does-not-contain() {
+    (( ++assertions_run ))
     local -r regex="$1"
     shift
-    perl -ne '/'"$regex"'/ and exit(1); END { exit(0) }' "$@"
+    perl -Mstrict -Mwarnings -ne 'm{'"$regex"'} and exit(1); END { exit(0) }' "$@"
 }

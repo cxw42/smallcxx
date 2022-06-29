@@ -18,7 +18,7 @@ tmpfile="$(mktemp)"
 trap 'rm -f "$tmpfile"' EXIT
 
 "$unbuffer_pgm" ./cover-misc-t &> "$tmpfile"
-has-line-matching '/\e.*ERROR.*Oops/' "$tmpfile"
-has-line-matching '/\e.*WARN.*Ummm/' "$tmpfile"
+has-line-matching '\e.*ERROR.*Oops' "$tmpfile"
+has-line-matching '\e.*WARN.*Ummm' "$tmpfile"
 
-report-and-exit 0
+report-and-exit

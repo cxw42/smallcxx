@@ -64,14 +64,14 @@ enum LogLevel {
     LOG_PEEK,
     LOG_SNOOP,
 
-    LOG_MIN = LOG_ERROR,    ///< Used for range checks
-    LOG_MAX = LOG_SNOOP,    ///< Used for range checks
+    LOG_MIN = LOG_ERROR,    ///< Used for range checks (not an actual level)
+    LOG_MAX = LOG_SNOOP,    ///< Used for range checks (not an actual level)
 
     /// A special level: print, to stdout, only the message.
     /// Use this for messages you want LOG_SILENT to suppress.
     LOG_PRINT,
 
-    // A special level: as LOG_PRINT, but to stderr.
+    /// A special level: as LOG_PRINT, but to stderr.
     /// Use this for messages you want LOG_SILENT to suppress.
     LOG_PRINTERR,
 };
@@ -99,11 +99,19 @@ void vlogMessage(const std::string& domain,
                  const char *function,
                  const char *format, va_list args);
 
-/// Main logging macro.
+/// Main logging macro.  A newline will be appended to the message.
 /// Usage example: `LOG_F(INFO, "foo %s", some_string);`
+///
+/// When using #LOG_PRINT (print to stdout) and #LOG_PRINTERR (print to stderr),
+/// @p format must be a string literal.
+///
 /// @note `LOG_F(SILENT, ...)` is forbidden.
+///
+/// @param[in] level - the log level.  A `LOG_FOO` constant minus `LOG_`.
+/// @param[in] format - a printf format string
+/// @param[in] ... - args to the format string
 #define LOG_F(level, format, ...) \
-    LOG_F_DOMAIN(SMALLCXX_LOG_DOMAIN_NAME, level, (format), ## __VA_ARGS__);
+    LOG_F_DOMAIN(SMALLCXX_LOG_DOMAIN_NAME, level, format, ## __VA_ARGS__);
 
 /// Log, with a particular log domain.
 #define LOG_F_DOMAIN(domain, level, format, ...) \
@@ -117,11 +125,11 @@ void vlogMessage(const std::string& domain,
         /* print it */ \
         if(LOG_##level == LOG_PRINT) { \
             if(getLogLevel(domain) != LOG_SILENT) { \
-                printf((format), ## __VA_ARGS__); \
+                printf(format "\n", ## __VA_ARGS__); \
             } \
         } else if(LOG_##level == LOG_PRINTERR) { \
             if(getLogLevel(domain) != LOG_SILENT) { \
-                fprintf(stderr, (format), ## __VA_ARGS__); \
+                fprintf(stderr, format "\n", ## __VA_ARGS__); \
             } \
         } else { \
             logMessage(domain, LOG_##level, __FILE__, __LINE__, __func__, \
