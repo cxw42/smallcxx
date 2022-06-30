@@ -2,7 +2,7 @@
 /// @brief globstar + ignore routines --- tree-traversal routines
 /// @details Part of smallcxx
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 /// @todo permit matching only directories (trailing slash on globs)
 
 #define SMALLCXX_LOG_DOMAIN "glob"
