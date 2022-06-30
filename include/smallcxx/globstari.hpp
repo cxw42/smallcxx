@@ -3,6 +3,8 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White
 /// SPDX-License-Identifier: BSD-3-Clause
+///
+/// The primary function in this file is globstari().
 
 #ifndef SMALLCXX_GLOBSTARI_HPP_
 #define SMALLCXX_GLOBSTARI_HPP_
@@ -290,48 +292,11 @@ struct Entry {
 
 }; // struct Entry
 
-/// SAX-style directory searcher: base class.
-/// Subclass this and implement the virtual functions to do your own traversing.
-/// All globs follow the [EditorConfig](https://editorconfig.org) format.
-/// @note Path entries are separated by `/` (forward slash) on all platforms!
-///
-/// "Globstari" = supports _glob_, glob_star_, and _i_gnores.
-///
-/// @todo
-/// - Symlinks?
-/// - If so, symlink-loop checking?
-class GlobstariBase
+/// Access to a hierarchical tree of files (not necessarily on disk).
+/// Implemented by users of GlobstariBase.
+class IFileTree
 {
 public:
-
-    // --- Types ---
-
-    /// Status values processEntry() can return.
-    enum class ProcessStatus {
-        Continue,   ///< keep going
-#if 0
-        // TODO implement this?
-        Pop,        ///< don't process any more entries in this directory
-#endif
-        Stop,       ///< don't process any more entries at all
-
-        /// Skip directories (no effect for files).
-        /// This is the return value from the subclass's processing,
-        /// so Skip doesn't mean "don't process this".
-        ///
-        /// - For a directory, don't descend into the dir.
-        /// - For a file, treated the same as Continue.
-        Skip,
-
-    };
-
-    // --- Routines ---
-
-    GlobstariBase() = default;
-    virtual ~GlobstariBase() = default;
-
-    /// @name Virtual functions to implement
-    /// @{
 
     /// Returns a list of the names of the entries in @p dirName.
     /// You do not have to take ignores into account.
@@ -365,12 +330,6 @@ public:
     /// @throws if an error occurs
     virtual Bytes readFile(const smallcxx::glob::Path& path) = 0;
 
-    /// Process an entry!  This can do whatever you want.
-    /// The entry can be a directory or a file.
-    /// @param[in]  entry - the entry
-    /// @return A ProcessStatus value
-    virtual ProcessStatus processEntry(const Entry& entry) = 0;
-
     /// Canonicalize a path.
     /// @param[in]  path - the path to canonicalize
     /// @return
@@ -380,43 +339,79 @@ public:
     virtual smallcxx::glob::Path canonicalize(const smallcxx::glob::Path& path)
     const = 0;
 
-    /// @}
+};
 
-    /// @name Methods to call on an instance
-    /// @{
-
-    /// Find files in @p basePath matching @p needle.
-    /// @param[in]  basePath - where to start.  This does not have to be
-    ///     a directory on disk.
-    /// @param[in]  needle - EditorConfig-style globs indicating the files
-    ///     to find.  These are with respect to @p basePath.
-    /// @param[in]  maxDepth - maximum recursion depth.  -1 for unlimited.
-    ///
-    /// @note @parblock
-    ///
-    /// - Glob checks do not treat dot files specially.  Therefore,
-    ///     `*foo` will match `foo` and `.foo`.
-    /// - All glob checks are done against canonicalized paths.
-    ///     Therefore, `**/*` will match everything.
-    /// - traverse() will always call processEntry on the starting dir.
-    ///
-    /// @endparblock
-    /// @todo How to specify which ignore paths to check for?
-    ///     E.g., to check each encountered dir for ignore files.
-    void traverse(const smallcxx::glob::Path& basePath,
-                  const std::vector<smallcxx::glob::Path>& needle,
-                  ssize_t maxDepth = -1);
-
-    /// @}
-
-}; // class GlobstariBase
-
-/// Globstari for disk files (abstract base class).
-/// This implements GlobstariBase::readDir() and GlobstariBase::readFile()
-/// for files on disk.
-class GlobstariDisk: public GlobstariBase
+/// What to do with an item when you find it.
+class IProcessEntry
 {
 public:
+    /// Status values operator()() can return.
+    enum class Status {
+        Continue,   ///< keep going
+#if 0
+        // TODO implement this?
+        Pop,        ///< don't process any more entries in this directory
+#endif
+        Stop,       ///< don't process any more entries at all
+
+        /// Skip directories (no effect for files).
+        /// This is the return value from the subclass's processing,
+        /// so Skip doesn't mean "don't process this".
+        ///
+        /// - For a directory, don't descend into the dir.
+        /// - For a file, treated the same as Continue.
+        Skip,
+
+    };
+
+    /// Process an entry!  This can do whatever you want.
+    /// The entry can be a directory or a file.
+    /// @param[in]  entry - the entry
+    /// @return A ProcessStatus value
+    virtual IProcessEntry::Status operator()(const Entry& entry) = 0;
+};
+
+/// Find files, inside the hierarchy accessible through @p fileTree,
+/// that are under @p basePath and match @p needle.
+/// @param[in]  fileTree - Access to the hierarchy to search
+/// @param[in]  processEntry - what to do with each entry found
+/// @param[in]  basePath - where to start.
+/// @param[in]  needle - EditorConfig-style globs indicating the files
+///     to find.  These are with respect to @p basePath.
+/// @param[in]  maxDepth - maximum recursion depth.  -1 for unlimited.
+///
+/// Bear in mind:
+/// - All globs follow the [EditorConfig](https://editorconfig.org) format.
+/// - Path entries are separated by `/` (forward slash) on all platforms!
+///
+/// @note @parblock
+///
+/// - Glob checks do not treat dot files specially.  Therefore,
+///     `*foo` will match `foo` and `.foo`.
+/// - All glob checks are done against canonicalized paths.
+///     Therefore, `**/*` will match everything.
+/// - globstari() will always call @p processEntry on the starting dir.
+///
+/// @endparblock
+///
+/// "Globstari" = supports _glob_, glob_star_, and _i_gnores.
+///
+/// @todo @parblock
+/// - Symlinks?
+/// - If so, symlink-loop checking?
+/// @endparblock
+void globstari(IFileTree& fileTree,
+               IProcessEntry& processEntry,
+               const smallcxx::glob::Path& basePath,
+               const std::vector<smallcxx::glob::Path>& needle,
+               ssize_t maxDepth = -1);
+
+/// Access to files on disk.  For use with globstari().
+/// Assumes the root directory of the filesystem is the
+class DiskFileTree: public IFileTree
+{
+public:
+    virtual ~DiskFileTree() = default;
     std::vector<Entry> readDir(const smallcxx::glob::Path& dirName) override;
     Bytes readFile(const smallcxx::glob::Path& path) override;
     smallcxx::glob::Path canonicalize(const smallcxx::glob::Path& path) const

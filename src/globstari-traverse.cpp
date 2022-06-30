@@ -83,13 +83,11 @@ struct WorkItem {
 
 }; // class WorkItem
 
-/// Helper class to do the traversal.
-/// Not part of GlobstariBase because it doesn't need access to any private
-/// data thereof.
+/// Implementation of globstari()
 class Traverser
 {
-    /// Who we are working for
-    GlobstariBase *client_;
+    /// The hierarchy to search
+    IFileTree& fileTree_;
 
     /// Work queue for breadth-first search
     std::deque<WorkItem> items_;
@@ -100,18 +98,23 @@ class Traverser
     /// How low can you go?
     ssize_t maxDepth_;
 
+    /// What to do with entries
+    IProcessEntry& processEntry_;
+
     glob::PathSet seen_;    ///< which paths we have seen so far
 
     bool traversed_;        ///< have we already been run?
 
 public:
-    Traverser(GlobstariBase *client, const smallcxx::glob::Path& basePath,
+    Traverser(IFileTree& fileTree, IProcessEntry& processEntry,
+              const smallcxx::glob::Path& basePath,
               const std::vector<smallcxx::glob::Path>& needle,
               ssize_t maxDepth
              )
-        : client_(client), maxDepth_(maxDepth), traversed_(false)
+        : fileTree_(fileTree), maxDepth_(maxDepth), processEntry_(processEntry),
+          traversed_(false)
     {
-        smallcxx::glob::Path rootPath = client_->canonicalize(basePath);
+        smallcxx::glob::Path rootPath = fileTree_.canonicalize(basePath);
         needleMatcher_.addGlobs(needle,
                                 rootPath.back() == '/' ? rootPath : rootPath + "/");
         needleMatcher_.finalize();
@@ -198,7 +201,7 @@ Traverser::worker()
               item.entry.canonPath.c_str());
 
         // Decide what to do
-        auto clientInstruction = GlobstariBase::ProcessStatus::Continue;
+        auto clientInstruction = IProcessEntry::Status::Continue;
 
         if(match == PathCheckResult::Excluded) {
             // Excluded => nothing more to do.  Simple!
@@ -206,7 +209,7 @@ Traverser::worker()
 
         } else if(match == PathCheckResult::Included) {
             // Included => give it to the client.  Also simple!
-            clientInstruction = client_->processEntry(item.entry);
+            clientInstruction = processEntry_(item.entry);
 
         } else if(item.entry.ty == EntryType::Dir) {
             // But directories not specifically included may contain
@@ -218,24 +221,24 @@ Traverser::worker()
 
         // Do what the client asked us to
         switch(clientInstruction) {
-        case GlobstariBase::ProcessStatus::Continue:
+        case IProcessEntry::Status::Continue:
             if(item.entry.ty == EntryType::Dir) {
                 loadDir(item.entry, item.ignores);
             }
             break;
 
-        case GlobstariBase::ProcessStatus::Skip:
+        case IProcessEntry::Status::Skip:
             // nothing to do
             break;
 
 #if 0
         // TODO implement this?
-        case GlobstariBase::ProcessStatus::Pop:
+        case IProcessEntry::Status::Pop:
             // TODO pop the deque until `dir` changes
             break;
 #endif
 
-        case GlobstariBase::ProcessStatus::Stop:
+        case IProcessEntry::Status::Stop:
             throw StopTraversal();
             break;
 
@@ -252,12 +255,12 @@ void
 Traverser::loadDir(const Entry& entry, MatcherPtr parentIgnores)
 {
     // Load the new ignores
-    auto ignoresToLoad = client_->ignoresForDir(entry.canonPath);
+    auto ignoresToLoad = fileTree_.ignoresForDir(entry.canonPath);
     auto ignores = loadIgnoreFiles(entry.canonPath + "/",
                                    ignoresToLoad, parentIgnores);
 
     // Load the new entries
-    auto newEntries = client_->readDir(entry.canonPath);
+    auto newEntries = fileTree_.readDir(entry.canonPath);
     for(auto& newEntry : newEntries) {
         newEntry.depth = entry.depth + 1;
         items_.emplace_back(newEntry, ignores);
@@ -283,12 +286,12 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
             pathToTry = relativeTo;
             pathToTry += '/';
             pathToTry += toLoad;
-            canonPath = client_->canonicalize(pathToTry);
+            canonPath = fileTree_.canonicalize(pathToTry);
         }
 
         if(!canonPath.empty()) {
             try {
-                contents = client_->readFile(canonPath);
+                contents = fileTree_.readFile(canonPath);
                 ok = true;
             } catch(...) {
                 ok = false;
@@ -334,28 +337,30 @@ Traverser::parseContentsInto(const Bytes& contents,
     }
 }
 
-// === GlobstariBase =====================================================
+// === IFileTree and globstari() =========================================
 
 std::vector<smallcxx::glob::Path>
-GlobstariBase::ignoresForDir(const smallcxx::glob::Path& dirName)
+IFileTree::ignoresForDir(const smallcxx::glob::Path& dirName)
 {
     return { ".eignore" };
 }
 
 void
-GlobstariBase::traverse(const smallcxx::glob::Path& basePath,
-                        const std::vector<smallcxx::glob::Path>& needle,
-                        ssize_t maxDepth)
+globstari(IFileTree& fileTree,
+          IProcessEntry& processEntry,
+          const smallcxx::glob::Path& basePath,
+          const std::vector<smallcxx::glob::Path>& needle,
+          ssize_t maxDepth)
 {
-    Traverser t(this, basePath, needle, maxDepth);
+    Traverser t(fileTree, processEntry, basePath, needle, maxDepth);
     t.run();
 }
 
-// === GlobstariDisk =====================================================
+// === DiskFileTree ======================================================
 
 /// @todo PORTABILITY: handle readdir() that doesn't set d_type
 std::vector<Entry>
-GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
+DiskFileTree::readDir(const smallcxx::glob::Path& dirName)
 {
     std::unique_ptr<DIR, void(*)(DIR *)> dirp(
         opendir(dirName.c_str()),
@@ -403,7 +408,7 @@ GlobstariDisk::readDir(const smallcxx::glob::Path& dirName)
 
 /// @todo make this more efficient (fewer copies)
 Bytes
-GlobstariDisk::readFile(const smallcxx::glob::Path& path)
+DiskFileTree::readFile(const smallcxx::glob::Path& path)
 {
     ifstream in(path);
     ostringstream os;
@@ -414,7 +419,7 @@ GlobstariDisk::readFile(const smallcxx::glob::Path& path)
 /// @todo document symlink behaviour.  realpath(3) removes them,
 ///     so other implementations should do so also.  (Right?)
 smallcxx::glob::Path
-GlobstariDisk::canonicalize(const smallcxx::glob::Path& path) const
+DiskFileTree::canonicalize(const smallcxx::glob::Path& path) const
 {
     unique_ptr<char, void(*)(char *)> resolved(
         realpath(path.c_str(), nullptr),
