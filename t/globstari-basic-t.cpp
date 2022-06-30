@@ -14,9 +14,10 @@ using namespace smallcxx;
 using namespace std;
 using smallcxx::glob::Path;
 
-/// A do-nothing concrete GlobstariBase subclass
-class TestGlobstariBaseSanity: public GlobstariBase
+/// A do-nothing concrete IFileTree subclass
+class TestFileTreeSanity: public IFileTree
 {
+public:
     std::vector<Entry>
     readDir(const Path& dirPath) override
     {
@@ -29,12 +30,6 @@ class TestGlobstariBaseSanity: public GlobstariBase
         return "";
     }
 
-    ProcessStatus
-    processEntry(const Entry& entry) override
-    {
-        return ProcessStatus::Stop;
-    }
-
     Path
     canonicalize(const Path& path) const
     {
@@ -42,17 +37,29 @@ class TestGlobstariBaseSanity: public GlobstariBase
     }
 }; // class TestGlobstariBaseSanity
 
+/// A do-nothing concrete IFileTree subclass
+class TestProcessEntrySanity: public IProcessEntry
+{
+public:
+    IProcessEntry::Status
+    operator()(const Entry& entry) override
+    {
+        return IProcessEntry::Status::Stop;
+    }
+};
+
 static void
 test_sanity()
 {
-    TestGlobstariBaseSanity s;
+    TestFileTreeSanity fileTree;
+    TestProcessEntrySanity processEntry;
     reached();
 
-    s.traverse("/", {"*"});
+    globstari(fileTree, processEntry, "/", {"*"});
     reached();
 
-    // A single GlobstariBase instance can be used more than once
-    s.traverse("/", {"*"});
+    // FileTree and ProcessEntry instances can, in general, be used more than once
+    globstari(fileTree, processEntry, "/", {"*"});
     reached();
 }
 
@@ -85,20 +92,20 @@ compare_sequence(const set<glob::Path>& got,
 
 /// Save filenames traversed.
 /// For testing globbing on disk.
-struct DiskTraverser: public GlobstariDisk {
-    using GlobstariDisk::GlobstariDisk;
-
+class SaveEntries: public IProcessEntry
+{
+public:
     set<glob::Path> found;
 
-    virtual ProcessStatus
-    processEntry(const Entry& entry)
+    IProcessEntry::Status
+    operator()(const Entry& entry) override
     {
         LOG_F(TRACE, "Found %s", entry.canonPath.c_str());
         found.insert(entry.canonPath);
-        return ProcessStatus::Continue;
+        return IProcessEntry::Status::Continue;
     }
 
-}; // DiskTraverser
+}; // SaveEntries
 
 /// Tests using the contents of `t/globstari-basic-disk`.
 static void
@@ -106,48 +113,52 @@ test_disk()
 {
     const glob::Path basepath{SRCDIR "/globstari-basic-disk"};
     LOG_F(INFO, "Base path of test tree is %s", basepath.c_str());
+    DiskFileTree fileTree;
 
     {
         // matches none
-        DiskTraverser d;
-        d.traverse(basepath, {"NONEXISTENT"});
-        cmp_ok(d.found.size(), ==, 0);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"NONEXISTENT"});
+        cmp_ok(saveEntries.found.size(), ==, 0);
     }
 
     {
         // matches one
-        DiskTraverser d;
-        d.traverse(basepath, {"noex*"});
-        compare_sequence(d.found, {"globstari-basic-disk/noext"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"noex*"});
+        compare_sequence(saveEntries.found, {"globstari-basic-disk/noext"}, __func__,
+                         __LINE__);
     }
 
     {
         // matches two
-        DiskTraverser d;
-        d.traverse(basepath, {"*.txt"});
-        compare_sequence(d.found, {"/text.txt", "/text2.txt"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"*.txt"});
+        compare_sequence(saveEntries.found, {"/text.txt", "/text2.txt"}, __func__,
+                         __LINE__);
     }
 
     {
         // with exclusions
-        DiskTraverser d;
-        d.traverse(basepath, {"*.txt", "!text.txt"});
-        compare_sequence(d.found, {"/text2.txt"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"*.txt", "!text.txt"});
+        compare_sequence(saveEntries.found, {"/text2.txt"}, __func__, __LINE__);
     }
 
     {
         // matches one in a subdir
-        DiskTraverser d;
-        d.traverse(basepath, {"somef*"});
-        compare_sequence(d.found, {"globstari-basic-disk/subdir/somefile"}, __func__,
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"somef*"});
+        compare_sequence(saveEntries.found, {"globstari-basic-disk/subdir/somefile"},
+                         __func__,
                          __LINE__);
     }
 
     {
         // matches all
-        DiskTraverser d;
-        d.traverse(basepath, {"*"});
-        compare_sequence(d.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"},
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"*"});
+        compare_sequence(saveEntries.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"},
                          __func__, __LINE__);
     }
 
@@ -159,26 +170,29 @@ test_disk_ignores()
 {
     const glob::Path basepath{SRCDIR "/globstari-basic-disk-ignores"};
     LOG_F(INFO, "Base path of test tree is %s", basepath.c_str());
+    DiskFileTree fileTree;
 
     {
         // matches two; neither is ignored (sanity check)
-        DiskTraverser d;
-        d.traverse(basepath, {"*.txt"});
-        compare_sequence(d.found, {"/text.txt", "/text2.txt"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"*.txt"});
+        compare_sequence(saveEntries.found, {"/text.txt", "/text2.txt"}, __func__,
+                         __LINE__);
     }
 
     {
         // with ignores
-        DiskTraverser d;
-        d.traverse(basepath, {"ignored*"});
-        compare_sequence(d.found, {"/ignored.not-actually"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"ignored*"});
+        compare_sequence(saveEntries.found, {"/ignored.not-actually"}, __func__,
+                         __LINE__);
     }
 
     {
         // with ignores in subdirs
-        DiskTraverser d;
-        d.traverse(basepath, {"*ignored*"});
-        compare_sequence(d.found, {
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"*ignored*"});
+        compare_sequence(saveEntries.found, {
             "/dir/subdir/s2dir/s3dir/notignored",
             "/dir/subignored-not-actually",
             "/ignored.not-actually",
@@ -187,25 +201,25 @@ test_disk_ignores()
 
     {
         // Make sure `#` in .eignore doesn't count as a glob
-        DiskTraverser d;
-        d.traverse(basepath, {"#"});
-        compare_sequence(d.found, {"/#"}, __func__, __LINE__);
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"#"});
+        compare_sequence(saveEntries.found, {"/#"}, __func__, __LINE__);
     }
 
     {
         // Escaped `#` in patterns
-        DiskTraverser d;
-        d.traverse(basepath, {"file*"});
-        compare_sequence(d.found,
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"file*"});
+        compare_sequence(saveEntries.found,
         {"/dir/file#3", "/file#1", "/file#2", "/file#3"},
         __func__, __LINE__);
     }
 
     {
         // Patterns anchored at a level
-        DiskTraverser d;
-        d.traverse(basepath, {"/file*"});
-        compare_sequence(d.found, {"/file#1", "/file#2", "/file#3"},
+        SaveEntries saveEntries;
+        globstari(fileTree, saveEntries, basepath, {"/file*"});
+        compare_sequence(saveEntries.found, {"/file#1", "/file#2", "/file#3"},
                          __func__, __LINE__);
     }
 } // test_disk_ignores()
