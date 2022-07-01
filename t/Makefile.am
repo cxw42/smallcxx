@@ -60,6 +60,7 @@ testprograms += \
 	globstari-basic-t \
 	globstari-globset-t \
 	globstari-matcher-t \
+	globstari-userdata-t \
 	$(EOL)
 endif
 ###########################################################################
