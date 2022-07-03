@@ -2,7 +2,7 @@
 /// @brief globstar + ignore routines --- GlobSet implementation.
 /// @details Part of smallcxx
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 /// @copyright Uses some code from editorconfig-core-c, licensed BSD.
 ///     See below for the editorconfig-core-c copyright statement.
 /// @todo permit matching only directories (trailing slash on globs)

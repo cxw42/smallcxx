@@ -1,7 +1,7 @@
 /// @file include/smallcxx/globstari.hpp
 /// @brief globstar + ignore routines --- part of smallcxx
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 /// SPDX-License-Identifier: BSD-3-Clause
 ///
 /// The primary function in this file is globstari().

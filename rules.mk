@@ -37,4 +37,9 @@ MOSTLYCLEANFILES = *.gcda *.gcno *.trs
 CODE_COVERAGE_OUTPUT_FILE = $(PACKAGE_TARNAME)-coverage.info
 CODE_COVERAGE_OUTPUT_DIRECTORY = $(PACKAGE_TARNAME)-coverage
 
+# Coverage: don't report on others' code (OS, 3rdparty/)
+CODE_COVERAGE_IGNORE_PATTERN = \
+	"/usr/include/*" \
+	$(EOL)
+
 include $(top_srcdir)/aminclude_static.am

@@ -1,7 +1,7 @@
 /// @file globstari-basic-t.cpp
 /// @brief Basic tests of smallcxx/globstari.hpp classes
 /// @author Christopher White <cxwembedded@gmail.com>
-/// @copyright Copyright (c) 2021 Christopher White
+/// @copyright Copyright (c) 2021--2022 Christopher White
 
 #include <set>
 
@@ -35,9 +35,9 @@ public:
     {
         return path;
     }
-}; // class TestGlobstariBaseSanity
+}; // class TestFileTreeSanity
 
-/// A do-nothing concrete IFileTree subclass
+/// A do-nothing concrete IProcessEntry subclass
 class TestProcessEntrySanity: public IProcessEntry
 {
 public:
