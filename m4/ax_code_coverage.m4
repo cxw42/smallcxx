@@ -60,6 +60,7 @@
 #   Copyright (c) 2012 Paolo Borelli
 #   Copyright (c) 2012 Dan Winship
 #   Copyright (c) 2015,2018 Bastien ROUCARIES
+#   Copyright (c) 2022 Christopher White
 #
 #   This library is free software; you can redistribute it and/or modify it
 #   under the terms of the GNU Lesser General Public License as published by
@@ -74,7 +75,7 @@
 #   You should have received a copy of the GNU Lesser General Public License
 #   along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-#serial 34
+#serial 9900
 
 m4_define(_AX_CODE_COVERAGE_RULES,[
 AX_ADD_AM_MACRO_STATIC([
@@ -139,6 +140,9 @@ CODE_COVERAGE_GENHTML_OPTIONS ?= \$(CODE_COVERAGE_GENHTML_OPTIONS_DEFAULT)
 CODE_COVERAGE_IGNORE_PATTERN ?=
 
 GITIGNOREFILES := \$(GITIGNOREFILES) \$(CODE_COVERAGE_OUTPUT_FILE) \$(CODE_COVERAGE_OUTPUT_DIRECTORY)
+code_coverage_v_lcov_cap_initial = \$(code_coverage_v_lcov_cap_initial_\$(V))
+code_coverage_v_lcov_cap_initial_ = \$(code_coverage_v_lcov_cap_initial_\$(AM_DEFAULT_VERBOSITY))
+code_coverage_v_lcov_cap_initial_0 = @echo \"  LCOV   --capture --initial\" \$(CODE_COVERAGE_OUTPUT_FILE);
 code_coverage_v_lcov_cap = \$(code_coverage_v_lcov_cap_\$(V))
 code_coverage_v_lcov_cap_ = \$(code_coverage_v_lcov_cap_\$(AM_DEFAULT_VERBOSITY))
 code_coverage_v_lcov_cap_0 = @echo \"  LCOV   --capture\" \$(CODE_COVERAGE_OUTPUT_FILE);
@@ -157,15 +161,28 @@ code_coverage_sanitize = \$(subst -,_,\$(subst .,_,\$(1)))
 
 # Use recursive makes in order to ignore errors during check
 check-code-coverage:
+	\$(AM_V_at)\$(MAKE) \$(AM_MAKEFLAGS) code-coverage-capture-initial
 	-\$(AM_V_at)\$(MAKE) \$(AM_MAKEFLAGS) -k check
 	\$(AM_V_at)\$(MAKE) \$(AM_MAKEFLAGS) code-coverage-capture
+	@if ! \$(AM_V_P); then \
+		\$(LCOV) --summary \"\$(CODE_COVERAGE_OUTPUT_FILE)\" ; \
+	fi
 
 # Capture code coverage data
+_code_coverage_capture_options = \$(code_coverage_quiet) \$(addprefix --directory ,\$(CODE_COVERAGE_DIRECTORY)) --output-file \"\$(CODE_COVERAGE_OUTPUT_FILE).tmp\" --test-name \"\$(call code_coverage_sanitize,\$(PACKAGE_NAME)-\$(PACKAGE_VERSION))\" --no-checksum --compat-libtool \$(CODE_COVERAGE_LCOV_SHOPTS) \$(CODE_COVERAGE_LCOV_OPTIONS)
+
+# Capture part 1: before "make check", create initial empty file.  See the
+# description of "--initial" at
+# <http://ltp.sourceforge.net/coverage/lcov/lcov.1.php>.
+code-coverage-capture-initial:
+	\$(code_coverage_v_lcov_cap_initial)\$(LCOV) --capture --initial \$(_code_coverage_capture_options)
+
+# Capture part 2: after "make check", collect the data.
 code-coverage-capture: code-coverage-capture-hook
-	\$(code_coverage_v_lcov_cap)\$(LCOV) \$(code_coverage_quiet) \$(addprefix --directory ,\$(CODE_COVERAGE_DIRECTORY)) --capture --output-file \"\$(CODE_COVERAGE_OUTPUT_FILE).tmp\" --test-name \"\$(call code_coverage_sanitize,\$(PACKAGE_NAME)-\$(PACKAGE_VERSION))\" --no-checksum --compat-libtool \$(CODE_COVERAGE_LCOV_SHOPTS) \$(CODE_COVERAGE_LCOV_OPTIONS)
+	\$(code_coverage_v_lcov_cap)\$(LCOV) --capture \$(_code_coverage_capture_options)
 	\$(code_coverage_v_lcov_ign)\$(LCOV) \$(code_coverage_quiet) \$(addprefix --directory ,\$(CODE_COVERAGE_DIRECTORY)) --remove \"\$(CODE_COVERAGE_OUTPUT_FILE).tmp\" \"/tmp/*\" \$(CODE_COVERAGE_IGNORE_PATTERN) --output-file \"\$(CODE_COVERAGE_OUTPUT_FILE)\" \$(CODE_COVERAGE_LCOV_SHOPTS) \$(CODE_COVERAGE_LCOV_RMOPTS)
 	-@rm -f \"\$(CODE_COVERAGE_OUTPUT_FILE).tmp\"
-	\$(code_coverage_v_genhtml)LANG=C \$(GENHTML) \$(code_coverage_quiet) \$(addprefix --prefix ,\$(CODE_COVERAGE_DIRECTORY)) --output-directory \"\$(CODE_COVERAGE_OUTPUT_DIRECTORY)\" --title \"\$(PACKAGE_NAME)-\$(PACKAGE_VERSION) Code Coverage\" --legend --show-details \"\$(CODE_COVERAGE_OUTPUT_FILE)\" \$(CODE_COVERAGE_GENHTML_OPTIONS)
+	\$(code_coverage_v_genhtml)LANG=C \$(GENHTML) \$(code_coverage_quiet) \$(addprefix --prefix ,\$(CODE_COVERAGE_DIRECTORY)) --output-directory \"\$(CODE_COVERAGE_OUTPUT_DIRECTORY)\" --title \"\$(PACKAGE_NAME)-\$(PACKAGE_VERSION) Code Coverage\" --legend --show-details \"\$(CODE_COVERAGE_OUTPUT_FILE)\" \$(CODE_COVERAGE_GENHTML_OPTIONS) \$(CODE_COVERAGE_GENHTML_DEMANGLE)
 	@echo \"file://\$(abs_builddir)/\$(CODE_COVERAGE_OUTPUT_DIRECTORY)/index.html\"
 
 code-coverage-clean:
@@ -179,6 +196,8 @@ A][M_DISTCHECK_CONFIGURE_FLAGS := \$(A][M_DISTCHECK_CONFIGURE_FLAGS) --disable-c
  else # ifneq (\$(abs_builddir), \$(abs_top_builddir))
 check-code-coverage:
 
+code-coverage-capture-initial:
+
 code-coverage-capture: code-coverage-capture-hook
 
 code-coverage-clean:
@@ -190,6 +209,8 @@ else #! CODE_COVERAGE_ENABLED
 check-code-coverage:
 	@echo \"Need to reconfigure with --enable-code-coverage\"
 # Capture code coverage data
+code-coverage-capture-initial:
+	@echo \"Need to reconfigure with --enable-code-coverage\"
 code-coverage-capture: code-coverage-capture-hook
 	@echo \"Need to reconfigure with --enable-code-coverage\"
 
@@ -201,7 +222,7 @@ endif #CODE_COVERAGE_ENABLED
 # Hook rule executed before code-coverage-capture, overridable by the user
 code-coverage-capture-hook:
 
-.PHONY: check-code-coverage code-coverage-capture code-coverage-dist-clean code-coverage-clean code-coverage-capture-hook
+.PHONY: check-code-coverage code-coverage-capture-initial code-coverage-capture code-coverage-dist-clean code-coverage-clean code-coverage-capture-hook
 ])
 ])
 
@@ -223,6 +244,7 @@ AC_DEFUN([_AX_CODE_COVERAGE_ENABLED],[
 
 	AC_CHECK_PROG([LCOV], [lcov], [lcov])
 	AC_CHECK_PROG([GENHTML], [genhtml], [genhtml])
+	AC_CHECK_PROG([CXXFILT], [c++filt], [c++filt])
 
 	AS_IF([ test x"$LCOV" = x ], [
 		AC_MSG_ERROR([To enable code coverage reporting you must have lcov installed])
@@ -230,6 +252,12 @@ AC_DEFUN([_AX_CODE_COVERAGE_ENABLED],[
 
 	AS_IF([ test x"$GENHTML" = x ], [
 		AC_MSG_ERROR([Could not find genhtml from the lcov package])
+	])
+
+	AS_IF([ test x"$CXXFILT" = x ], [
+		CODE_COVERAGE_GENHTML_DEMANGLE=''
+	], [
+		CODE_COVERAGE_GENHTML_DEMANGLE='--demangle-cpp'
 	])
 
 	dnl Build the code coverage flags
@@ -243,6 +271,7 @@ AC_DEFUN([_AX_CODE_COVERAGE_ENABLED],[
 	AC_SUBST([CODE_COVERAGE_CFLAGS])
 	AC_SUBST([CODE_COVERAGE_CXXFLAGS])
 	AC_SUBST([CODE_COVERAGE_LIBS])
+	AC_SUBST([CODE_COVERAGE_GENHTML_DEMANGLE])
 ])
 
 AC_DEFUN([AX_CODE_COVERAGE],[
