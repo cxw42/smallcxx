@@ -20,14 +20,14 @@ using smallcxx::glob::Path;
 class TestFileTreeUserdata: public IFileTree
 {
 public:
-    std::vector<Entry>
+    std::vector< std::shared_ptr<Entry> >
     readDir(const Path& dirPath) override
     {
-        std::vector<Entry> retval;
+        std::vector< std::shared_ptr<Entry> > retval;
 
         if(dirPath == "/") {
-            Entry e{EntryType::File, "/file"};
-            e.userdata = 42;
+            auto e = std::make_shared<Entry>(EntryType::File, "/file");
+            e->userdata = 42;
             retval.push_back(std::move(e));
         }
 
@@ -51,13 +51,13 @@ public:
 class SaveEntries: public IProcessEntry
 {
 public:
-    std::vector<Entry> found;
+    std::vector< std::shared_ptr<Entry> > found;
 
     IProcessEntry::Status
-    operator()(const Entry& entry) override
+    operator()(const  std::shared_ptr<Entry>& entry) override
     {
-        LOG_F(TRACE, "Found %s", entry.canonPath.c_str());
-        if(entry.ty == EntryType::File) {
+        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
+        if(entry->ty == EntryType::File) {
             found.push_back(entry);
         }
         return IProcessEntry::Status::Continue;
@@ -76,7 +76,7 @@ test_userdata()
     reached();
 
     cmp_ok(processEntry.found.size(), ==, 1);
-    cmp_ok(processEntry.found[0].userdata, ==, 42);
+    cmp_ok(processEntry.found[0]->userdata, ==, 42);
 }
 
 TEST_MAIN {
