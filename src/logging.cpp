@@ -4,7 +4,7 @@
 /// @copyright Copyright (c) 2021 Christopher White
 
 #include <ctype.h>
-#include <inttypes.h>
+#include <cinttypes>
 #include <limits.h>
 #include <sstream>
 #include <stdarg.h>
@@ -25,6 +25,16 @@
 using namespace std;
 
 // === Constants and data ================================================
+
+namespace smallcxx
+{
+/// Override the PID used by vlogMessage().
+/// If == 0, the actual PID is used; otherwise, this is used.
+/// @note Ugly, ugly, ugly.
+/// @todo Find a better way to do this.
+/// @private
+intmax_t PidOverride = 0;
+}
 
 /// Domains starting with a space are reserved.
 /// They have level LOG_INFO by default.
@@ -157,7 +167,8 @@ vlogMessage(const std::string& domain,
             const char *format, va_list args)
 {
     static bool tty = isatty(LOG_FD) && !getenv("NO_COLOR");
-    static intmax_t pid = getpid();
+    static intmax_t pid = (smallcxx::PidOverride ? smallcxx::PidOverride :
+                           getpid());
     static const char *pidcolor = tty ? PIDCOLORS[pid % ARRAY_SIZE(PIDCOLORS)] : "";
     static const char *endcolor = tty ? NORMAL : "";
 

@@ -275,9 +275,6 @@ struct Entry {
     /// Canonical path of this Entry
     smallcxx::glob::Path canonPath;
 
-    /// Userdata, unused by smallcxx itself.
-    uintptr_t userdata;
-
     /// Depth of an entry with respect to a search.  Level 0 is the
     /// dir where the search started.  Negative values have undefined
     /// meaning.
@@ -289,6 +286,9 @@ struct Entry {
 
     Entry(const Entry& other) = default;
     Entry(Entry&& other) = default;
+
+    /// Virtual dtor so callers can use polymorphic Entry types.
+    virtual ~Entry() = default;
 
 }; // struct Entry
 
@@ -309,7 +309,8 @@ public:
     /// @throws std::system_error if @p dirName is unreadable.
     ///
     /// @todo Permit iteratively reading a dir?
-    virtual std::vector<Entry> readDir(const smallcxx::glob::Path& dirName) = 0;
+    virtual std::vector< std::shared_ptr<Entry> > readDir(const
+            smallcxx::glob::Path& dirName) = 0;
 
     /// Returns a list of ignore files to load, if they exist, for @p dirName.
     /// @param[in]  dirName - the canonical path to the directory
@@ -368,7 +369,8 @@ public:
     /// The entry can be a directory or a file.
     /// @param[in]  entry - the entry
     /// @return A ProcessStatus value
-    virtual IProcessEntry::Status operator()(const Entry& entry) = 0;
+    virtual IProcessEntry::Status operator()(const std::shared_ptr<Entry>& entry) =
+        0;
 };
 
 /// Find files, inside the hierarchy accessible through @p fileTree,
@@ -412,7 +414,8 @@ class DiskFileTree: public IFileTree
 {
 public:
     virtual ~DiskFileTree() = default;
-    std::vector<Entry> readDir(const smallcxx::glob::Path& dirName) override;
+    std::vector< std::shared_ptr<Entry> > readDir(const smallcxx::glob::Path&
+            dirName) override;
     Bytes readFile(const smallcxx::glob::Path& path) override;
     smallcxx::glob::Path canonicalize(const smallcxx::glob::Path& path) const
     override;

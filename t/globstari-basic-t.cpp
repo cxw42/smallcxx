@@ -18,7 +18,7 @@ using smallcxx::glob::Path;
 class TestFileTreeSanity: public IFileTree
 {
 public:
-    std::vector<Entry>
+    std::vector< std::shared_ptr<Entry> >
     readDir(const Path& dirPath) override
     {
         return {};
@@ -42,7 +42,7 @@ class TestProcessEntrySanity: public IProcessEntry
 {
 public:
     IProcessEntry::Status
-    operator()(const Entry& entry) override
+    operator()(const  std::shared_ptr<Entry>& entry) override
     {
         return IProcessEntry::Status::Stop;
     }
@@ -98,10 +98,10 @@ public:
     set<glob::Path> found;
 
     IProcessEntry::Status
-    operator()(const Entry& entry) override
+    operator()(const  std::shared_ptr<Entry>& entry) override
     {
-        LOG_F(TRACE, "Found %s", entry.canonPath.c_str());
-        found.insert(entry.canonPath);
+        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
+        found.insert(entry->canonPath);
         return IProcessEntry::Status::Continue;
     }
 

@@ -64,13 +64,13 @@ using MatcherPtr = std::shared_ptr<Matcher>;
 /// An entry and corresponding ignores
 /// @invariant WorkItem::ignores is not NULL (but may be empty).
 struct WorkItem {
-    Entry entry;
+    std::shared_ptr<Entry> entry;
     MatcherPtr ignores;
 
-    WorkItem(const Entry& newEntry)
+    WorkItem(const std::shared_ptr<Entry>& newEntry)
         : WorkItem(newEntry, make_shared<Matcher>())
     {}
-    WorkItem(const Entry& newEntry, MatcherPtr newIgnores)
+    WorkItem(const std::shared_ptr<Entry>& newEntry, MatcherPtr newIgnores)
         : entry(newEntry), ignores(newIgnores)
     {
         if(!ignores) {
@@ -121,7 +121,7 @@ public:
 
         // Prime the pump.  Note: the ignores start out empty, so this
         // first entry will not be ignored.
-        items_.emplace_back(Entry{EntryType::Dir, rootPath, 0});
+        items_.push_back(std::make_shared<Entry>(EntryType::Dir, rootPath, 0));
     }
 
     /// Run the traversal.
@@ -133,7 +133,7 @@ private:
     void worker();
 
     /// Prepare to descend into a directory
-    void loadDir(const Entry& entry, MatcherPtr parentIgnores);
+    void loadDir(const std::shared_ptr<Entry>& entry, MatcherPtr parentIgnores);
 
     /// Load the contents of ignore files
     MatcherPtr loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
@@ -172,33 +172,33 @@ Traverser::worker()
         const auto item = items_.front();
         items_.pop_front();
 
-        if(seen_.count(item.entry.canonPath)) {
+        if(seen_.count(item.entry->canonPath)) {
             LOG_F(TRACE, "already-seen %s --- skipping",
-                  item.entry.canonPath.c_str());
+                  item.entry->canonPath.c_str());
             continue;
         }
 
         // TODO make sure this is in the right place
-        seen_.insert(item.entry.canonPath);
+        seen_.insert(item.entry->canonPath);
 
-        if((maxDepth_ > 0) && (item.entry.depth > maxDepth_)) {
+        if((maxDepth_ > 0) && (item.entry->depth > maxDepth_)) {
             LOG_F(TRACE, "Skipping %s --- maxDepth exceeded",
-                  item.entry.canonPath.c_str());
+                  item.entry->canonPath.c_str());
             continue;
         }
 
         // Check against the ignores we already have
-        if(item.ignores->contains(item.entry.canonPath)) {
+        if(item.ignores->contains(item.entry->canonPath)) {
             LOG_F(TRACE, "ignored %s --- skipping",
-                  item.entry.canonPath.c_str());
+                  item.entry->canonPath.c_str());
             continue;
         }
 
         // Is it a hit?
-        const auto match = needleMatcher_.check(item.entry.canonPath);
+        const auto match = needleMatcher_.check(item.entry->canonPath);
 
         LOG_F(TRACE, "pathcheck:%s for [%s]", PathCheckResultNames[(int)match],
-              item.entry.canonPath.c_str());
+              item.entry->canonPath.c_str());
 
         // Decide what to do
         auto clientInstruction = IProcessEntry::Status::Continue;
@@ -211,7 +211,7 @@ Traverser::worker()
             // Included => give it to the client.  Also simple!
             clientInstruction = processEntry_(item.entry);
 
-        } else if(item.entry.ty == EntryType::Dir) {
+        } else if(item.entry->ty == EntryType::Dir) {
             // But directories not specifically included may contain
             // files that are themselves included.  Therefore,
             // descend into directories if match == Unknown.
@@ -222,7 +222,7 @@ Traverser::worker()
         // Do what the client asked us to
         switch(clientInstruction) {
         case IProcessEntry::Status::Continue:
-            if(item.entry.ty == EntryType::Dir) {
+            if(item.entry->ty == EntryType::Dir) {
                 loadDir(item.entry, item.ignores);
             }
             break;
@@ -252,17 +252,18 @@ Traverser::worker()
 } // Traverser::worker()
 
 void
-Traverser::loadDir(const Entry& entry, MatcherPtr parentIgnores)
+Traverser::loadDir(const std::shared_ptr<Entry>& entry,
+                   MatcherPtr parentIgnores)
 {
     // Load the new ignores
-    auto ignoresToLoad = fileTree_.ignoresForDir(entry.canonPath);
-    auto ignores = loadIgnoreFiles(entry.canonPath + "/",
+    auto ignoresToLoad = fileTree_.ignoresForDir(entry->canonPath);
+    auto ignores = loadIgnoreFiles(entry->canonPath + "/",
                                    ignoresToLoad, parentIgnores);
 
     // Load the new entries
-    auto newEntries = fileTree_.readDir(entry.canonPath);
+    auto newEntries = fileTree_.readDir(entry->canonPath);
     for(auto& newEntry : newEntries) {
-        newEntry.depth = entry.depth + 1;
+        newEntry->depth = entry->depth + 1;
         items_.emplace_back(newEntry, ignores);
     }
 } // Traverser::loadDir()
@@ -359,7 +360,7 @@ globstari(IFileTree& fileTree,
 // === DiskFileTree ======================================================
 
 /// @todo PORTABILITY: handle readdir() that doesn't set d_type
-std::vector<Entry>
+std::vector< std::shared_ptr<Entry> >
 DiskFileTree::readDir(const smallcxx::glob::Path& dirName)
 {
     std::unique_ptr<DIR, void(*)(DIR *)> dirp(
@@ -374,7 +375,7 @@ DiskFileTree::readDir(const smallcxx::glob::Path& dirName)
                            STR_OF << "Could not open dir" << dirName);
     }
 
-    std::vector<Entry> retval;
+    std::vector< std::shared_ptr<Entry> > retval;
 
     struct dirent *ent;
     while((ent = readdir(dirp.get())) != NULL) {
@@ -400,7 +401,7 @@ DiskFileTree::readDir(const smallcxx::glob::Path& dirName)
         LOG_F(TRACE, "Found %s [%s]",
               (ty == EntryType::File ? "file" : "dir"),
               canonPath.c_str());
-        retval.emplace_back(ty, canonPath);
+        retval.push_back(std::make_shared<Entry>(ty, canonPath));
     } // foreach dir entry
 
     return retval;
