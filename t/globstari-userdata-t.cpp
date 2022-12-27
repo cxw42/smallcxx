@@ -1,5 +1,5 @@
 /// @file t/globstari-userdata-t.cpp
-/// @brief Test smallcxx::Entry::userdata
+/// @brief Test storing userdata in a smallcxx::Entry
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021--2022 Christopher White
 
@@ -15,6 +15,12 @@ using namespace smallcxx;
 using namespace std;
 using smallcxx::glob::Path;
 
+/// An Entry subclass that holds additional information
+struct FatEntry: public Entry {
+    int userdata = 0;
+    using Entry::Entry;
+};
+
 /// An IFileTree that produces a virtual filesystem.
 /// The filesystem includes exactly directory `/` and file `/file`.
 class TestFileTreeUserdata: public IFileTree
@@ -26,9 +32,9 @@ public:
         std::vector< std::shared_ptr<Entry> > retval;
 
         if(dirPath == "/") {
-            auto e = std::make_shared<Entry>(EntryType::File, "/file");
+            auto e = std::make_shared<FatEntry>(EntryType::File, "/file");
             e->userdata = 42;
-            retval.push_back(std::move(e));
+            retval.push_back(dynamic_pointer_cast<Entry>(e));
         }
 
         return retval;
@@ -76,7 +82,13 @@ test_userdata()
     reached();
 
     cmp_ok(processEntry.found.size(), ==, 1);
-    cmp_ok(processEntry.found[0]->userdata, ==, 42);
+    const auto found = processEntry.found[0];
+    ok(!!found);
+    const auto fatEntry = dynamic_pointer_cast<FatEntry>(found);
+    ok(!!fatEntry);
+    if(fatEntry) {
+        cmp_ok(fatEntry->userdata, ==, 42);
+    }
 }
 
 TEST_MAIN {

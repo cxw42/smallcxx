@@ -275,9 +275,6 @@ struct Entry {
     /// Canonical path of this Entry
     smallcxx::glob::Path canonPath;
 
-    /// Userdata, unused by smallcxx itself.
-    uintptr_t userdata;
-
     /// Depth of an entry with respect to a search.  Level 0 is the
     /// dir where the search started.  Negative values have undefined
     /// meaning.
