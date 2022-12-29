@@ -12,12 +12,24 @@
 #define ARRAY_SIZE(x) \
     (sizeof(x) / sizeof(x[0]))
 
+namespace smallcxx
+{
+
+/// The assertion thrown by throw_assert().
+class AssertionFailure: public std::logic_error
+{
+public:
+    using std::logic_error::logic_error;
+};
+
+}
+
 /// Throw a message indicating an assertion failed, iff @p cond is false.
 #define throw_assert(cond) \
     do { \
         const bool _ok = (cond); \
         if(!_ok) { \
-            throw std::runtime_error(STR_OF << __FILE__ << ':' << __LINE__ \
+            throw smallcxx::AssertionFailure(STR_OF << __FILE__ << ':' << __LINE__ \
                     << ": failure in assertion " << #cond); \
         } \
     } while(0)
