@@ -78,7 +78,7 @@ class LogLevelHolder
 
 public:
     /// Get the log level for a domain.
-    /// @param[in]  domain - logging domain.
+    /// @param[in]  domain - logging domain.  Must be non-empty.
     LogLevel
     get(const std::string& domain)
     {
