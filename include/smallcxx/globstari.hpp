@@ -380,6 +380,7 @@ public:
 /// @param[in]  basePath - where to start.
 /// @param[in]  needle - EditorConfig-style globs indicating the files
 ///     to find.  These are with respect to @p basePath.
+///     **Note** @p needle must not be empty.
 /// @param[in]  maxDepth - maximum recursion depth.  -1 for unlimited.
 ///
 /// Bear in mind:

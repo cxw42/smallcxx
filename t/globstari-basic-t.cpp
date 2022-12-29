@@ -61,6 +61,12 @@ test_sanity()
     // FileTree and ProcessEntry instances can, in general, be used more than once
     globstari(fileTree, processEntry, "/", {"*"});
     reached();
+
+    // Empty needle is not allowed
+    throws_with_msg(
+        globstari(fileTree, processEntry, "/", {}),
+        "needle.empty"
+    );
 }
 
 /// @name Tests of disk globbing

@@ -15,6 +15,7 @@
 #include <string.h>
 #include <system_error>
 
+#include "smallcxx/common.hpp"
 #include "smallcxx/globstari.hpp"
 #include "smallcxx/logging.hpp"
 #include "smallcxx/string.hpp"
@@ -106,6 +107,14 @@ class Traverser
     bool traversed_;        ///< have we already been run?
 
 public:
+    /// Ctor.
+    /// @param[in]  fileTree - see globstari()
+    /// @param[in]  processEntry - see globstari()
+    /// @param[in]  basePath - see globstari()
+    /// @param[in]  needle - see globstari().
+    /// @param[in]  maxDepth - see globstari()
+    ///
+    /// @throws AssertionFailure if @p needle is empty.
     Traverser(IFileTree& fileTree, IProcessEntry& processEntry,
               const smallcxx::glob::Path& basePath,
               const std::vector<smallcxx::glob::Path>& needle,
@@ -114,6 +123,7 @@ public:
         : fileTree_(fileTree), maxDepth_(maxDepth), processEntry_(processEntry),
           traversed_(false)
     {
+        throw_assert(!needle.empty());
         smallcxx::glob::Path rootPath = fileTree_.canonicalize(basePath);
         needleMatcher_.addGlobs(needle,
                                 rootPath.back() == '/' ? rootPath : rootPath + "/");
