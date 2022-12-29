@@ -142,6 +142,7 @@ void vlogMessage(const std::string& domain,
 ///     LOG_MIN and LOG_MAX (inclusive).  In particular, you may not set
 ///     the level to LOG_PRINT or LOG_PRINTERR.
 /// @param[in]  domain - Which log domain to apply @p newLevel to.
+///     Must be non-empty.
 ///
 /// @warning Some log messages may be dropped when the level changes.
 /// @throws std::runtime_error if you try to set LOG_PRINT or LOG_PRINTERR.
@@ -152,6 +153,7 @@ void setLogLevel(LogLevel newLevel,
 LogLevel clipLogLevel(LogLevel level);
 
 /// Get the current log level for @p domain.
+/// @param[in]  domain - The log domain of interest.  Must be non-empty.
 LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
 /// Set the verbosity for all log domains based on `$V`.  If `$V` exists and

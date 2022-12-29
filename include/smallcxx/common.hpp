@@ -24,12 +24,24 @@ public:
 
 }
 
-/// Throw a message indicating an assertion failed, iff @p cond is false.
-#define throw_assert(cond) \
+/// @def throw_assert(cond)
+/// @brief Throw a message indicating an assertion failed, iff @p cond is false.
+/// @note No-op if `NDEBUG` is defined.
+#ifdef NDEBUG
+#define throw_assert(cond) do {} while(0)
+#else
+#define throw_assert(cond) _throw_unless2(cond, smallcxx::AssertionFailure)
+#endif // defined(NDEBUG) else
+
+/// @brief Throw iff @p cond is false.
+#define throw_unless(cond) _throw_unless2(cond, std::runtime_error)
+
+/// @brief Throw @p exc iff @p cond is false.
+#define _throw_unless2(cond, exc) \
     do { \
         const bool _ok = (cond); \
         if(!_ok) { \
-            throw smallcxx::AssertionFailure(STR_OF << __FILE__ << ':' << __LINE__ \
+            throw (exc)(STR_OF << __FILE__ << ':' << __LINE__ \
                     << ": failure in assertion " << #cond); \
         } \
     } while(0)
