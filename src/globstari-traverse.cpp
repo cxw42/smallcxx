@@ -123,7 +123,7 @@ public:
         : fileTree_(fileTree), maxDepth_(maxDepth), processEntry_(processEntry),
           traversed_(false)
     {
-        throw_assert(!needle.empty());
+        throw_unless(!needle.empty());
         smallcxx::glob::Path rootPath = fileTree_.canonicalize(basePath);
         needleMatcher_.addGlobs(needle,
                                 rootPath.back() == '/' ? rootPath : rootPath + "/");
