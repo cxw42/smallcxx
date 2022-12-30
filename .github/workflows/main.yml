@@ -1,0 +1,79 @@
+# Build and test in GitHub CI
+# Modified by Christopher White from an original by Frank Gualtieri.
+
+name: smallcxx CI
+
+on:
+  # push:
+  #   branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Manual run.
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Test
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Install Ubuntu Packages
+        if: runner.os == 'Linux'
+        # The `rm` and `db_set` below are to prevent man-db from updating the
+        # manpage index after we install the new packages.
+        run: |
+          sudo `realpath .github/disable-man-db-auto-update.sh`
+          sudo apt install -y doxygen graphviz libpcre2-dev perl dh-autoreconf
+
+      - name: Install macOS packages
+        if: runner.os == 'macOS'
+        run: |
+          brew install automake coreutils moreutils pcre2
+          # perl is already installed
+          perl --version  # just in case it changes sometime
+
+      - name: Build smallcxx
+        run: |
+          sudo ldconfig || true   # for the things we installed above
+          ./autogen.sh
+          make -j V=1
+
+      - name: Check Build
+        run: make -j check V=1
+
+      - name: Check Build (report any errors)
+        if: ${{ failure() }}
+        continue-on-error: true
+        run: |
+          echo === t/test_suite.log ===
+          cat t/test-suite.log || true
+          echo === config.log ===
+          cat config.log || true
+          echo === environment ===
+          set || true
+          echo === libraries ===
+          make -C t ldd-505 || true
+          ldconfig -p || true
+
+      - name: Build the Doxygen
+        if: runner.os == 'Linux'
+        run: make -j html V=1
+
+      - name: Distcheck
+        run: make -j distcheck V=1
+
+      - name: Install
+        run: sudo make -j install V=1
+
+      - name: Post-install steps (Ubuntu)
+        if: runner.os == 'Linux'
+        run: sudo ldconfig
