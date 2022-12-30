@@ -96,7 +96,7 @@ dist_noinst_DATA = $(testdatafiles)
 AM_DEFAULT_SOURCE_EXT = .cpp
 
 LOCAL_CFLAGS = -I$(top_srcdir)/include -DSRCDIR="\"$(abs_srcdir)\"" $(PCRE2_CFLAGS)
-LDADD = $(top_builddir)/src/libsmallcxx.a $(PCRE2_LIBS) -lrt
+LDADD = $(top_builddir)/src/libsmallcxx.a $(PCRE2_LIBS) $(LIBRT_LIBS)
 
 check_PROGRAMS = \
 	$(testprograms) \

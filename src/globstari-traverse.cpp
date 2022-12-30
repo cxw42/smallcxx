@@ -131,7 +131,7 @@ public:
 
         // Prime the pump.  Note: the ignores start out empty, so this
         // first entry will not be ignored.
-        items_.push_back(std::make_shared<Entry>(EntryType::Dir, rootPath, 0));
+        items_.push_back(fileTree_.rootDir(rootPath));
     }
 
     /// Run the traversal.
@@ -350,11 +350,21 @@ Traverser::parseContentsInto(const Bytes& contents,
 
 // === IFileTree and globstari() =========================================
 
+// --- Default implementations of IFileTree methods ---
+
+std::shared_ptr<Entry>
+IFileTree::rootDir(const smallcxx::glob::Path& rootPath)
+{
+    return std::make_shared<Entry>(EntryType::Dir, rootPath, 0);
+}
+
 std::vector<smallcxx::glob::Path>
 IFileTree::ignoresForDir(const smallcxx::glob::Path& dirName)
 {
     return { ".eignore" };
 }
+
+// --- The main invoker ---
 
 void
 globstari(IFileTree& fileTree,

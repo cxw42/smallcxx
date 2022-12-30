@@ -41,6 +41,17 @@ dnl === Optional dependencies =============================================
 dnl If you don't have these, you simply won't be able to build the relevant
 dnl modules.
 
+dnl --- System ---
+
+dnl librt.  Only on older Linuxes; not on macOS.  Use aio_cancel() as the
+dnl reference function just because it's the first on the list at
+dnl <https://docs.oracle.com/cd/E19455-01/806-0632/6j9vm89ic/index.html> :) .
+AC_SEARCH_LIBS([aio_cancel], [rt],
+    [LIBRT_LIBS="$ac_cv_search_aio_cancel"],
+    [LIBRT_LIBS=])
+AS_IF([test "x$LIBRT_LIBS" = "xnone required"], [LIBRT_LIBS=])
+AC_SUBST([LIBRT_LIBS])
+
 dnl PCRE2: required for globstari
 PKG_CHECK_MODULES([PCRE2], [libpcre2-8],
     [have_pcre2=1],

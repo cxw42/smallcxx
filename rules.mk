@@ -24,7 +24,7 @@ AM_CFLAGS = -Wall -Werror $(LOCAL_CFLAGS) $(CODE_COVERAGE_CFLAGS) $(ASAN_CFLAGS)
 AM_CXXFLAGS = -Wall -Werror $(LOCAL_CFLAGS) $(CODE_COVERAGE_CXXFLAGS) $(ASAN_CXXFLAGS)
 AM_CPPFLAGS = $(CODE_COVERAGE_CPPFLAGS)
 AM_LDFLAGS = $(extra_ldflags) $(ASAN_LDFLAGS)
-LIBS = $(extra_libs) $(LOCAL_LIBS) $(CODE_COVERAGE_LIBS)
+LIBS = $(extra_libs) $(LOCAL_LIBS) $(LIBRT_LIBS) $(CODE_COVERAGE_LIBS)
 
 # === Coverage ============================================================
 

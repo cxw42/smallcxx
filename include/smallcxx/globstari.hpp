@@ -298,6 +298,18 @@ class IFileTree
 {
 public:
 
+    /// Create an entry for the root dir itself, as opposed to its contents.
+    /// This function exists so you can use Entry subclasses uniformly
+    /// throughout a globstari() call.
+    ///
+    /// The default implementation returns a smallcxx::Entry instance.
+    ///
+    /// @param[in]  rootPath - where to start.  Canonicalized.
+    /// @returns the new Entry
+    virtual std::shared_ptr<Entry> rootDir(
+        const smallcxx::glob::Path& rootPath
+    );
+
     /// Returns a list of the names of the entries in @p dirName.
     /// You do not have to take ignores into account.
     ///
