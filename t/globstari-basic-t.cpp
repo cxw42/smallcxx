@@ -31,7 +31,7 @@ public:
     }
 
     Path
-    canonicalize(const Path& path) const
+    canonicalize(const Path& path) const override
     {
         return path;
     }
