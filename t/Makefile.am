@@ -15,6 +15,7 @@ EXTRA_DIST =
 # Ones that always fail
 XFAIL_TESTS = \
 	cover-no-tests-run-t \
+	cover-no-tests-run-by-testcase-t \
 	cover-test-failures-t \
 	no-assertions-t.sh \
 	$(EOL)
@@ -31,6 +32,7 @@ testscripts = \
 testprograms = \
 	cover-misc-t \
 	cover-no-tests-run-t \
+	cover-no-tests-run-by-testcase-t \
 	cover-test-failures-t \
 	meta-t \
 	string-t \
@@ -95,7 +97,13 @@ dist_noinst_DATA = $(testdatafiles)
 # So we don't have to list the sources of every test program individually
 AM_DEFAULT_SOURCE_EXT = .cpp
 
-LOCAL_CFLAGS = -I$(top_srcdir)/include -DSRCDIR="\"$(abs_srcdir)\"" $(PCRE2_CFLAGS)
+LOCAL_CFLAGS = \
+	$(NO_VAR_TRACK_CFLAGS) \
+	-I$(top_srcdir)/include \
+	-DSRCDIR="\"$(abs_srcdir)\"" \
+	$(PCRE2_CFLAGS) \
+	$(EOL)
+
 LDADD = $(top_builddir)/src/libsmallcxx.a $(PCRE2_LIBS) $(LIBRT_LIBS)
 
 check_PROGRAMS = \

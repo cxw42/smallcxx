@@ -123,17 +123,16 @@ void vlogMessage(const std::string& domain,
                 ( LOG_##level == LOG_PRINTERR ) \
                 ), "Invalid log level for LOG_F"); \
         /* print it */ \
-        if(LOG_##level == LOG_PRINT) { \
-            if(getLogLevel(domain) != LOG_SILENT) { \
+        const auto domainLevel___ = getLogLevel(domain); \
+        if(domainLevel___ != LOG_SILENT) { \
+            if(LOG_##level == LOG_PRINT) { \
                 printf(format "\n", ## __VA_ARGS__); \
-            } \
-        } else if(LOG_##level == LOG_PRINTERR) { \
-            if(getLogLevel(domain) != LOG_SILENT) { \
+            } else if(LOG_##level == LOG_PRINTERR) { \
                 fprintf(stderr, format "\n", ## __VA_ARGS__); \
+            } else { \
+                logMessage(domain, LOG_##level, __FILE__, __LINE__, __func__, \
+                        (format), ## __VA_ARGS__); \
             } \
-        } else { \
-            logMessage(domain, LOG_##level, __FILE__, __LINE__, __func__, \
-                    (format), ## __VA_ARGS__); \
         } \
     } while(0)
 

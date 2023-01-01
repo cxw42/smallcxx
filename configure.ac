@@ -29,6 +29,11 @@ CC="$PTHREAD_CC"
 dnl Omit this for now and see what happens => CXX="$PTHREAD_CC"
 CXXFLAGS="$CXXFLAGS $PTHREAD_CFLAGS"
 
+dnl === Other flags =======================================================
+
+AX_APPEND_COMPILE_FLAGS([-fno-var-tracking-assignments], [NO_VAR_TRACK_CFLAGS])
+AC_SUBST([NO_VAR_TRACK_CFLAGS])
+
 dnl === Analysis tools ====================================================
 
 AX_AM_MACROS_STATIC
