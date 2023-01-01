@@ -15,6 +15,7 @@ EXTRA_DIST =
 # Ones that always fail
 XFAIL_TESTS = \
 	cover-no-tests-run-t \
+	cover-no-tests-run-by-testcase-t \
 	cover-test-failures-t \
 	no-assertions-t.sh \
 	$(EOL)
@@ -31,6 +32,7 @@ testscripts = \
 testprograms = \
 	cover-misc-t \
 	cover-no-tests-run-t \
+	cover-no-tests-run-by-testcase-t \
 	cover-test-failures-t \
 	meta-t \
 	string-t \
