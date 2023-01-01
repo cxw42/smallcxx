@@ -40,6 +40,8 @@
 #include <stdio.h>
 #include <string>
 
+#include "smallcxx/string.hpp"
+
 /// Default log domain.
 #define SMALLCXX_DEFAULT_LOG_DOMAIN "default"
 
@@ -99,7 +101,7 @@ void vlogMessage(const std::string& domain,
                  const char *function,
                  const char *format, va_list args);
 
-/// Main logging macro.  A newline will be appended to the message.
+/// Main printf-style logging macro.  A newline will be appended to the message.
 /// Usage example: `LOG_F(INFO, "foo %s", some_string);`
 ///
 /// When using #LOG_PRINT (print to stdout) and #LOG_PRINTERR (print to stderr),
@@ -135,6 +137,51 @@ void vlogMessage(const std::string& domain,
             } \
         } \
     } while(0)
+
+namespace smallcxx
+{
+/// Hold information used when printing a message
+class LogPrinter
+{
+    const LogLevel messageLevel_;
+    const std::string& domain_;
+    const char *filename_;
+    const unsigned int lineno_;
+    const char *func_;
+
+public:
+    explicit LogPrinter( const std::string& domain,
+                         const LogLevel messageLevel,
+                         const char *filename,
+                         const unsigned int lineno,
+                         const char *func
+                       );
+
+    /// Print a message.  Lower precedence than ternary.
+    void
+    operator=(const StringFormatter& formatter);
+};
+}
+
+/// Log in a stream format, using a particular log domain.
+/// Usage: `LOG_S_DOMAIN(domain, level) << ARGS...;`
+/// @note Does not evaluate the `<< ARGS...` if logging is not enabled for
+///     @p domain at @p level.
+#define LOG_S_DOMAIN(domain, level) \
+    smalcxx::LogPrinter( \
+            (domain), LOG_##level, __FILE__, __LINE__, __func__, \
+        ) = getWhetherToLog(LOG_##level, (domain)) \
+        ? StringFormatter() /* default-constructed => !hasData() => no message */ \
+        : StringFormatter() /* << ... */
+
+/// Main stream-style logging macro.  A newline will be appended to the message.
+/// Usage example: `LOG_S(INFO) << "foo " << some_string;`
+///
+/// @note `LOG_S(SILENT, ...)` is forbidden.
+///
+/// @param[in] level - the log level.  A `LOG_FOO` constant minus `LOG_`.
+#define LOG_S(level) \
+    LOG_S_DOMAIN(SMALLCXX_LOG_DOMAIN_NAME, level)
 
 /// Set log level for @p domain to @p newLevel.
 /// @param[in]  newLevel - New level.  Must be LOG_SILENT, or between

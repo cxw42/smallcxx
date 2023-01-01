@@ -33,7 +33,11 @@ public:
         return *this;
     }
 
-    bool hasData() const { return hasData_; }
+    bool
+    hasData() const
+    {
+        return hasData_;
+    }
 
     operator std::string()
     {

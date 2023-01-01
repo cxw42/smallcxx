@@ -3,6 +3,8 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021 Christopher White
 
+#define SMALLCXX_USE_CHOMP
+
 #include <ctype.h>
 #include <cinttypes>
 #include <limits.h>
@@ -19,7 +21,6 @@
 #include "smallcxx/common.hpp"
 #include "smallcxx/logging.hpp"
 
-#define SMALLCXX_USE_CHOMP
 #include "smallcxx/string.hpp"
 
 using namespace std;
@@ -257,6 +258,31 @@ vlogMessage(const std::string& domain,
 
     ignore_return_value = write(LOG_FD, whole, charsWritten);
 } //log_message()
+
+/// @}
+
+/// @name Stream-logging support
+/// @{
+
+smallcxx::LogPrinter::LogPrinter(const std::string& domain,
+                                 const LogLevel messageLevel,
+                                 const char *filename,
+                                 const unsigned int lineno,
+                                 const char *func)
+    : messageLevel_(messageLevel), domain_(domain), filename_(filename),
+      lineno_(lineno), func_(func)
+{
+}
+
+void
+smallcxx::LogPrinter::operator=(const StringFormatter& formatter)
+{
+    if(!formatter.hasData()) {
+        return;
+    }
+    logMessage(domain_, messageLevel_, filename_, lineno_, func_,
+               "%s", formatter.c_str());
+}
 
 /// @}
 
