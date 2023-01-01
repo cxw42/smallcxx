@@ -96,7 +96,7 @@ public:
     /// @throws logic_error if finalize() has not been called.
     /// @param[in]  path - the path to check.  Must be either the empty
     ///     string (in which case it doesn't match) or an absolute path.
-    /// @returns True if @p path is in this GlobSet; false otherwise.
+    /// @return True if @p path is in this GlobSet; false otherwise.
     bool contains(const smallcxx::glob::Path& path) const;
 
 }; // class GlobSet
@@ -219,9 +219,9 @@ public:
     /// Check whether the Matcher contains @p path.
     /// @param[in]  path - the path to check.  Must be either the empty
     ///     string (in which case it doesn't match) or an absolute path.
-    /// @returns True if @p path is in this GlobSet; false otherwise.
+    /// @return True if @p path is in this GlobSet; false otherwise.
     /// @throws logic_error if not ready().
-    /// @returns
+    /// @return
     /// - true if @p path is included, or
     /// - false if:
     ///   - @p path is excluded,
@@ -235,7 +235,7 @@ public:
     /// @param[in]  path - the path to check.  Must be either the empty
     ///     string (in which case the result is Unknown) or an absolute path.
     /// @throws logic_error if not ready().
-    /// @returns
+    /// @return
     /// - PathCheckResult::Included if @p path is included;
     /// - PathCheckResult::Excluded if @p path is excluded,
     /// - PathCheckResult::Unknown if:
@@ -305,7 +305,7 @@ public:
     /// The default implementation returns a smallcxx::Entry instance.
     ///
     /// @param[in]  rootPath - where to start.  Canonicalized.
-    /// @returns the new Entry
+    /// @return the new Entry
     virtual std::shared_ptr<Entry> rootDir(
         const smallcxx::glob::Path& rootPath
     );
@@ -316,7 +316,7 @@ public:
     /// @note You *do* have to handle `.` and `..`!  Do not return those,
     ///     or any other entries you do not want considered during traversal.
     ///
-    /// @param[in]  dirName - the path to the directory itself
+    /// @param[in]  dirName - the path to the directory itself, canonicalized.
     /// @return The entries, if any.  You do not have to fill in Entry::depth.
     /// @throws std::system_error if @p dirName is unreadable.
     ///
@@ -334,20 +334,22 @@ public:
     ///
     /// The default ignore is `.eignore` in the current directory.
     /// The `e` in `.eignore` is because it uses `E`ditorConfig-style globs.
+    ///
+    /// @param[in]  dirName - the path to the directory, canonicalized.
     virtual std::vector<smallcxx::glob::Path> ignoresForDir(
         const smallcxx::glob::Path& dirName);
 
     /// Returns the full content of a file, if the file exists.
-    /// @param[in]  path - the path to the file
+    /// @param[in]  path - the path to the file, canonicalized
     /// @return The contents
-    /// @throws if an error occurs
+    /// @throws Exception (any) if an error occurs
     virtual Bytes readFile(const smallcxx::glob::Path& path) = 0;
 
     /// Canonicalize a path.
     /// @param[in]  path - the path to canonicalize
     /// @return
     /// - If the path does not exist, ""
-    /// - Othersise, the canonicalized path (absolute, without `.` or `..`,
+    /// - Otherwise, the canonicalized path (absolute, without `.` or `..`,
     ///     and with `/` separators)
     virtual smallcxx::glob::Path canonicalize(const smallcxx::glob::Path& path)
     const = 0;
@@ -405,7 +407,7 @@ public:
 ///     `*foo` will match `foo` and `.foo`.
 /// - All glob checks are done against canonicalized paths.
 ///     Therefore, `**/*` will match everything.
-/// - globstari() will always call @p processEntry on the starting dir.
+/// - globstari() will always call @p processEntry on @p basePath
 ///
 /// @endparblock
 ///
