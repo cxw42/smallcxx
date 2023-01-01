@@ -309,6 +309,26 @@ getLogLevel(const std::string& domain)
     return g_currSystemLevels.get(domain);
 }
 
+bool
+getWhetherToLog(const LogLevel messageLevel,
+                const std::string& domain)
+{
+    throw_assert(
+        ( (messageLevel >= LOG_MIN) && (messageLevel <= LOG_MAX) ) ||
+        ( messageLevel == LOG_PRINT ) ||
+        ( messageLevel == LOG_PRINTERR )
+    );
+
+    const auto domainLevel = getLogLevel(domain);
+    if(domainLevel == LOG_SILENT) {
+        return false;
+    } else if((messageLevel == LOG_PRINT) || (messageLevel == LOG_PRINTERR)) {
+        return true;
+    } else {
+        return (messageLevel <= domainLevel);
+    }
+}
+
 /// @}
 
 /// @name Setting the log level from the environment

@@ -155,6 +155,11 @@ LogLevel clipLogLevel(LogLevel level);
 /// @param[in]  domain - The log domain of interest.  Must be non-empty.
 LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 
+/// Whether a log message should be logged.
+/// You usually won't need this.
+bool getWhetherToLog(const LogLevel messageLevel,
+                     const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
+
 /// Set the verbosity for all log domains based on `$V`.  If `$V` exists and
 /// is a decimal >=1, the domain level is set to `INFO + $V`
 /// (e.g., 1 = LOG_DEBUG, 2 = LOG_LOG).

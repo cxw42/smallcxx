@@ -75,6 +75,17 @@ test_env_loglevel()
     cmp_ok(getLogLevel(), ==, LOG_INFO + 1);
 }
 
+void
+test_should_log()
+{
+    setLogLevel(LOG_INFO);
+    ok(getWhetherToLog(LOG_INFO));
+    ok(!getWhetherToLog(LOG_DEBUG));
+    setLogLevel(LOG_INFO, "domain");
+    ok(getWhetherToLog(LOG_INFO, "domain"));
+    ok(!getWhetherToLog(LOG_DEBUG, "domain"));
+}
+
 /// Log an error and a warning, which will be in color if output is going
 /// to the tty.  This is for coverage of `bodycolor` in vlogMessage().
 void
