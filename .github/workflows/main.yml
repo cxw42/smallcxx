@@ -32,12 +32,12 @@ jobs:
         # manpage index after we install the new packages.
         run: |
           sudo `realpath .github/disable-man-db-auto-update.sh`
-          sudo apt install -y doxygen graphviz libpcre2-dev perl dh-autoreconf
+          sudo apt install -y autoconf-archive doxygen graphviz libpcre2-dev perl dh-autoreconf
 
       - name: Install macOS packages
         if: runner.os == 'macOS'
         run: |
-          brew install automake coreutils moreutils pcre2
+          brew install autoconf-archive automake coreutils moreutils pcre2
           # perl is already installed
           perl --version  # just in case it changes sometime
 
