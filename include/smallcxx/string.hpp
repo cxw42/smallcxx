@@ -16,34 +16,42 @@
 /// a single thread.
 class StringFormatter
 {
-    std::ostringstream ss;
+    std::ostringstream ss_;
+
+    /// Whether we have data, even if that data is empty.
+    /// Set to true when operator<<() is called.
+    bool hasData_ = false;
+
 public:
 
     template<class T>
     StringFormatter&
     operator <<(T&& rhs)
     {
-        ss << rhs;
+        hasData_ = true;
+        ss_ << rhs;
         return *this;
     }
 
+    bool hasData() const { return hasData_; }
+
     operator std::string()
     {
-        return ss.str();
+        return ss_.str();
     }
 
     std::string
     str()
     {
-        return ss.str();
+        return ss_.str();
     }
 
     const char *
     c_str() const
     {
-        // gcc accepts ss.str().c_str() but clang does not.
+        // gcc accepts ss_.str().c_str() but clang does not.
         static std::string backing_storage;
-        backing_storage = ss.str();
+        backing_storage = ss_.str();
         return backing_storage.c_str();
     }
 };
