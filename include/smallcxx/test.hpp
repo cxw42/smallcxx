@@ -154,7 +154,8 @@ enum TestExitCode {
 
 /// Run the given void function, with logging around it.
 /// "NOTRY" because exceptions propagate out.
-/// Does not include any test assertions.
+/// @note Does not include any test assertions.  As a result, it will not
+///     detect a @p fn that does not include any assertions.
 #define TEST_CASE_NOTRY(fn) \
     do { \
         LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
@@ -170,10 +171,18 @@ enum TestExitCode {
 #define TEST_CASE(fn) \
     do { \
         try { \
+            const auto TEST_failures_before___ = TEST_failures; \
+            const auto TEST_successes_before___ = TEST_successes; \
+            \
             LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
             fn(); \
             LOG_F_DOMAIN(" test", LOG, "<= Finished test %s", #fn); \
-            reached(); \
+            \
+            if((TEST_failures == TEST_failures_before___) && \
+                    (TEST_successes == TEST_successes_before___)) { \
+                throw std::logic_error("No tests run by " #fn "()"); \
+            } \
+            \
         } catch(std::exception& e) { \
             LOG_F_DOMAIN(" test", ERROR, "Caught exception: %s", e.what()); \
             unreached(); \
