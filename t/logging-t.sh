@@ -3,6 +3,17 @@
 
 . common.sh
 
+run-debug-message-tests() {
+    local -r pgm="$1"
+
+    "$pgm" &> "$tmpfile"
+    does-not-contain 'avocado' "$tmpfile"
+
+    V=10 "$pgm" &> "$tmpfile"
+    has-line-matching 'avocado' "$tmpfile"
+
+}
+
 main() {
     tmpfile="$(mktemp)"
     trap 'rm -f "$tmpfile"' EXIT
@@ -12,11 +23,8 @@ main() {
     unset V
     unset LOG_LEVELS
 
-    "$tpgmdir/log-debug-message-s" &> "$tmpfile"
-    does-not-contain 'avocado' "$tmpfile"
-
-    V=10 "$tpgmdir/log-debug-message-s" &> "$tmpfile"
-    has-line-matching 'avocado' "$tmpfile"
+    run-debug-message-tests "$tpgmdir/log-debug-message-s"
+    run-debug-message-tests "$tpgmdir/log-debug-stream-s"
 
     # Varying defaults
 
@@ -59,6 +67,7 @@ main() {
     LOG_LEVELS='*:0,+fruit:4' "$tpgmdir"/log-explicit-domain-s &> "$tmpfile"
     does-not-contain 'avocado' "$tmpfile"
 
+main() {
     return 0
 }
 

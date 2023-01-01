@@ -168,9 +168,9 @@ public:
 /// @note Does not evaluate the `<< ARGS...` if logging is not enabled for
 ///     @p domain at @p level.
 #define LOG_S_DOMAIN(domain, level) \
-    smalcxx::LogPrinter( \
-            (domain), LOG_##level, __FILE__, __LINE__, __func__, \
-        ) = getWhetherToLog(LOG_##level, (domain)) \
+    smallcxx::LogPrinter{ \
+            (domain), LOG_##level, __FILE__, __LINE__, __func__ \
+        } = getWhetherToLog(LOG_##level, (domain)) \
         ? StringFormatter() /* default-constructed => !hasData() => no message */ \
         : StringFormatter() /* << ... */
 
