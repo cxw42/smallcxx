@@ -145,15 +145,15 @@ private:
     void loadDir(const std::shared_ptr<Entry>& entry, MatcherPtr parentIgnores);
 
     /// Load the contents of ignore files
-    MatcherPtr loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
+    MatcherPtr loadIgnoreFiles(const smallcxx::glob::Path& relativeToCanonPath,
                                std::vector<smallcxx::glob::Path> loadFrom,
                                MatcherPtr parentIgnores);
 
-    /// Read ignore file @p contents, which lives in @p relativeTo, and add its
-    /// contents to @p retval.
+    /// Read ignore file @p contents, which lives in @p relativeToCanonPath,
+    /// and add its contents to @p retval.
     void
     parseContentsInto(const Bytes& contents, Matcher& retval,
-                      const smallcxx::glob::Path& relativeTo);
+                      const smallcxx::glob::Path& relativeToCanonPath);
 }; // class Traverser
 
 void
@@ -266,7 +266,7 @@ Traverser::loadDir(const std::shared_ptr<Entry>& entry,
 {
     // Load the new ignores
     auto ignoresToLoad = fileTree_.ignoresForDir(entry->canonPath);
-    auto ignores = loadIgnoreFiles(entry->canonPath + "/",
+    auto ignores = loadIgnoreFiles(entry->canonPath,
                                    ignoresToLoad, parentIgnores);
 
     // Load the new entries
@@ -279,7 +279,7 @@ Traverser::loadDir(const std::shared_ptr<Entry>& entry,
 
 /// @todo Document and verify which paths have to end with a /
 MatcherPtr
-Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
+Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeToCanonPath,
                            std::vector<smallcxx::glob::Path> loadFrom,
                            MatcherPtr parentIgnores)
 {
@@ -293,7 +293,7 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
         if(!toLoad.empty() && toLoad.front() == '/') {  // absolute
             pathToTry = canonPath = toLoad;
         } else {
-            pathToTry = relativeTo;
+            pathToTry = relativeToCanonPath;
             pathToTry += '/';
             pathToTry += toLoad;
             canonPath = fileTree_.canonicalize(pathToTry);
@@ -308,13 +308,16 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
             }
         }
 
-        if(!ok) {
-            LOG_F(LOG, "skipping non-existent or unreadable ignore-file candidate %s",
+        if(ok) {
+            LOG_F(LOG, "Loaded ignore file %s", pathToTry.c_str());
+        } else {
+            LOG_F(TRACE,
+                  "skipping non-existent or unreadable ignore-file candidate %s",
                   pathToTry.c_str());
             continue;
         }
 
-        parseContentsInto(contents, *retval, relativeTo);
+        parseContentsInto(contents, *retval, relativeToCanonPath);
     }
     retval->finalize();
 
@@ -325,7 +328,7 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeTo,
 void
 Traverser::parseContentsInto(const Bytes& contents,
                              Matcher& retval,
-                             const smallcxx::glob::Path& relativeTo)
+                             const smallcxx::glob::Path& relativeToCanonPath)
 {
     istringstream ss(contents);
     string s;
@@ -343,7 +346,7 @@ Traverser::parseContentsInto(const Bytes& contents,
             }
         }
 
-        retval.addGlob(pattern, relativeTo);
+        retval.addGlob(pattern, relativeToCanonPath);
     }
 }
 
