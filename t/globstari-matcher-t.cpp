@@ -292,6 +292,13 @@ test_path_namestart()
     ok(!m2.contains("/file.txt"));
     ok(!m2.contains("/file1.txt"));
     ok(!m2.contains("/filez.txt"));
+
+    // Matcher::addGlob can accept paths without a trailing slash
+    Matcher m3;
+    m3.addGlob("file*", "/foo");
+    m3.finalize();
+    ok(m3.contains("/foo/file"));
+    ok(!m3.contains("/file"));
 }
 
 // }}}1

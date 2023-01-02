@@ -125,8 +125,7 @@ public:
     {
         throw_unless(!needle.empty());
         smallcxx::glob::Path rootPath = fileTree_.canonicalize(basePath);
-        needleMatcher_.addGlobs(needle,
-                                rootPath.back() == '/' ? rootPath : rootPath + "/");
+        needleMatcher_.addGlobs(needle, rootPath);
         needleMatcher_.finalize();
 
         // Prime the pump.  Note: the ignores start out empty, so this
