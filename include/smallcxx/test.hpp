@@ -47,7 +47,7 @@
 /// The name of an environment variable used for detailed log-level control.
 /// To support detailed control, define this to a string before including
 /// this file.  `$V` is always supported.
-#define TEST_DETAIL_ENV_VAR_NAME
+#define TEST_DETAIL_ENV_VAR_NAME "SMALLCXX_TEST_DEBUG"
 
 #endif
 
