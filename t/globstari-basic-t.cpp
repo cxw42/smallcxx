@@ -18,6 +18,9 @@ using smallcxx::glob::Path;
 class TestFileTreeSanity: public IFileTree
 {
 public:
+    // LCOV_EXCL_START - since TestProcessEntrySanity returns Stop on the
+    // root dir, readDir() is never called.  Since there are no entries,
+    // readFile is never called.
     std::vector< std::shared_ptr<Entry> >
     readDir(const Path& dirPath) override
     {
@@ -29,6 +32,7 @@ public:
     {
         return "";
     }
+    // LCOV_EXCL_STOP
 
     Path
     canonicalize(const Path& path) const override

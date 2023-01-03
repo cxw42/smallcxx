@@ -164,7 +164,7 @@ public:
     /// addGlob(Path,Path).
     /// @param[in]  globs - the globs to add
     /// @param[in]  path - where each of the globs should be anchored.  Must be
-    ///     nonempty and end with a `/`.
+    ///     nonempty.  May end with `/` or not.
     /// @param[in]  delegate - The Matcher to delegate to for unknown results.
     ///     E.g., a parent ignore set.  Optional; default nullptr.
     Matcher(const std::initializer_list<smallcxx::glob::Path>& globs,

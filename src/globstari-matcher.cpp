@@ -82,13 +82,17 @@ void
 Matcher::addGlob(const smallcxx::glob::Path& glob,
                  const smallcxx::glob::Path& path)
 {
-
-    if(path.empty() || *path.crbegin() != '/') {
-        throw domain_error("Matcher::addGlob: path must be nonempty and end with /");
+    if(path.empty()) {
+        throw domain_error("Matcher::addGlob: path must be nonempty");
     }
 
     // Strip trailing slash.  TODO handle this in a cleaner way.
-    const auto pathNoSlash = path.substr(0, path.size() - 1);
+    smallcxx::glob::Path pathNoSlash;
+    if(*path.crbegin() == '/') {
+        pathNoSlash = path.substr(0, path.size() - 1);
+    } else {
+        pathNoSlash = path;
+    }
 
     Polarity polarity = (glob[0] == '!') ? Polarity::Exclude : Polarity::Include;
 
