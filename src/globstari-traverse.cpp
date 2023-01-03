@@ -294,7 +294,13 @@ Traverser::loadIgnoreFiles(const smallcxx::glob::Path& relativeToCanonPath,
             pathToTry = canonPath = toLoad;
         } else {
             pathToTry = relativeToCanonPath;
-            pathToTry += '/';
+
+            // For ignores in the root dir of the tree, relativeTo_canonical
+            // may be "/".  If so, don't add another `/`.
+            if(relativeToCanonPath.back() != '/') {
+                pathToTry += '/';
+            }
+
             pathToTry += toLoad;
             canonPath = fileTree_.canonicalize(pathToTry);
         }
