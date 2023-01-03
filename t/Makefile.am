@@ -43,6 +43,7 @@ alsocompile = \
 	log-debug-message-s \
 	log-explicit-domain-s \
 	silent-s \
+	testfile-s \
 	varying-log-s \
 	$(EOL)
 
