@@ -43,6 +43,10 @@ public:
     Bytes
     readFile(const Path& path) override
     {
+        // Check that we didn't create a filename like "//.eignore"
+        ok(!path.empty());
+        ok(path.substr(0, 2) != "//");
+
         return "";
     }
 
