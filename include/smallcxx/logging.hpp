@@ -8,7 +8,8 @@
 ///
 /// There can be any number of log-message domains, each identified by an
 /// arbitrary non-empty string.  (However, strings starting with `" "` (a
-/// space) are reserved for use by smallcxx/logging.)
+/// space) are reserved for use by smallcxx/logging.)  The default domain
+/// is called `default`.
 ///
 /// To define your own domain for messages in a source file, `#define` @c
 /// SMALLCXX_LOG_DOMAIN to a string constant before you `#include` this file.
@@ -162,6 +163,7 @@ LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 /// @param[in]  detailEnvVarName - if given, non-NULL, and nonempty, the name
 ///     of a GStreamer-style log-level variable to be used instead of `$V` if
 ///     the given variable exists.
+///     In the log-level variable, the default domain is `default`.
 void setVerbosityFromEnvironment(const char *detailEnvVarName = nullptr);
 
 /// Set all domains to silent, **except** for reserved domains (starting with

@@ -4,6 +4,7 @@
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021--2022 Christopher White
 /// @todo permit matching only directories (trailing slash on globs)
+/// SPDX-License-Identifier: BSD-3-Clause
 
 #define SMALLCXX_LOG_DOMAIN "glob"
 
@@ -26,6 +27,11 @@ using smallcxx::glob::PathCheckResult;
 
 namespace smallcxx
 {
+
+void
+IProcessEntry::ignored(const std::shared_ptr<Entry>& entry)
+{
+}
 
 // === Internal classes ==================================================
 
@@ -200,6 +206,10 @@ Traverser::worker()
         if(item.ignores->contains(item.entry->canonPath)) {
             LOG_F(TRACE, "ignored %s --- skipping",
                   item.entry->canonPath.c_str());
+
+            // In case the client is interested
+            processEntry_.ignored(item.entry);
+
             continue;
         }
 

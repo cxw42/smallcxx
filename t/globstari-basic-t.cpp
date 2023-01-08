@@ -2,6 +2,7 @@
 /// @brief Basic tests of smallcxx/globstari.hpp classes
 /// @author Christopher White <cxwembedded@gmail.com>
 /// @copyright Copyright (c) 2021--2022 Christopher White
+/// SPDX-License-Identifier: BSD-3-Clause
 
 #include <set>
 
@@ -106,13 +107,21 @@ class SaveEntries: public IProcessEntry
 {
 public:
     set<glob::Path> found;
+    set<glob::Path> ignoredPaths;
 
     IProcessEntry::Status
-    operator()(const  std::shared_ptr<Entry>& entry) override
+    operator()(const std::shared_ptr<Entry>& entry) override
     {
         LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
         found.insert(entry->canonPath);
         return IProcessEntry::Status::Continue;
+    }
+
+    void
+    ignored(const std::shared_ptr<Entry>& entry) override
+    {
+        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
+        ignoredPaths.insert(entry->canonPath);
     }
 
 }; // SaveEntries
@@ -130,6 +139,7 @@ test_disk()
         SaveEntries saveEntries;
         globstari(fileTree, saveEntries, basepath, {"NONEXISTENT"});
         cmp_ok(saveEntries.found.size(), ==, 0);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
     {
@@ -138,6 +148,7 @@ test_disk()
         globstari(fileTree, saveEntries, basepath, {"noex*"});
         compare_sequence(saveEntries.found, {"globstari-basic-disk/noext"}, __func__,
                          __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
     {
@@ -146,6 +157,7 @@ test_disk()
         globstari(fileTree, saveEntries, basepath, {"*.txt"});
         compare_sequence(saveEntries.found, {"/text.txt", "/text2.txt"}, __func__,
                          __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
     {
@@ -153,6 +165,7 @@ test_disk()
         SaveEntries saveEntries;
         globstari(fileTree, saveEntries, basepath, {"*.txt", "!text.txt"});
         compare_sequence(saveEntries.found, {"/text2.txt"}, __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
     {
@@ -162,6 +175,7 @@ test_disk()
         compare_sequence(saveEntries.found, {"globstari-basic-disk/subdir/somefile"},
                          __func__,
                          __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
     {
@@ -170,6 +184,7 @@ test_disk()
         globstari(fileTree, saveEntries, basepath, {"*"});
         compare_sequence(saveEntries.found, {"/binary.bin", "/noext", "/subdir", "/subdir/somefile", "text.txt", "text2.txt"},
                          __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 0);
     }
 
 } // test_disk()
@@ -188,6 +203,15 @@ test_disk_ignores()
         globstari(fileTree, saveEntries, basepath, {"*.txt"});
         compare_sequence(saveEntries.found, {"/text.txt", "/text2.txt"}, __func__,
                          __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
+        // Five ignored paths:
+        //  - ignored by t/globstari-basic-disk-ignores/.eignore:
+        //      - file#4
+        //      - ignored.1
+        //      - ignored.2
+        //      - dir/subdir/s3dir/ignored.in-s3dir
+        //  - ignored by t/globstari-basic-disk-ignores/dir/subdir/s2dir/eignore:
+        //      - dir/subdir/s2dir/s3dir/subignored
     }
 
     {
@@ -196,6 +220,7 @@ test_disk_ignores()
         globstari(fileTree, saveEntries, basepath, {"ignored*"});
         compare_sequence(saveEntries.found, {"/ignored.not-actually"}, __func__,
                          __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
     }
 
     {
@@ -207,6 +232,7 @@ test_disk_ignores()
             "/dir/subignored-not-actually",
             "/ignored.not-actually",
         }, __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
     }
 
     {
@@ -214,6 +240,7 @@ test_disk_ignores()
         SaveEntries saveEntries;
         globstari(fileTree, saveEntries, basepath, {"#"});
         compare_sequence(saveEntries.found, {"/#"}, __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
     }
 
     {
@@ -223,6 +250,7 @@ test_disk_ignores()
         compare_sequence(saveEntries.found,
         {"/dir/file#3", "/file#1", "/file#2", "/file#3"},
         __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
     }
 
     {
@@ -231,6 +259,7 @@ test_disk_ignores()
         globstari(fileTree, saveEntries, basepath, {"/file*"});
         compare_sequence(saveEntries.found, {"/file#1", "/file#2", "/file#3"},
                          __func__, __LINE__);
+        cmp_ok(saveEntries.ignoredPaths.size(), ==, 5);
     }
 } // test_disk_ignores()
 
