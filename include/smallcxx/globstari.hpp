@@ -385,6 +385,17 @@ public:
     /// @return A ProcessStatus value
     virtual IProcessEntry::Status operator()(const std::shared_ptr<Entry>& entry) =
         0;
+
+    /// Process an ignored entry.  Default is a no-op.
+    /// This is just in case you are interested in ignored entries.
+    /// The entry can be a directory or a file.
+    ///
+    /// @note This function is called for all (and only) ignored entries in the
+    ///     tree.  This is not called for non-ignored entries that do not
+    ///     match any @c needle.
+    ///
+    /// @param[in]  entry - the entry
+    virtual void ignored(const std::shared_ptr<Entry>& entry);
 };
 
 /// Find files, inside the hierarchy accessible through @p fileTree,
