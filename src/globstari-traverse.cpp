@@ -203,14 +203,17 @@ Traverser::worker()
         }
 
         // Check against the ignores we already have
-        if(item.ignores->contains(item.entry->canonPath)) {
+        item.entry->ignored = item.ignores->contains(item.entry->canonPath);
+        if(item.entry->ignored && !item.entry->neverIgnore) {
             LOG_F(TRACE, "ignored %s --- skipping",
                   item.entry->canonPath.c_str());
 
             // In case the client is interested
             processEntry_.ignored(item.entry);
-
             continue;
+        } else if(item.entry->ignored) {    // neverIgnore is true
+            LOG_F(TRACE, "proceeding with neverIgnore %s",
+                  item.entry->canonPath.c_str());
         }
 
         // Is it a hit?
