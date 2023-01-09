@@ -9,6 +9,8 @@
 #include "smallcxx/globstari.hpp"
 #include "smallcxx/test.hpp"
 
+#include "testhelpers.hpp"
+
 TEST_FILE
 
 using namespace smallcxx;
@@ -57,24 +59,6 @@ public:
     }
 }; // class TestFileTreeUserdata
 
-/// Save files traversed.
-class SaveEntries: public IProcessEntry
-{
-public:
-    std::vector< std::shared_ptr<Entry> > found;
-
-    IProcessEntry::Status
-    operator()(const  std::shared_ptr<Entry>& entry) override
-    {
-        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
-        if(entry->ty == EntryType::File) {
-            found.push_back(entry);
-        }
-        return IProcessEntry::Status::Continue;
-    }
-
-}; // SaveEntries
-
 static void
 test_userdata()
 {
@@ -85,8 +69,8 @@ test_userdata()
     globstari(fileTree, processEntry, "/", {"*"});
     reached();
 
-    cmp_ok(processEntry.found.size(), ==, 1);
-    const auto found = processEntry.found[0];
+    cmp_ok(processEntry.found.size(), ==, 2);
+    const auto found = processEntry.foundEntries["/file"];
     ok(!!found);
     const auto fatEntry = dynamic_pointer_cast<FatEntry>(found);
     ok(!!fatEntry);
