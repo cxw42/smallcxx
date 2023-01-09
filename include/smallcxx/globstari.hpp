@@ -264,6 +264,19 @@ enum class EntryType {
 struct Entry {
     EntryType ty;   ///< what type this represents
 
+    /// @name Ignore control
+    /// @{
+
+    /// Whether this entry was ignored.  From the globstari system to
+    /// client code.
+    bool ignored = false;
+
+    /// Process this entry even if it's ignored.  From client code to the
+    /// globstari system.
+    bool neverIgnore = false;
+
+    /// @}
+
 #if 0
     /// Path of the directory this Entry is in
     smallcxx::glob::Path dirPath;

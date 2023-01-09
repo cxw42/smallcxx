@@ -13,7 +13,6 @@ nobase_include_HEADERS = \
 
 # --- Optional modules ---
 
-# globstari
-if HAVE_PCRE2
+if BUILD_GLOBSTARI
 nobase_include_HEADERS += smallcxx/globstari.hpp
 endif

@@ -9,6 +9,8 @@
 #include "smallcxx/globstari.hpp"
 #include "smallcxx/test.hpp"
 
+#include "testhelpers.hpp"
+
 TEST_FILE
 
 using namespace smallcxx;
@@ -76,55 +78,6 @@ test_sanity()
 
 /// @name Tests of disk globbing
 /// @{
-
-/// Test if @p got matches @p expectedPaths.
-static void
-compare_sequence(const set<glob::Path>& got,
-                 const vector<glob::Path>& expectedPaths,
-                 const char *func, const size_t line)
-{
-    // INFO log level so it will appear by default --- otherwise we don't know
-    // which test failed.
-    LOG_F(INFO, "Checking %s():%zu", func, line);
-
-    cmp_ok(got.size(), ==, expectedPaths.size());
-    size_t idx = 0;
-    for(auto it = got.cbegin();
-            (it != got.cend()) && (idx < expectedPaths.size());
-            ++it, ++idx) {
-        const auto& got = *it;
-        const auto& expected = expectedPaths[idx];
-        const auto where = got.rfind(expected);
-
-        LOG_F(SNOOP, "got [%s], expected [%s]", got.c_str(), expected.c_str());
-        cmp_ok(where, !=, got.npos);
-    }
-} // compare_sequence()
-
-/// Save filenames traversed.
-/// For testing globbing on disk.
-class SaveEntries: public IProcessEntry
-{
-public:
-    set<glob::Path> found;
-    set<glob::Path> ignoredPaths;
-
-    IProcessEntry::Status
-    operator()(const std::shared_ptr<Entry>& entry) override
-    {
-        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
-        found.insert(entry->canonPath);
-        return IProcessEntry::Status::Continue;
-    }
-
-    void
-    ignored(const std::shared_ptr<Entry>& entry) override
-    {
-        LOG_F(TRACE, "Found %s", entry->canonPath.c_str());
-        ignoredPaths.insert(entry->canonPath);
-    }
-
-}; // SaveEntries
 
 /// Tests using the contents of `t/globstari-basic-disk`.
 static void

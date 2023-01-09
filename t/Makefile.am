@@ -57,15 +57,24 @@ testdatafiles = \
 
 # --- Tests for optional modules ---
 
-# globstari
-if HAVE_PCRE2
+if BUILD_GLOBSTARI
 testprograms += \
 	globstari-basic-t \
 	globstari-globset-t \
+	globstari-ignore-control-t \
 	globstari-matcher-t \
 	globstari-userdata-t \
 	$(EOL)
 endif
+
+# === Test helper library =================================================
+
+noinst_LIBRARIES = libtesthelpers.a
+libtesthelpers_a_SOURCES = \
+	testhelpers.cpp \
+	testhelpers.hpp \
+	$(EOL)
+
 ###########################################################################
 ###########################################################################
 
@@ -105,7 +114,12 @@ LOCAL_CFLAGS = \
 	$(PCRE2_CFLAGS) \
 	$(EOL)
 
-LDADD = $(top_builddir)/src/libsmallcxx.a $(PCRE2_LIBS) $(LIBRT_LIBS)
+LDADD = \
+	libtesthelpers.a \
+	$(top_builddir)/src/libsmallcxx.a \
+	$(PCRE2_LIBS) \
+	$(LIBRT_LIBS) \
+	$(EOL)
 
 check_PROGRAMS = \
 	$(testprograms) \
