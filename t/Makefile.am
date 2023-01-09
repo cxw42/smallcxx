@@ -61,6 +61,7 @@ if BUILD_GLOBSTARI
 testprograms += \
 	globstari-basic-t \
 	globstari-globset-t \
+	globstari-ignore-control-t \
 	globstari-matcher-t \
 	globstari-userdata-t \
 	$(EOL)
