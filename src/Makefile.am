@@ -14,9 +14,7 @@ libsmallcxx_a_CXXFLAGS = -I$(top_srcdir)/include $(AM_CXXFLAGS)
 
 # --- Optional modules ---
 
-# globstari
-if HAVE_PCRE2
-
+if BUILD_GLOBSTARI
 libsmallcxx_a_SOURCES += \
 	globstari.cpp \
 	globstari-matcher.cpp \

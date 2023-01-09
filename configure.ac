@@ -92,6 +92,31 @@ AM_COND_IF([HAVE_GIT],
 )
 AC_MSG_RESULT([$git_working_dir])
 
+dnl === Feature control ===================================================
+dnl
+dnl Based on the vars above, enable or disable specific features.
+
+dnl globstari - enabled by default; requires pcre2
+AC_ARG_WITH([globstari],
+    AS_HELP_STRING([--without-globstari], [Disable globstari]))
+
+AS_IF(
+    [test "x$with_globstari" = "xno"],
+        [ build_globstari=0 ],    dnl Globstari is disabled
+    [test "$have_pcre2" = '1'],
+        [ build_globstari=1 ],    dnl Globstar is enabled and we have its deps
+    dnl else
+        [ dnl Globstari is enabled but we do NOT have its deps
+            build_globstari=0
+            AC_MSG_WARN([m4_join([ ], [globstari enabled but I couldn't],
+                        [find the required PCRE2 package.  Proceeding],
+                        [without globstari.])])
+        ]
+)
+AC_DEFINE_UNQUOTED([BUILD_GLOBSTARI],[$build_globstari],[Whether to build globstari])
+AC_SUBST([BUILD_GLOBSTARI])
+AM_CONDITIONAL([BUILD_GLOBSTARI], [test "$build_globstari" = '1'])
+
 dnl === Output ============================================================
 
 AC_CONFIG_FILES([
@@ -104,6 +129,14 @@ AC_CONFIG_FILES([
     t/Makefile
     t/common.sh
 ])
+
+AS_ECHO([])
+AS_BOX([Feature summary])
+AM_COND_IF([BUILD_GLOBSTARI],
+    [AS_ECHO(["AS_HELP_STRING([globstari],[yes])"])],
+    [AS_ECHO(["AS_HELP_STRING([globstari],[no])"])]
+)
+AS_ECHO([])
 
 dnl TODO
 dnl dnl Extra-dist all of `git ls-files`.  Only used from the top-level Makefile,

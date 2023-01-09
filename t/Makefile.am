@@ -57,8 +57,7 @@ testdatafiles = \
 
 # --- Tests for optional modules ---
 
-# globstari
-if HAVE_PCRE2
+if BUILD_GLOBSTARI
 testprograms += \
 	globstari-basic-t \
 	globstari-globset-t \
