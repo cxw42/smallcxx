@@ -36,10 +36,6 @@ namespace smallcxx
 intmax_t PidOverride = 0;
 }
 
-/// Domains starting with a space are reserved.
-/// They have level LOG_INFO by default.
-static const char DOMAIN_SIGIL_RESERVED = ' ';
-
 /// Domains starting with '+' don't take on the default.  They have to be
 /// explicitly requested.  They have level LOG_SILENT by default.
 static const char DOMAIN_SIGIL_EXPLICIT = '+';
@@ -92,8 +88,6 @@ public:
 
         // Domains not given an express value
         switch(domain[0]) {
-        case DOMAIN_SIGIL_RESERVED:
-            return LOG_INFO;
         case DOMAIN_SIGIL_EXPLICIT:
             return LOG_SILENT;
         default:
@@ -286,10 +280,6 @@ void
 setLogLevel(LogLevel newLevel, const std::string& domain)
 {
     throw_assert(!domain.empty());
-
-    if(domain[0] == DOMAIN_SIGIL_RESERVED) {
-        throw domain_error("Logging domains starting with a space are reserved");
-    }
 
     if( (newLevel == LOG_PRINT) || (newLevel == LOG_PRINTERR) ) {
         throw domain_error(STR_OF
