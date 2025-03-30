@@ -84,7 +84,7 @@ enum TestExitCode {
     static const bool reached_this_line_unexpectedly = false; \
     static const bool _initialized_log = ([](){ \
             setVerbosityFromEnvironment(TEST_DETAIL_ENV_VAR_NAME); \
-            LOG_F_DOMAIN(" test", LOG, "Initialized logging"); \
+            LOG_F_DOMAIN("+test", LOG, "Initialized logging"); \
             return true || reached_this_line_as_expected || \
                 reached_this_line_unexpectedly || MY_PATH.empty(); \
     })();
@@ -116,14 +116,14 @@ enum TestExitCode {
 #define TEST_RETURN \
     do { \
         if(TEST_failures) { \
-            LOG_F_DOMAIN(" test", ERROR, "%u test%s failed", TEST_failures, \
+            LOG_F_DOMAIN("+test", ERROR, "%u test%s failed", TEST_failures, \
                     TEST_failures > 1 ? "s" : ""); \
             return TEST_FAIL; \
         } else if(TEST_successes == 0) { \
-            LOG_F_DOMAIN(" test", ERROR, "No tests ran"); \
+            LOG_F_DOMAIN("+test", ERROR, "No tests ran"); \
             return TEST_FAIL; \
         } else { \
-            LOG_F_DOMAIN(" test", INFO, "All tests passed"); \
+            LOG_F_DOMAIN("+test", INFO, "All tests passed"); \
             return TEST_PASS; \
         } \
     } while(0)
@@ -131,21 +131,21 @@ enum TestExitCode {
 /// Abort this test and return TEST_SKIP.  Logs an Info message.
 #define TEST_SKIP_ALL(format, ...) \
     do { \
-        LOG_F_DOMAIN(" test", INFO, "SKIP all: " format, ## __VA_ARGS__); \
+        LOG_F_DOMAIN("+test", INFO, "SKIP all: " format, ## __VA_ARGS__); \
         return TEST_SKIP; \
     } while(0);
 
 /// Abort and fail this test.  Logs an Error message.
 #define TEST_ABORT(format, ...) \
     do { \
-        LOG_F_DOMAIN(" test", ERROR, "ABORT: " format, ## __VA_ARGS__); \
+        LOG_F_DOMAIN("+test", ERROR, "ABORT: " format, ## __VA_ARGS__); \
         return TEST_FAIL; \
     } while(0);
 
 /// Abort this test and return TEST_STOP_TESTING.  Logs an Error message.
 #define TEST_BAIL_OUT(format, ...) \
     do { \
-        LOG_F_DOMAIN(" test", ERROR, "Bail out!  " format, ## __VA_ARGS__); \
+        LOG_F_DOMAIN("+test", ERROR, "Bail out!  " format, ## __VA_ARGS__); \
         return TEST_STOP_TESTING; \
     } while(0);
 
@@ -158,9 +158,9 @@ enum TestExitCode {
 ///     detect a @p fn that does not include any assertions.
 #define TEST_CASE_NOTRY(fn) \
     do { \
-        LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
+        LOG_F_DOMAIN("+test", LOG, "=> Starting test %s", #fn); \
         fn(); \
-        LOG_F_DOMAIN(" test", LOG, "<= Finished test %s", #fn); \
+        LOG_F_DOMAIN("+test", LOG, "<= Finished test %s", #fn); \
     } while(0)
 
 /// Run the given void function, with logging around it, inside a
@@ -174,9 +174,9 @@ enum TestExitCode {
             const auto TEST_failures_before___ = TEST_failures; \
             const auto TEST_successes_before___ = TEST_successes; \
             \
-            LOG_F_DOMAIN(" test", LOG, "=> Starting test %s", #fn); \
+            LOG_F_DOMAIN("+test", LOG, "=> Starting test %s", #fn); \
             fn(); \
-            LOG_F_DOMAIN(" test", LOG, "<= Finished test %s", #fn); \
+            LOG_F_DOMAIN("+test", LOG, "<= Finished test %s", #fn); \
             \
             if((TEST_failures == TEST_failures_before___) && \
                     (TEST_successes == TEST_successes_before___)) { \
@@ -184,10 +184,10 @@ enum TestExitCode {
             } \
             \
         } catch(std::exception& e) { \
-            LOG_F_DOMAIN(" test", ERROR, "Caught exception: %s", e.what()); \
+            LOG_F_DOMAIN("+test", ERROR, "Caught exception: %s", e.what()); \
             unreached(); \
         } catch(...) { \
-            LOG_F_DOMAIN(" test", ERROR, "Caught unexpected exception"); \
+            LOG_F_DOMAIN("+test", ERROR, "Caught unexpected exception"); \
             unreached(); \
         } \
     } while(0)
@@ -278,20 +278,20 @@ __attribute__(( format(printf, 7, 8) ));
         try { \
             stmt; \
             unreached(); \
-            LOG_F_DOMAIN(" test", ERROR, "Did not throw, but expected to"); \
+            LOG_F_DOMAIN("+test", ERROR, "Did not throw, but expected to"); \
         } catch (std::exception& e) { \
             reached(); \
-            LOG_F_DOMAIN(" test", LOG, "Got exception `%s'", e.what()); \
+            LOG_F_DOMAIN("+test", LOG, "Got exception `%s'", e.what()); \
             bool didmatch = (strstr(e.what(), _expected.c_str()) != nullptr); \
             ok(didmatch); \
             if(!didmatch) { \
-                LOG_F_DOMAIN(" test", ERROR, \
+                LOG_F_DOMAIN("+test", ERROR, \
                         "Exception `%s` did not include expected text `%s`", \
                         e.what(), _expected.c_str()); \
             } \
         } catch(...) { \
             unreached(); \
-            LOG_F_DOMAIN(" test", WARNING, "Got exception, but not one I expected"); \
+            LOG_F_DOMAIN("+test", WARNING, "Got exception, but not one I expected"); \
         } \
     } while(0)
 
@@ -302,12 +302,12 @@ __attribute__(( format(printf, 7, 8) ));
         try { \
             stmt; \
             unreached(); \
-            LOG_F_DOMAIN(" test", ERROR, "Did not throw, but expected to"); \
+            LOG_F_DOMAIN("+test", ERROR, "Did not throw, but expected to"); \
         } catch (std::exception& e) { \
-            LOG_F_DOMAIN(" test", LOG, "Got exception as expected (`%s')", e.what()); \
+            LOG_F_DOMAIN("+test", LOG, "Got exception as expected (`%s')", e.what()); \
             reached(); \
         } catch(...) { \
-            LOG_F_DOMAIN(" test", LOG, "Got exception as expected"); \
+            LOG_F_DOMAIN("+test", LOG, "Got exception as expected"); \
             reached(); \
         } \
     } while(0)
@@ -319,13 +319,13 @@ __attribute__(( format(printf, 7, 8) ));
         try { \
             stmt; \
             reached(); \
-            LOG_F_DOMAIN(" test", LOG, "Did not throw, as expected"); \
+            LOG_F_DOMAIN("+test", LOG, "Did not throw, as expected"); \
         } catch (std::exception& e) { \
             unreached(); \
-            LOG_F_DOMAIN(" test", ERROR, "Got exception `%s'", e.what()); \
+            LOG_F_DOMAIN("+test", ERROR, "Got exception `%s'", e.what()); \
         } catch(...) { \
             unreached(); \
-            LOG_F_DOMAIN(" test", ERROR, "Got unknown exception"); \
+            LOG_F_DOMAIN("+test", ERROR, "Got unknown exception"); \
         } \
     } while(0)
 
