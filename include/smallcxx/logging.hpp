@@ -103,9 +103,6 @@ void vlogMessage(const std::string& domain,
 /// Main logging macro.  A newline will be appended to the message.
 /// Usage example: `LOG_F(INFO, "foo %s", some_string);`
 ///
-/// When using #LOG_PRINT (print to stdout) and #LOG_PRINTERR (print to stderr),
-/// @p format must be a string literal.
-///
 /// @note `LOG_F(SILENT, ...)` is forbidden.
 ///
 /// @param[in] level - the log level.  A `LOG_FOO` constant minus `LOG_`.

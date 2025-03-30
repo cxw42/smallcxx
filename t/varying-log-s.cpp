@@ -22,8 +22,8 @@ main()
     LOG_F(PEEK, "peek1");
     LOG_F(SNOOP, "snoop1");
 
-    LOG_F(PRINT, "print1");
-    LOG_F(PRINTERR, "printerr1");
+    LOG_F(PRINT, "print%d", 1);
+    LOG_F(PRINTERR, "printerr%d", 1);
 
     // Change the default, if $LOG_LEVELS includes a `*:N` term
     setVerbosityFromEnvironment("LOG_LEVELS");
@@ -38,8 +38,8 @@ main()
     LOG_F(PEEK, "peek2");
     LOG_F(SNOOP, "snoop2");
 
-    LOG_F(PRINT, "print2");
-    LOG_F(PRINTERR, "printerr2");
+    LOG_F(PRINT, "print%d", 2);
+    LOG_F(PRINTERR, "printerr%d", 2);
 
     return 0;
 }
