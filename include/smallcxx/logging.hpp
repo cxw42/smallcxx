@@ -163,8 +163,7 @@ LogLevel getLogLevel(const std::string& domain = SMALLCXX_DEFAULT_LOG_DOMAIN);
 ///     In the log-level variable, the default domain is `default`.
 void setVerbosityFromEnvironment(const char *detailEnvVarName = nullptr);
 
-/// Set all domains to silent, **except** for reserved domains (starting with
-/// #DOMAIN_SIGIL_RESERVED).  Reserved domains are reset to LOG_INFO.
+/// Set all domains to silent.
 ///
 /// Calling this function does not lock the levels.  They can be
 /// changed afterwards by calling setLogLevel() or

@@ -62,11 +62,14 @@ main() {
     # Default env var
     unset SMALLCXX_TEST_DEBUG
     "$tpgmdir/testfile-s" &> "$tmpfile"
-    has-line-matching 'All tests passed' "$tmpfile"
+    does-not-contain 'All tests passed' "$tmpfile"
     does-not-contain 'avocado' "$tmpfile"
 
-    SMALLCXX_TEST_DEBUG='*:6' "$tpgmdir/testfile-s" &> "$tmpfile"
+    SMALLCXX_TEST_DEBUG='+test:4' "$tpgmdir/testfile-s" &> "$tmpfile"
     has-line-matching 'All tests passed' "$tmpfile"
+
+    SMALLCXX_TEST_DEBUG='*:6' "$tpgmdir/testfile-s" &> "$tmpfile"
+    does-not-contain 'All tests passed' "$tmpfile"
     has-line-matching 'avocado' "$tmpfile"
 
     return 0
